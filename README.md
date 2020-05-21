@@ -34,7 +34,7 @@ import pySEP as psp
 ### For example
 
 ```
-import pySEP as psp
+import pySEP.lFlowNR as psp
 
 c = psp.CreateCircuit(100e6)
 
@@ -72,13 +72,10 @@ All the code in this package uses only two external packages. These are:
 All others libraries used in this code are Python builtins.
 
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
-All versions of this package are "committed" and are available on my [GitHub](https://github.com/mrcsantos1/loadflowNR-Package)
+All versions of this package are "committed" and are available on my [GitHub](https://github.com/mrcsantos1/pySEP)
 
 ## Author
 
