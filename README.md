@@ -1,6 +1,10 @@
-# # loadflowNR
+# # pySEP
 
-This package, loadflowNR, is a library created to assist in learning the application of the Newton-Raphson method for the calculation of power flow in electrical power systems.
+This package, pySEP, is a package created to assist in the Electric Power Systems learning, modelling and simulating. 
+
+The application of the Newton-Raphson method for the calculation of power flow in electrical power systems is an example of how it works. 
+
+
 
 ## Getting Started
 
@@ -13,26 +17,26 @@ A step-by-step guide on how to install this package is described below.
 First, using the python pip, just type the following command.
 
 ```
-pip install loadflowNR
+pip install pySEP
 ```
 
 After that, the package is installed where you configured the installation of it. Therefore, to use the circuit modeling tool to perform the calculations, write this command in the program in which the calculation will be created.
 
 ```
-import loadflowNR 
+import pySEP 
 ```
 
 It is common to define an abbreviation to shorten the package name. Do this after "asadfdgfg", as in the example below.
 
 ```
-import loadflowNR as lfnr
+import pySEP as psp
 ```
 ### For example
 
 ```
-import loadflowNR as lfnr
+import pySEP as psp
 
-c = lfnr.CreateCircuit(100e6)
+c = psp.CreateCircuit(100e6)
 
 c.addBus(1, 1, 1.05, 0, 0 + 0 * 1j, 0 + 0 * 1j)
 c.addBus(2, 2, 1.00, 0, 256.6e6 + 110.2e6 * 1j, 0 + 0 * 1j)
