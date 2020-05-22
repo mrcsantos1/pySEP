@@ -11,7 +11,7 @@ def get_long_description():
 
 setup(
     name='pySEP',
-    version='1.0.0',
+    version='1.0.1',
     author='Marcos Alves dos Santos',
     author_email='mrcsantos1@outlook.com',
     packages=['pySEP'],

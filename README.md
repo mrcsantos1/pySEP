@@ -1,5 +1,8 @@
 # pySEP
 
+![PyPI](https://img.shields.io/pypi/v/pySEP?style=plastic&logo=PyPi) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pySEP?color=black&logo=python&logoColor=white&style=plastic) ![PyPI - License](https://img.shields.io/pypi/l/pySEP?color=red&style=plastic&logo=apache)  ![PyPI - Status](https://img.shields.io/pypi/status/pySEP?style=plastic) ![PyPI - Downloads](https://img.shields.io/pypi/dd/pySEP?color=blue&style=plastic) ![GitHub followers](https://img.shields.io/github/followers/mrcsantos1?label=Siga-me&logo=github&style=social) 
+
+---
 
 A principal ideia deste pacote é fornecer, em livre licença, uma série de ferramentas capazes de modelar e simular Systemas Elétricos de Potência.  
 
