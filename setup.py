@@ -1,4 +1,13 @@
 from setuptools import setup
+import os
+
+
+def get_long_description():
+    with open(os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 'README.md'
+    ), encoding='utf8') as fp:
+        return fp.read()
+
 
 setup(
     name='pySEP',
@@ -10,15 +19,9 @@ setup(
     description='Pacote Open Source desenvolvido no Brasil para modelar e simular Sistemas Elétricos de Potência. '
                 'Open Source Package developed in Brazil to model and simulate Electric Power Systems',
 
-    long_description="\nA principal ideia deste pacote é fornecer, em livre licença, uma série de ferramentas capazes de modelar e simular Systemas Elétricos de Potência. "
-                     "\nPara isso, a presente versão possibilita a seguinte operação: "
-                     "\n\t*\tCálculo do Fluxo de Potência pelo método de Newton-Raphson de um sistema com n barras. "
-                     "\nUma série de novas ferramentas serão disponibilizadas em novas versões, tais como: "
-                     "\n\t*\tCálculo de curto-circuitos entre barras. "
-                     "\n\t*\tCálculo de curto-circuito em linhas. "
-                     "\n\t*\tCálculos relacionados a Sistemas de Transmissão. "
-                     "\n\t*\tCálculos relacionados a Sistemas de Distribuição "
-                     "\n\tEntre outras ferramentas.",
+    long_description=get_long_description(),
+
+    long_description_content_type='text/markdown',
 
     url='https://github.com/mrcsantos1/pySEP',
 

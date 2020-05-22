@@ -1,9 +1,29 @@
-# # pySEP
+# pySEP
 
-This package, pySEP, is a package created to assist in the Electric Power Systems learning, modelling and simulating. 
 
-The application of the Newton-Raphson method for the calculation of power flow in electrical power systems is an example of how it works. 
+A principal ideia deste pacote é fornecer, em livre licença, uma série de ferramentas capazes de modelar e simular Systemas Elétricos de Potência.  
 
+Para isso, a presente versão possibilita a seguinte operação: 
+
+ - Cálculo do Fluxo de Potência pelo método de Newton-Raphson de um sistema com n barras. 
+ 
+ Uma série de novas ferramentas serão disponibilizadas em novas versões, tais como: 
+ 
+ 
+ - Cálculo de curto-circuitos entre barras.  
+ - Cálculo de curto-circuito em linhas. 
+ - Cálculos relacionados a Sistemas de Transmissão.   
+ - Cálculos relacionados a Sistemas de Distribuição.   
+ 
+ Entre outras ferramentas.
+ 
+-----------------
+  
+This package, pySEP, is a package created to assist in the Electric Power Systems learning, modelling and simulating.   
+  
+The application of the Newton-Raphson method for the calculation of power flow in electrical power systems is an example of how it works.
+
+---
 
 
 ## Getting Started
