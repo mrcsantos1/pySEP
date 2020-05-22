@@ -46,7 +46,8 @@ class CreateCircuit:
         self.__deltaPeQ = []
         self.__Perdas = 0
 
-    def help(self):
+    @staticmethod
+    def help():
         print(
             """
             Este método é utilizado para obter informações sobre o funcionamento deste código. Ou seja, antes de usar algum

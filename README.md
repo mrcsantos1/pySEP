@@ -57,7 +57,7 @@ After that, the package is installed where you configured the installation of it
 import pySEP 
 ```
 
-It is common to define an abbreviation to shorten the package name. Do this after "asadfdgfg", as in the example below.
+It is common to define an abbreviation to shorten the package name. Do this after "import pySEP", as in the example below.
 
 ```
 import pySEP as psp
