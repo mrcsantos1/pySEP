@@ -20,7 +20,6 @@ Para isso, a presente versão possibilita a seguinte operação:
  
  Entre outras ferramentas.
  
------------------
   
 This package, pySEP, is a package created to assist in the Electric Power Systems learning, modelling and simulating.   
   
@@ -28,6 +27,15 @@ The application of the Newton-Raphson method for the calculation of power flow i
 
 ---
 
+## Youtube
+
+A playlist was created to show how the code of the Power Flow by Newton-Raphson method was created. It is available in:
+
+![enter image description here](https://i.ytimg.com/vi/wHmq-bpv-Oo/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBOhZPCD5Lupd9udu2juM3BecwPQQ)
+
+[FLUXO DE POTÊNCIA POR NEWTON-RAPHSON EM PYTHON](https://www.youtube.com/playlist?list=PLNOc51Usq3jgqOe4zmCNrXJ71SOBpa-TI)
+
+---
 
 ## Getting Started
 
