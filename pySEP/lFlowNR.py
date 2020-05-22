@@ -214,9 +214,9 @@ class CreateCircuit:
     
             Segue-se um exemplo prático:
     
-                import pySEP as lfnr
+                import pySEP as psp
     
-                c = lfnr.CreateCircuit(100e6)
+                c = psp.CreateCircuit(100e6)
     
                 c.addBus(1, 1, 1.05, 0, 0 + 0 * 1j, 0 + 0 * 1j)
                 c.addBus(2, 2, 1.00, 0, 256.6e6 + 110.2e6 * 1j, 0 + 0 * 1j)
