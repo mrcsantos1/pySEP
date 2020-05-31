@@ -268,6 +268,18 @@ class CreateCircuit:
             print(self.__dados[i])
         print('========================================================================')
 
+    def relatorioBarras(self):
+        """
+            Método utilizado para printar todos os valores em cada barra.
+        """
+        print('\n\n=============================== DADOS: =================================')
+        print('Sbase = ', self.Sbase, ' VA')
+        for i in self.__dados:
+            self.__dados[i]['ang'] = mt.degrees(self.__dados.get(i)['ang'])
+            print(self.__dados[i])
+        print('========================================================================')
+
+
     def setSesp(self):
         """
         Método utilizado para calcular a potência especificada em cada barra. Os valores
@@ -860,14 +872,14 @@ class CreateCircuit:
         self.Correntes(show=printCorrentes)
         for i in self.__I:
             a = i[0]
-            self.__powerFlow[i] = self.__V.get(a) * np.conjugate(self.__I.get(i))
+            self.__powerFlow[i] = -self.__V.get(a) * np.conjugate(self.__I.get(i))
         print('======================== Fluxo de Potência: ===================================')
         for i in self.__powerFlow:
             print('Ligação: \t', i, '\tFluxo = \t', self.__powerFlow.get(i), '\t[pu]')
         print('===============================================================================')
         for i in self.__dados:
             if self.__dados.get(i)['code'] != 2:
-                self.__dados[i]['geracao'] = -self.__powerFlow.get((i, i))
+                self.__dados[i]['geracao'] = self.__powerFlow.get((i, i))
 
     def losses(self):
         """
