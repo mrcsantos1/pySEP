@@ -908,7 +908,7 @@ class CreateCircuit:
             y.append(self.__tensaoPlot.get(i))
         for i in range(len(barras)):
             plt.subplot(len(barras), 1, i + 1)
-            plt.plot(range(x + 1), y[i])
+            plt.plot(range(x + 1), y[i], linewidth=3, color="r")
             plt.title('Variação da tensão na barra ' + str(barras[i]) + ' X Número de iterações')
             plt.xlabel('Número de iterações ')
             plt.ylabel('Tensão na barra ' + str(barras[i]) + ' pu')
@@ -930,7 +930,7 @@ class CreateCircuit:
             y.append(self.__angPlot.get(i))
         for i in range(len(barras)):
             plt.subplot(len(barras), 1, i + 1)
-            plt.plot(range(x + 1), y[i])
+            plt.plot(range(x + 1), y[i], linewidth=3, color="r")
             plt.title('Variação do ângulo na barra ' + str(barras[i]) + ' X Número de iterações')
             plt.xlabel('Número de iterações ')
             plt.ylabel('Ângulo na barra ' + str(barras[i]) + ' [rad]')
