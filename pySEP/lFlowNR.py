@@ -900,7 +900,7 @@ class CreateCircuit:
         x = self.count - 1
         barras = []
         y = []
-        plt.rcParams.update({'font.size': 20})
+        # plt.rcParams.update({'font.size': 20})
         for i in self.__dados:
             if self.__dados.get(i)['code'] == 2:
                 barras.append(i)
