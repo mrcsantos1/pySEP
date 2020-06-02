@@ -900,6 +900,7 @@ class CreateCircuit:
         x = self.count - 1
         barras = []
         y = []
+        plt.rcParams.update({'font.size': 20})
         for i in self.__dados:
             if self.__dados.get(i)['code'] == 2:
                 barras.append(i)
@@ -911,9 +912,8 @@ class CreateCircuit:
             plt.title('Variação da tensão na barra ' + str(barras[i]) + ' X Número de iterações')
             plt.xlabel('Número de iterações ')
             plt.ylabel('Tensão na barra ' + str(barras[i]) + ' pu')
-            plt.grid(True)
+            # plt.grid(True)
         plt.tight_layout()
-        plt.rcParams['ytick.labelsize'] = 18
         plt.show()
 
     def __plotAng(self):
@@ -934,7 +934,7 @@ class CreateCircuit:
             plt.title('Variação do ângulo na barra ' + str(barras[i]) + ' X Número de iterações')
             plt.xlabel('Número de iterações ')
             plt.ylabel('Ângulo na barra ' + str(barras[i]) + ' [rad]')
-            plt.grid(True)
+            # plt.grid(True)
         plt.tight_layout()
         plt.show()
 
