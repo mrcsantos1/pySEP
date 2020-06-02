@@ -912,6 +912,7 @@ class CreateCircuit:
             plt.xlabel('Número de iterações ')
             plt.ylabel('Tensão na barra ' + str(barras[i]) + ' pu')
             plt.grid(True)
+        plt.rcParams.update({'font.size': 18})
         plt.tight_layout()
         plt.show()
 
@@ -934,6 +935,7 @@ class CreateCircuit:
             plt.xlabel('Número de iterações ')
             plt.ylabel('Ângulo na barra ' + str(barras[i]) + ' [rad]')
             plt.grid(True)
+        plt.rcParams.update({'font.size': 18})
         plt.tight_layout()
         plt.show()
 
