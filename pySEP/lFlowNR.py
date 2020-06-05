@@ -336,12 +336,17 @@ class Circuit(Line, Bus, Jacob):
                 self._potInj(show=showPotInj)
                 self._setJb(listTensao=listTensao, listAng=listAng, showSubs=showSubs)
                 self._linearSystem()
-                self._count += 1
                 pq = list(map(abs, self.__deltaPeQ))
                 test = list(map(lambda m: True if (m < erro) else False, pq))
                 stop = test.count(False)
                 if stop == 0:
+                    self._count += 1
                     break
+                # if self._count == 2:
+                #     self._count += 1
+                #     break
+                self._count += 1
+
 
         self._newInj()
 

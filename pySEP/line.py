@@ -36,6 +36,7 @@ class Line:
             for j in range(len(self._ybus)):
                 if i == j:
                     lin[j] = -1 * sum(lin)
+            lin = np.around(lin, decimals=3)
             self._ybus[i] = lin
 
         self._ybus = np.around(self._ybus,  decimals=5)
