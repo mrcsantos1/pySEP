@@ -3,9 +3,12 @@ import matplotlib.pyplot as plt
 import math as mt
 import cmath as cmt
 
-from line import Line
-from bus import Bus
-from jacob import Jacob
+# from pySEP.LoadFlowNR.line import Line
+# from pySEP.LoadFlowNR.bus import Bus
+# from pySEP.LoadFlowNR.jacob import Jacob
+from pySEP.LoadFlowNR.line import Line
+from pySEP.LoadFlowNR.bus import Bus
+from pySEP.LoadFlowNR.jacob import Jacob
 
 
 class Circuit(Line, Bus, Jacob):
@@ -346,7 +349,6 @@ class Circuit(Line, Bus, Jacob):
                 #     self._count += 1
                 #     break
                 self._count += 1
-
 
         self._newInj()
 
