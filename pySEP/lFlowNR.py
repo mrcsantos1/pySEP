@@ -19,7 +19,7 @@ class Circuit(Line, Bus, Jacob):
         self.__ResiduoP = list()
         self.__ResiduoQ = list()
         self.__x = list()
-        self.__Sbarras = dict()
+        self.__sBarras = dict()
         self.__V = dict()
         self.__I = dict()
         self.__powerFlow = dict()
@@ -290,7 +290,7 @@ class Circuit(Line, Bus, Jacob):
                 m += 1
 
     def _newInj(self):
-        self.__Sbarras = dict()
+        self.__sBarras = dict()
         for i in self._data:
             soma1 = []
             soma2 = []
@@ -311,15 +311,15 @@ class Circuit(Line, Bus, Jacob):
                             'ang']) * 1j
                     )
             if self._data[i]['code'] == 1:
-                self.__Sbarras[i] = {'P': np.real(sum(soma1)), 'Q': np.imag(sum(soma2))}
+                self.__sBarras[i] = {'P': np.real(sum(soma1)), 'Q': np.imag(sum(soma2))}
             elif self._data[i]['code'] == 3:
-                self.__Sbarras[i] = {'P': 0, 'Q': np.imag(sum(soma2))}
+                self.__sBarras[i] = {'P': 0, 'Q': np.imag(sum(soma2))}
 
         for i in self._data:
             if self._data[i]['code'] == 1:
-                self._data[i]['geracao'] = self.__Sbarras.get(i)['P'] + self.__Sbarras.get(i)['Q'] * 1j
+                self._data[i]['geracao'] = self.__sBarras.get(i)['P'] + self.__sBarras.get(i)['Q'] * 1j
             elif self._data[i]['code'] == 3:
-                self._data[i]['geracao'] = np.real(self._data.get(i)['geracao']) + self.__Sbarras.get(i)['Q'] * 1j
+                self._data[i]['geracao'] = np.real(self._data.get(i)['geracao']) + self.__sBarras.get(i)['Q'] * 1j
 
     def solve(self, erro, listTensao, listAng, showPotInj=False, showSubs=False):
 
