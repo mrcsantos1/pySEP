@@ -16,8 +16,8 @@ class Circuit(Line, Bus, Jacob):
         Jacob.__init__(self)
 
         self.__deltaPeQ = list()
-        self.__ResiduoP = list()
-        self.__ResiduoQ = list()
+        self.__residuoP = list()
+        self.__residuoQ = list()
         self.__x = list()
         self.__sBarras = dict()
         self.__V = dict()
@@ -223,8 +223,8 @@ class Circuit(Line, Bus, Jacob):
 
     def _potInj(self, show=False):
         self.__deltaPeQ = []
-        self.__ResiduoP = []
-        self.__ResiduoQ = []
+        self.__residuoP = []
+        self.__residuoQ = []
 
         for i in self._data:
             soma1 = []
@@ -245,15 +245,15 @@ class Circuit(Line, Bus, Jacob):
                         mt.sin(np.angle(self._ybus[i - 1][j - 1]) - self._data.get(i)['ang'] + self._data.get(j)[
                             'ang']) * 1j
                     )
-                self.__ResiduoP.append(np.real(
+                self.__residuoP.append(np.real(
                     self._Sesp.get(i)['Pesp'] - sum(soma1)))  # Lista com os valores de cada barra != da barra |V| phi
                 if self._data[i]['code'] == 2:
-                    self.__ResiduoQ.append(np.imag((self._Sesp.get(i)['Qesp']) * 1j - sum(soma2)))
+                    self.__residuoQ.append(np.imag((self._Sesp.get(i)['Qesp']) * 1j - sum(soma2)))
 
-        for i in range(len(self.__ResiduoP)):
-            self.__deltaPeQ.append(self.__ResiduoP[i])
-        for i in range(len(self.__ResiduoQ)):
-            self.__deltaPeQ.append(self.__ResiduoQ[i])  # SEM O j
+        for i in range(len(self.__residuoP)):
+            self.__deltaPeQ.append(self.__residuoP[i])
+        for i in range(len(self.__residuoQ)):
+            self.__deltaPeQ.append(self.__residuoQ[i])  # SEM O j
 
         self.__deltaPeQ = np.around(self.__deltaPeQ, decimals=5)
 
