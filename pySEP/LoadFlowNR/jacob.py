@@ -33,13 +33,21 @@ class Jacob:
                                 self.__data.get(i)['ang'] +
                                 self.__data.get(j)['ang'])
                     )
+                    # soma.append(
+                    #     self.__ybus[i - 1][j - 1] *
+                    #     self.__data.get(i)['tensao'] *
+                    #     self.__data.get(j)['tensao'] *
+                    #     cmt.sin(cmt.phase(self.__ybus[i - 1][j - 1]) -
+                    #             self.__data.get(i)['ang'] +
+                    #             self.__data.get(j)['ang'])
+                    # )
             mainDiagonal.append(sum(soma))
 
         for i in listAng:
             for j in listAng:
                 if i != j:
                     outDiagonal.append(
-                        -abs(self.__ybus[i - 1][j - 1]) *
+                        abs(self.__ybus[i - 1][j - 1]) *
                         abs(self.__data.get(i)['tensao']) *
                         abs(self.__data.get(j)['tensao']) *
                         cmt.sin(cmt.phase(self.__ybus[i - 1][j - 1]) -
@@ -53,7 +61,7 @@ class Jacob:
                 if i == j:
                     self.__J1[i][j] = np.real(mainDiagonal[j])
                 else:
-                    self.__J1[i][j] = np.real(outDiagonal[m])
+                    self.__J1[i][j] = np.real(-outDiagonal[m])
                     m += 1
         self.__J1 = np.around(self.__J1, decimals=5)
         return self.__J1
@@ -130,7 +138,7 @@ class Jacob:
             for j in listAng:
                 if i != j:
                     outDiagonal.append(
-                        -abs(self.__ybus[i - 1][j - 1]) *
+                        abs(self.__ybus[i - 1][j - 1]) *
                         abs(self.__data.get(i)['tensao']) *
                         abs(self.__data.get(j)['tensao']) *
                         cmt.cos(cmt.phase(self.__ybus[i - 1][j - 1]) -
@@ -142,13 +150,13 @@ class Jacob:
         for i in range(nPQ):
             for j in range(nPQ + nPV):
                 if j < nPV:
-                    self.__J3[i][j] = np.real(outDiagonal[m])
+                    self.__J3[i][j] = np.real(-outDiagonal[m])
                     m += 1
                 elif j >= nPV:
                     if j - nPV == i:
                         self.__J3[i][j] = np.real(mainDiagonal[i + nPV])
                     else:
-                        self.__J3[i][j] = np.real(outDiagonal[m])
+                        self.__J3[i][j] = np.real(-outDiagonal[m])
                         m += 1
         self.__J3 = np.around(self.__J3, decimals=5)
         return self.__J3
@@ -173,12 +181,13 @@ class Jacob:
             a = (2 * abs(self.__data.get(i)['tensao']) * abs(self.__ybus[i - 1][i - 1]) *
                  cmt.sin(cmt.phase(self.__ybus[i - 1][i - 1]))
                  )
-            mainDiagonal.append(-a - sum(soma))
+            mainDiagonal.append(a + sum(soma))
+
         for i in listAng:
             for j in listTensao:
                 if i != j:
                     outDiagonal.append(
-                        -abs(self.__ybus[i - 1][j - 1]) *
+                        abs(self.__ybus[i - 1][j - 1]) *
                         abs(self.__data.get(i)['tensao']) *
                         cmt.sin(cmt.phase(self.__ybus[i - 1][j - 1]) -
                                 self.__data.get(i)['ang'] +
@@ -189,9 +198,9 @@ class Jacob:
         for i in range(nPQ):
             for j in range(nPQ):
                 if i == j:
-                    self.__J4[i][j] = np.real(mainDiagonal[j + nPV])
+                    self.__J4[i][j] = np.real(-mainDiagonal[j + nPV])
                 else:
-                    self.__J4[i][j] = np.real(outDiagonal[m])
+                    self.__J4[i][j] = np.real(-outDiagonal[m])
                     m += 1
 
         self.__J4 = np.around(self.__J4, decimals=5)
@@ -199,7 +208,7 @@ class Jacob:
 
     def _setJacob(self, listTensao, listAng, showSubs=False):
 
-        nXn = len(listTensao) + len(listAng)
+        nXn = (2 * self.__nPQ) + self.__nPV
 
         j1 = self.__setJ1(listAng=listAng, nPQ=self.__nPQ, nPV=self.__nPV)  # (nPQ  + nPV) X (nPQ + nPV)
         j2 = self.__setJ2(listTensao=listTensao, listAng=listAng, nPQ=self.__nPQ, nPV=self.__nPV)  # (nPQ + nPV) X (nPQ)
@@ -208,18 +217,33 @@ class Jacob:
 
         self.__Jacob = np.zeros((nXn, nXn))
 
-        for i in range(nXn):
-            h = []
-            k = []
-            if i < len(j1):
-                for j in range(len(j1[i])): h.append(j1[i][j])
-                for j in range(len(j2[i])): h.append(j2[i][j])
-                self.__Jacob[i] = np.hstack(h)
-            elif i >= len(j1):
-                m = i - len(j1)
-                for j in range(len(j3[m])): k.append(j3[m][j])
-                for j in range(len(j4[m])): k.append(j4[m][j])
-                self.__Jacob[i] = np.hstack(k)
+        # for i in range(nXn):
+        #     h = []
+        #     k = []
+        #     if i < len(j1):
+        #         for j in range(len(j1[i])): h.append(j1[i][j])
+        #         for j in range(len(j2[i])): h.append(j2[i][j])
+        #         self.__Jacob[i] = np.hstack(h)
+        #     elif i >= len(j1):
+        #         m = i - len(j1)
+        #         for j in range(len(j3[m])): k.append(j3[m][j])
+        #         for j in range(len(j4[m])): k.append(j4[m][j])
+        #         self.__Jacob[i] = np.hstack(k)
+
+        # j = np.ones([2 * nPQ + nPV, 2 * nPQ + nPV])
+
+        for i in range(2 * self.__nPQ + self.__nPV):
+            for k in range(2 * self.__nPQ + self.__nPV):
+                if i < len(j1):
+                    if k < len(j1):
+                        self.__Jacob[i][k] = j1[i][k]
+                    else:
+                        self.__Jacob[i][k] = j2[i - len(j1)][k - len(j1)]
+                else:
+                    if k < len(j3[0]):
+                        self.__Jacob[i][k] = j3[i - len(j1)][k]
+                    else:
+                        self.__Jacob[i][k] = j4[i - len(j1)][k - len(j1)]
         if showSubs:
             print('\n\n==================== MATRIZ JACOBIANA: ===========================')
             # print("iteração [", self.count, "]")
