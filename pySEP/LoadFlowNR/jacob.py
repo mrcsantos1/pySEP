@@ -26,33 +26,26 @@ class Jacob:
             for j in range(1, len(self.__data) + 1, 1):
                 if i != j:
                     soma.append(
-                        abs(self.__ybus[i - 1][j - 1]) *
-                        abs(self.__data.get(i)['tensao']) *
-                        abs(self.__data.get(j)['tensao']) *
-                        cmt.sin(cmt.phase(self.__ybus[i - 1][j - 1]) -
-                                self.__data.get(i)['ang'] +
-                                self.__data.get(j)['ang'])
+                        (self.__ybus[i - 1][j - 1]) *
+                        (self.__data.get(j)['tensao']) *
+                        cmt.sin(self.__data.get(i)['ang'] -
+                                self.__data.get(j)['ang'] -
+                                cmt.phase(self.__ybus[i - 1][j - 1]))
                     )
-                    # soma.append(
-                    #     self.__ybus[i - 1][j - 1] *
-                    #     self.__data.get(i)['tensao'] *
-                    #     self.__data.get(j)['tensao'] *
-                    #     cmt.sin(cmt.phase(self.__ybus[i - 1][j - 1]) -
-                    #             self.__data.get(i)['ang'] +
-                    #             self.__data.get(j)['ang'])
-                    # )
-            mainDiagonal.append(sum(soma))
+            soma = sum(soma) * -(self.__data.get(i)['tensao'])
+            mainDiagonal.append(soma)
 
         for i in listAng:
             for j in listAng:
                 if i != j:
                     outDiagonal.append(
-                        -abs(self.__ybus[i - 1][j - 1]) *
-                        abs(self.__data.get(i)['tensao']) *
-                        abs(self.__data.get(j)['tensao']) *
-                        cmt.sin(cmt.phase(self.__ybus[i - 1][j - 1]) -
-                                self.__data.get(i)['ang'] +
-                                self.__data.get(j)['ang'])
+                        (self.__ybus[i - 1][j - 1]) *
+                        (self.__data.get(i)['tensao']) *
+                        (self.__data.get(j)['tensao']) *
+                        cmt.sin(self.__data.get(i)['ang'] -
+                                self.__data.get(j)['ang'] -
+                                cmt.phase(self.__ybus[i - 1][j - 1])
+                                )
                     )
         m = 0
         for i in range(len(listAng)):
@@ -76,16 +69,16 @@ class Jacob:
             soma = []
             a = 0
             for j in range(1, len(self.__data) + 1, 1):
-
-                if i != j:
-                    soma.append(
-                        abs(self.__ybus[i - 1][j - 1]) *
-                        abs(self.__data.get(j)['tensao']) *
-                        cmt.cos(cmt.phase(self.__ybus[i - 1][j - 1]) -
-                                self.__data.get(i)['ang'] +
-                                self.__data.get(j)['ang'])
-                    )
-            a = (2 * abs(self.__data.get(i)['tensao']) * abs(self.__ybus[i - 1][i - 1]) *
+                # if i != j:
+                soma.append(
+                    (self.__ybus[i - 1][j - 1]) *
+                    (self.__data.get(j)['tensao']) *
+                    cmt.cos(self.__data.get(i)['ang'] -
+                            self.__data.get(j)['ang'] -
+                            cmt.phase(self.__ybus[i - 1][j - 1])
+                            )
+                )
+            a = (self.__data.get(i)['tensao'] * self.__ybus[i - 1][i - 1] *
                  cmt.cos(cmt.phase(self.__ybus[i - 1][i - 1]))
                  )
             mainDiagonal.append(a + sum(soma))
@@ -94,11 +87,12 @@ class Jacob:
             for j in listTensao:
                 if i != j:
                     outDiagonal.append(
-                        abs(self.__ybus[i - 1][j - 1]) *
-                        abs(self.__data.get(i)['tensao']) *
-                        cmt.cos(cmt.phase(self.__ybus[i - 1][j - 1]) -
-                                self.__data.get(i)['ang'] +
-                                self.__data.get(j)['ang'])
+                        (self.__ybus[i - 1][j - 1]) *
+                        (self.__data.get(i)['tensao']) *
+                        cmt.cos(self.__data.get(i)['ang'] -
+                                self.__data.get(j)['ang'] -
+                                cmt.phase(self.__ybus[i - 1][j - 1])
+                                )
                     )
         m = 0
         for i in range(nPQ + nPV):
@@ -126,24 +120,24 @@ class Jacob:
             for j in range(1, len(self.__data) + 1, 1):
                 if i != j:
                     soma.append(
-                        abs(self.__ybus[i - 1][j - 1]) *
-                        abs(self.__data.get(i)['tensao']) *
-                        abs(self.__data.get(j)['tensao']) *
-                        cmt.cos(cmt.phase(self.__ybus[i - 1][j - 1]) -
-                                self.__data.get(i)['ang'] +
-                                self.__data.get(j)['ang'])
+                        (self.__ybus[i - 1][j - 1]) *
+                        (self.__data.get(j)['tensao']) *
+                        cmt.cos(self.__data.get(i)['ang'] -
+                                self.__data.get(j)['ang'] -
+                                cmt.phase(self.__ybus[i - 1][j - 1]))
                     )
-            mainDiagonal.append(sum(soma))
+            soma = sum(soma) * (self.__data.get(i)['tensao'])
+            mainDiagonal.append(soma)
         for i in listAng:
             for j in listAng:
                 if i != j:
                     outDiagonal.append(
-                        -abs(self.__ybus[i - 1][j - 1]) *
-                        abs(self.__data.get(i)['tensao']) *
-                        abs(self.__data.get(j)['tensao']) *
-                        cmt.cos(cmt.phase(self.__ybus[i - 1][j - 1]) -
-                                self.__data.get(i)['ang'] +
-                                self.__data.get(j)['ang'])
+                        -(self.__ybus[i - 1][j - 1]) *
+                        (self.__data.get(i)['tensao']) *
+                        (self.__data.get(j)['tensao']) *
+                        cmt.cos(self.__data.get(i)['ang'] -
+                                self.__data.get(j)['ang'] -
+                                cmt.phase(self.__ybus[i - 1][j - 1]))
                     )
         m = 0
 
@@ -170,27 +164,29 @@ class Jacob:
             soma = []
             a = 0
             for j in range(1, len(self.__data) + 1, 1):
-                if i != j:
-                    soma.append(
-                        abs(self.__ybus[i - 1][j - 1]) *
-                        abs(self.__data.get(j)['tensao']) *
-                        cmt.sin(cmt.phase(self.__ybus[i - 1][j - 1]) -
-                                self.__data.get(i)['ang'] +
-                                self.__data.get(j)['ang'])
-                    )
-            a = (2 * abs(self.__data.get(i)['tensao']) * abs(self.__ybus[i - 1][i - 1]) *
+                # if i != j:
+                soma.append(
+                    (self.__ybus[i - 1][j - 1]) *
+                    (self.__data.get(j)['tensao']) *
+                    cmt.sin(self.__data.get(i)['ang'] -
+                            self.__data.get(j)['ang'] -
+                            cmt.phase(self.__ybus[i - 1][j - 1])
+                            )
+                )
+            a = (-self.__data.get(i)['tensao'] * (self.__ybus[i - 1][i - 1]) *
                  cmt.sin(cmt.phase(self.__ybus[i - 1][i - 1]))
                  )
-            mainDiagonal.append(-a - sum(soma))
+            mainDiagonal.append(a + sum(soma))
         for i in listAng:
             for j in listTensao:
                 if i != j:
                     outDiagonal.append(
-                        -abs(self.__ybus[i - 1][j - 1]) *
-                        abs(self.__data.get(i)['tensao']) *
-                        cmt.sin(cmt.phase(self.__ybus[i - 1][j - 1]) -
-                                self.__data.get(i)['ang'] +
-                                self.__data.get(j)['ang'])
+                        (self.__ybus[i - 1][j - 1]) *
+                        (self.__data.get(i)['tensao']) *
+                        cmt.sin(self.__data.get(i)['ang'] -
+                                self.__data.get(j)['ang'] -
+                                cmt.phase(self.__ybus[i - 1][j - 1])
+                                )
                     )
         m = 0
 

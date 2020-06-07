@@ -235,23 +235,25 @@ class Circuit(Line, Bus, Jacob):
             if self._data[i]['code'] != 1:
                 for j in self._data:
                     soma1.append(  # Apenas Potência ATIVA
-                        abs(self._ybus[i - 1][j - 1]) *
-                        abs(self._data.get(i)['tensao']) *
-                        abs(self._data.get(j)['tensao']) *
-                        mt.cos(np.angle(self._ybus[i - 1][j - 1]) - self._data.get(i)['ang'] + self._data.get(j)[
-                            'ang'])
+                        (self._ybus[i - 1][j - 1]) *
+                        # abs(self._data.get(i)['tensao']) *
+                        (self._data.get(j)['tensao']) *
+                        mt.cos(self._data.get(i)['ang'] - self._data.get(j)['ang'] - np.angle(self._ybus[i - 1][j - 1]))
                     )
                     soma2.append(  # Apenas Potência REATIVA
-                        -abs(self._ybus[i - 1][j - 1]) *
-                        abs(self._data.get(i)['tensao']) *
-                        abs(self._data.get(j)['tensao']) *
-                        mt.sin(np.angle(self._ybus[i - 1][j - 1]) - self._data.get(i)['ang'] + self._data.get(j)[
-                            'ang']) * 1j
+                        (self._ybus[i - 1][j - 1]) *
+                        # abs(self._data.get(i)['tensao']) *
+                        (self._data.get(j)['tensao']) *
+                        mt.sin(self._data.get(i)['ang'] - self._data.get(j)['ang'] - np.angle(
+                            self._ybus[i - 1][j - 1])) * 1j
                     )
+                soma1 = sum(soma1) * (self._data.get(i)['tensao'])
+                soma2 = sum(soma2) * (self._data.get(i)['tensao'])
+
                 self.__residuoP.append(np.real(
-                    self._Sesp.get(i)['Pesp'] - sum(soma1)))  # Lista com os valores de cada barra != da barra |V| phi
+                    self._Sesp.get(i)['Pesp'] - soma1))  # Lista com os valores de cada barra != da barra |V| phi
                 if self._data[i]['code'] == 2:
-                    self.__residuoQ.append(np.imag((self._Sesp.get(i)['Qesp']) * 1j - sum(soma2)))
+                    self.__residuoQ.append(np.imag((self._Sesp.get(i)['Qesp']) * 1j - soma2))
 
         for i in range(len(self.__residuoP)):
             self.__deltaPeQ.append(self.__residuoP[i])
@@ -300,23 +302,25 @@ class Circuit(Line, Bus, Jacob):
             if self._data[i]['code'] != 2:
                 for j in self._data:
                     soma1.append(  # Apenas Potência ATIVA
-                        abs(self._ybus[i - 1][j - 1]) *
-                        abs(self._data.get(i)['tensao']) *
-                        abs(self._data.get(j)['tensao']) *
-                        mt.cos(np.angle(self._ybus[i - 1][j - 1]) - self._data.get(i)['ang'] + self._data.get(j)[
-                            'ang'])
+                        (self._ybus[i - 1][j - 1]) *
+                        # abs(self._data.get(i)['tensao']) *
+                        (self._data.get(j)['tensao']) *
+                        mt.cos(self._data.get(i)['ang'] - self._data.get(j)['ang'] - np.angle(self._ybus[i - 1][j - 1]))
                     )
                     soma2.append(  # Apenas Potência REATIVA
-                        -abs(self._ybus[i - 1][j - 1]) *
-                        abs(self._data.get(i)['tensao']) *
-                        abs(self._data.get(j)['tensao']) *
-                        mt.sin(np.angle(self._ybus[i - 1][j - 1]) - self._data.get(i)['ang'] + self._data.get(j)[
-                            'ang']) * 1j
+                        (self._ybus[i - 1][j - 1]) *
+                        # abs(self._data.get(i)['tensao']) *
+                        (self._data.get(j)['tensao']) *
+                        mt.sin(self._data.get(i)['ang'] - self._data.get(j)['ang'] - np.angle(
+                            self._ybus[i - 1][j - 1])) * 1j
                     )
+                soma1 = sum(soma1) * (self._data.get(i)['tensao'])
+                soma2 = sum(soma2) * (self._data.get(i)['tensao'])
+
             if self._data[i]['code'] == 1:
-                self.__sBarras[i] = {'P': np.real(sum(soma1)), 'Q': np.imag(sum(soma2))}
+                self.__sBarras[i] = {'P': np.real(soma1), 'Q': np.imag(soma2)}
             elif self._data[i]['code'] == 3:
-                self.__sBarras[i] = {'P': 0, 'Q': np.imag(sum(soma2))}
+                self.__sBarras[i] = {'P': 0, 'Q': np.imag(soma2)}
 
         for i in self._data:
             if self._data[i]['code'] == 1:
@@ -347,11 +351,10 @@ class Circuit(Line, Bus, Jacob):
                 if stop == 0:
                     self._count += 1
                     break
-                # if self._count == 5:
+                # if self._count == 2:
                 #     self._count += 1
                 #     break
                 self._count += 1
-
 
         self._newInj()
 
