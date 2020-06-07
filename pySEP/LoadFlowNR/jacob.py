@@ -47,7 +47,7 @@ class Jacob:
             for j in listAng:
                 if i != j:
                     outDiagonal.append(
-                        abs(self.__ybus[i - 1][j - 1]) *
+                        -abs(self.__ybus[i - 1][j - 1]) *
                         abs(self.__data.get(i)['tensao']) *
                         abs(self.__data.get(j)['tensao']) *
                         cmt.sin(cmt.phase(self.__ybus[i - 1][j - 1]) -
@@ -61,7 +61,7 @@ class Jacob:
                 if i == j:
                     self.__J1[i][j] = np.real(mainDiagonal[j])
                 else:
-                    self.__J1[i][j] = np.real(-outDiagonal[m])
+                    self.__J1[i][j] = np.real(outDiagonal[m])
                     m += 1
         self.__J1 = np.around(self.__J1, decimals=5)
         return self.__J1
@@ -138,7 +138,7 @@ class Jacob:
             for j in listAng:
                 if i != j:
                     outDiagonal.append(
-                        abs(self.__ybus[i - 1][j - 1]) *
+                        -abs(self.__ybus[i - 1][j - 1]) *
                         abs(self.__data.get(i)['tensao']) *
                         abs(self.__data.get(j)['tensao']) *
                         cmt.cos(cmt.phase(self.__ybus[i - 1][j - 1]) -
@@ -150,13 +150,13 @@ class Jacob:
         for i in range(nPQ):
             for j in range(nPQ + nPV):
                 if j < nPV:
-                    self.__J3[i][j] = np.real(-outDiagonal[m])
+                    self.__J3[i][j] = np.real(outDiagonal[m])
                     m += 1
                 elif j >= nPV:
                     if j - nPV == i:
                         self.__J3[i][j] = np.real(mainDiagonal[i + nPV])
                     else:
-                        self.__J3[i][j] = np.real(-outDiagonal[m])
+                        self.__J3[i][j] = np.real(outDiagonal[m])
                         m += 1
         self.__J3 = np.around(self.__J3, decimals=5)
         return self.__J3
@@ -181,13 +181,12 @@ class Jacob:
             a = (2 * abs(self.__data.get(i)['tensao']) * abs(self.__ybus[i - 1][i - 1]) *
                  cmt.sin(cmt.phase(self.__ybus[i - 1][i - 1]))
                  )
-            mainDiagonal.append(a + sum(soma))
-
+            mainDiagonal.append(-a - sum(soma))
         for i in listAng:
             for j in listTensao:
                 if i != j:
                     outDiagonal.append(
-                        abs(self.__ybus[i - 1][j - 1]) *
+                        -abs(self.__ybus[i - 1][j - 1]) *
                         abs(self.__data.get(i)['tensao']) *
                         cmt.sin(cmt.phase(self.__ybus[i - 1][j - 1]) -
                                 self.__data.get(i)['ang'] +
@@ -198,9 +197,9 @@ class Jacob:
         for i in range(nPQ):
             for j in range(nPQ):
                 if i == j:
-                    self.__J4[i][j] = np.real(-mainDiagonal[j + nPV])
+                    self.__J4[i][j] = np.real(mainDiagonal[j + nPV])
                 else:
-                    self.__J4[i][j] = np.real(-outDiagonal[m])
+                    self.__J4[i][j] = np.real(outDiagonal[m])
                     m += 1
 
         self.__J4 = np.around(self.__J4, decimals=5)
