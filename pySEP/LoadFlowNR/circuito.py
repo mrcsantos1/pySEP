@@ -140,6 +140,7 @@ class Circuito:
                      ang=ang)
 
 
+
 a = Circuito(sBase=100e6)
 
 a.addBarra(barra=1, code=1, tensao=1.00, ang=0.00, carga=0.0j, geracao=0 + 0j)
@@ -171,57 +172,6 @@ a.perdas(True)
 
 a.plot_conv(tensao=True, ang=True)
 
-# c = Circuito(sBase=100e6)
-#
-# c.addBarra(1, 1, 1.05, 0, 0 + 0 * 1j, 0 + 0 * 1j)
-# c.addBarra(2, 2, 1.00, 0, 256.6e6 + 110.2e6 * 1j, 0 + 0 * 1j)
-# c.addBarra(3, 2, 1.00, 0, 138.6e6 + 45.2e6 * 1j, 0 + 0 * 1j)
-#
-# # c.setSesp()
-#
-# c.addLinha(1, 2, 0.02 + 0.04j)
-# c.addLinha(1, 3, 0.01 + 0.03j)
-# c.addLinha(2, 3, 0.0125 + 0.025j)
-
-# c.ybus(True)
-
-# c.pot_inj(True)
-#
-# c.jacobiana(True)
-#
-# c.sis_linear()
-#
-# c.n_pot_inj()
-#
-# c.showBarras()
-#
-# c.calcular_fluxo_pot_nr(show=True, erro=0.001)
-#
-# c.showBarras()
-#
-# a = Circuito(sBase=100e6)
-# a.addBarra(barra=1, code=1, tensao=1.000, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
-# a.addBarra(barra=2, code=2, tensao=1.000, ang=0, carga=100e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
-#
-# a.addLinha(1, 2, 0.1 + 0.2j)
-#
-# a.calcular_fluxo_pot_nr(show=True, erro=0.00001)
-# a.showBarras()
-#
-# b = Circuito(sBase=100e6)
-# b.addBarra(barra=1, code=1, tensao=1.000, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
-# b.addBarra(barra=2, code=2, tensao=1.000, ang=0, carga=100e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
-# b.addBarra(barra=3, code=2, tensao=1.000, ang=0, carga=100e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
-# b.addBarra(barra=4, code=3, tensao=1.050, ang=0, carga=0 + 0 * 1j, geracao=200e6 + 0 * 1j)
-#
-#
-# b.addLinha(1, 2, 0.1 + 0.15j)
-# b.addLinha(1, 3, 0.1 + 0.15j)
-# b.addLinha(2, 4, 0.1 + 0.15j)
-# b.addLinha(3, 4, 0.1 + 0.15j)
-#
-# b.calcular_fluxo_pot_nr(show=True, erro=0.00000001)
-# b.showBarras()
 
 # _3barras = Circuito(sBase=100e6)
 #
@@ -229,68 +179,12 @@ a.plot_conv(tensao=True, ang=True)
 # _3barras.addBarra(barra=2, code=2, tensao=1.00, ang=0, carga=400e6 + 200e6 * 1j, geracao=0 + 0 * 1j)
 # _3barras.addBarra(barra=3, code=3, tensao=1.03, ang=0, carga=0 + 0 * 1j, geracao=300e6 + 0 * 1j)
 #
-#
 # _3barras.addLinha(1, 2, 0.1j)
 # _3barras.addLinha(1, 3, 0.05j)
 # _3barras.addLinha(2, 3, 0.01j)
 #
-#
 # _3barras.calcular_fluxo_pot_nr(show=True, erro=0.00000001)
 # _3barras.showBarras()
-
-
-# DIVERGIU! TESTAR A IMPLEMENTAÇÃO DE UM COMPARADOR PARA V(k+1) NÃO SER MUITO DIFERENTE DE V(k), por exemplo
-# b = Circuito(sBase=100e6)
-#
-# b.addBarra(barra=2, code=1, tensao=1.000, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
-#
-# b.addBarra(barra=1, code=2, tensao=1.000, ang=0, carga=100e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
-# b.addBarra(barra=3, code=2, tensao=1.000, ang=0, carga=200e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
-# b.addBarra(barra=5, code=2, tensao=1.000, ang=0, carga=200e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
-#
-# b.addBarra(barra=4, code=3, tensao=1.050, ang=0, carga=0 + 0 * 1j, geracao=100e6 + 0 * 1j)
-#
-# b.addLinha(1, 2, 0.02 + 0.05j)
-# b.addLinha(1, 5, 0.05 + 0.22j)
-# b.addLinha(2, 5, 0.06 + 0.17j)
-# b.addLinha(2, 4, 0.06 + 0.18j)
-# b.addLinha(2, 3, 0.05 + 0.20j)
-# b.addLinha(3, 4, 0.07 + 0.17j)
-# b.addLinha(4, 5, 0.02 + 0.05j)
-#
-# b.calcular_fluxo_pot_nr(show=True, erro=0.1)
-# b.showBarras()
-
-#
-# b = Circuito(sBase=100e6)
-#
-# b.addBarra(barra=1, code=1, tensao=1.050, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
-#
-# b.addBarra(barra=3, code=3, tensao=1.050, ang=0, carga=0 + 0 * 1j, geracao=300e6 + 0 * 1j)
-# b.addBarra(barra=6, code=3, tensao=1.050, ang=0, carga=0 + 0 * 1j, geracao=200e6 + 0 * 1j)
-#
-# b.addBarra(barra=2, code=2, tensao=1.000, ang=0, carga=150e6 + 25e6 * 1j, geracao=0 + 0 * 1j)
-# b.addBarra(barra=4, code=2, tensao=1.000, ang=0, carga=200e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
-# b.addBarra(barra=5, code=2, tensao=1.000, ang=0, carga=100e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
-# b.addBarra(barra=7, code=2, tensao=1.000, ang=0, carga=200e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
-# b.addBarra(barra=8, code=2, tensao=1.000, ang=0, carga=200e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
-# b.addBarra(barra=9, code=2, tensao=1.000, ang=0, carga=100e6 + 25e6 * 1j, geracao=0 + 0 * 1j)
-#
-# b.addLinha(1, 7, 0.1 + 0.15j)
-# b.addLinha(1, 8, 0.1 + 0.15j)
-# b.addLinha(1, 6, 0.1 + 0.15j)
-#
-# b.addLinha(2, 3, 0.1 + 0.15j)
-# b.addLinha(2, 4, 0.1 + 0.15j)
-#
-# b.addLinha(4, 5, 0.1 + 0.15j)
-# b.addLinha(4, 9, 0.1 + 0.15j)
-#
-# b.addLinha(5, 6, 0.1 + 0.15j)
-#
-# b.addLinha(7, 8, 0.1 + 0.15j)
-#
-# b.addLinha(8, 9, 0.1 + 0.15j)
-#
-# b.calcular_fluxo_pot_nr(show=True, erro=0.1)
-# b.showBarras()
+# _3barras.relatorio()
+# _3barras.perdas(True)
+# _3barras.plot_conv(True, True)
