@@ -157,6 +157,7 @@ class Circuito:
 
 >>>>>>> e66de72 (plotagem ok)
 
+
 a = Circuito(sBase=100e6)
 
 a.addBarra(barra=1, code=1, tensao=1.00, ang=0.00, carga=0.0j, geracao=0 + 0j)
@@ -197,6 +198,7 @@ a.perdas(True)
 =======
 a.plot_conv(tensao=True, ang=True)
 
+<<<<<<< HEAD
 >>>>>>> e66de72 (plotagem ok)
 # c = Circuito(sBase=100e6)
 #
@@ -251,6 +253,8 @@ a.plot_conv(tensao=True, ang=True)
 #
 # b.calcular_fluxo_pot_nr(show=True, erro=0.00000001)
 # b.showBarras()
+=======
+>>>>>>> 6d4b3f0 (.)
 
 <<<<<<< HEAD
 _3barras = Circuito(sBase=100e6)
@@ -268,14 +272,13 @@ _3barras.addBarra(barra=3, code=3, tensao=1.03, ang=0, carga=0 + 0 * 1j, geracao
 # _3barras.addBarra(barra=2, code=2, tensao=1.00, ang=0, carga=400e6 + 200e6 * 1j, geracao=0 + 0 * 1j)
 # _3barras.addBarra(barra=3, code=3, tensao=1.03, ang=0, carga=0 + 0 * 1j, geracao=300e6 + 0 * 1j)
 #
-#
 # _3barras.addLinha(1, 2, 0.1j)
 # _3barras.addLinha(1, 3, 0.05j)
 # _3barras.addLinha(2, 3, 0.01j)
 #
-#
 # _3barras.calcular_fluxo_pot_nr(show=True, erro=0.00000001)
 # _3barras.showBarras()
+<<<<<<< HEAD
 >>>>>>> 9c7f9d8 (5 barras divergiu!)
 
 
@@ -343,3 +346,8 @@ _3barras.showBarras()
 # b.calcular_fluxo_pot_nr(show=True, erro=0.1)
 # b.showBarras()
 >>>>>>> ef123a1 (8barras ok GLÓRIA A DEUSSSS)
+=======
+# _3barras.relatorio()
+# _3barras.perdas(True)
+# _3barras.plot_conv(True, True)
+>>>>>>> 6d4b3f0 (.)
