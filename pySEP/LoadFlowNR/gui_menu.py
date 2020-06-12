@@ -2,7 +2,7 @@ import tkinter as tk
 
 
 def menus(janela_main):
-    menu = tk.Menu(janela_main, tearoff=False)
+    menu = tk.Menu(janela_main, tearoff=False, bg="dark goldenrod")
     janela_main.config(menu=menu)
 
     sub_file = tk.Menu(menu, tearoff=False)
