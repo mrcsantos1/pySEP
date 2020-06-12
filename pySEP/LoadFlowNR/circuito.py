@@ -2,6 +2,7 @@ import buses as bs
 import fluxo as fl
 import lines as ln
 import jcb as jcb
+import plotagem as plt
 
 
 class Circuito:
@@ -131,6 +132,13 @@ class Circuito:
         self.relatorio()
         self.__perdas = fl.perdas(dic_fluxo=self.__fluxo, show=show)
 
+    def plot_conv(self, tensao, ang):
+        plt.plotData(cont=self.__count, dic_barras=self.__dic['data'],
+                     dic_tens_plot=self.__dic['plot'].get('tensao'),
+                     dic_ang_plot=self.__dic['plot'].get('ang'),
+                     tensao=tensao,
+                     ang=ang)
+
 
 a = Circuito(sBase=100e6)
 
@@ -160,6 +168,8 @@ a.showBarras()
 a.relatorio()
 
 a.perdas(True)
+
+a.plot_conv(tensao=True, ang=True)
 
 # c = Circuito(sBase=100e6)
 #
