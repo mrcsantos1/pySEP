@@ -140,7 +140,6 @@ class Circuito:
                      ang=ang)
 
 
-
 a = Circuito(sBase=100e6)
 
 a.addBarra(barra=1, code=1, tensao=1.00, ang=0.00, carga=0.0j, geracao=0 + 0j)
@@ -171,7 +170,6 @@ a.relatorio()
 a.perdas(True)
 
 a.plot_conv(tensao=True, ang=True)
-
 
 # _3barras = Circuito(sBase=100e6)
 #
