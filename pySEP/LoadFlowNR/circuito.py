@@ -30,6 +30,7 @@ class Circuito:
         self.__tensoes = dict(),
         self.__correntes = dict(),
         self.__fluxo = dict(),
+        self.__perdas = float(),
 
     def addBarra(self, barra, code, tensao, ang, carga, geracao):
         bs.addBarra(dicBarras=self.__dic['data'], dicFlow=self.__dic['fluxo'],
@@ -135,8 +136,15 @@ class Circuito:
                                 show=show_fluxo)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #
 =======
+=======
+    def perdas(self, show):
+        self.relatorio()
+        self.__perdas = fl.perdas(dic_fluxo=self.__fluxo, show=show)
+
+>>>>>>> 25da3c3 (método de calcular perdas ok)
 
 a = Circuito(sBase=100e6)
 
@@ -168,7 +176,12 @@ a.showBarras()
 =======
 a.relatorio()
 
+<<<<<<< HEAD
 >>>>>>> 12c412b (relatorios)
+=======
+a.perdas(True)
+
+>>>>>>> 25da3c3 (método de calcular perdas ok)
 # c = Circuito(sBase=100e6)
 #
 # c.addBarra(1, 1, 1.05, 0, 0 + 0 * 1j, 0 + 0 * 1j)
