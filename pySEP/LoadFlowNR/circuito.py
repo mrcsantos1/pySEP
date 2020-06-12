@@ -157,7 +157,6 @@ class Circuito:
 
 >>>>>>> e66de72 (plotagem ok)
 
-
 a = Circuito(sBase=100e6)
 
 a.addBarra(barra=1, code=1, tensao=1.00, ang=0.00, carga=0.0j, geracao=0 + 0j)
@@ -198,6 +197,7 @@ a.perdas(True)
 =======
 a.plot_conv(tensao=True, ang=True)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> e66de72 (plotagem ok)
 # c = Circuito(sBase=100e6)
@@ -266,6 +266,8 @@ _3barras.addBarra(barra=3, code=3, tensao=1.03, ang=0, carga=0 + 0 * 1j, geracao
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> bbb6606 (..)
 # _3barras = Circuito(sBase=100e6)
 #
 # _3barras.addBarra(barra=1, code=1, tensao=1.025, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
