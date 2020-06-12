@@ -27,6 +27,9 @@ class Circuito:
             'ybus': list(),
             'jacobiana': dict(),
         }
+        self.__tensoes = dict(),
+        self.__correntes = dict(),
+        self.__fluxo = dict(),
 
     def addBarra(self, barra, code, tensao, ang, carga, geracao):
         bs.addBarra(dicBarras=self.__dic['data'], dicFlow=self.__dic['fluxo'],
@@ -123,8 +126,13 @@ class Circuito:
         print('CONVERGIU PARA UM ERRO DE ', erro, ' .')
         print('CONVERGIU EM ', self.__count, ' ITERAÇÕES. ')
 
-    def get_npqv(self):
-        print(self.__dic.get('nPQV'))
+    def relatorio(self, show_tensoes=False, show_correntes=False, show_fluxo=False):
+        self.__tensoes = bs.tensoes(dicBarras=self.__dic['data'], show=show_tensoes)
+        self.__correntes = ln.correntes(dicBarras=self.__dic['data'], dic_tensoes=self.__tensoes,
+                                        ybus=self.__dic['ybus'],
+                                        show=show_correntes)
+        self.__fluxo = fl.fluxo(dic_barras=self.__dic['data'], dic_corr=self.__correntes, dic_v=self.__tensoes,
+                                show=show_fluxo)
 
 <<<<<<< HEAD
 #
@@ -151,12 +159,16 @@ a.addLinha(b1=3, b2=7, z_ij=0.01 + 0.005j)
 a.addLinha(b1=7, b2=8, z_ij=0.01 + 0.025j)
 a.addLinha(b1=2, b2=9, z_ij=0.01 + 0.005j)
 
-
 a.calcular_fluxo_pot_nr(show=True, erro=0.01)
 
 a.showBarras()
 
+<<<<<<< HEAD
 >>>>>>> ef123a1 (8barras ok GLÓRIA A DEUSSSS)
+=======
+a.relatorio()
+
+>>>>>>> 12c412b (relatorios)
 # c = Circuito(sBase=100e6)
 #
 # c.addBarra(1, 1, 1.05, 0, 0 + 0 * 1j, 0 + 0 * 1j)

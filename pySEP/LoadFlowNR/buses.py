@@ -1,7 +1,7 @@
 import numpy as np
 
 import math as mt
-
+import cmath as cmt
 import fluxo as fl
 
 
@@ -56,3 +56,20 @@ def setSesp(dicBarras, dicFlow):
     print('\n\n=============================== Sesp: =================================')
     print(dicFlow['Sesp'], ' pu')
     print('========================================================================')
+
+
+def __showTensao(dicTensoes):
+    print('============================ TENSÕES: =======================================')
+    for i in dicTensoes:
+        print('Barra: \t', i, '\tTENSÃO = \t', dicTensoes.get(i), '\t[pu]')
+    print('===============================================================================')
+
+
+def tensoes(dicBarras, show):
+    v = dict()
+    for i in dicBarras:
+        v[i] = cmt.rect(dicBarras.get(i)['tensao'], dicBarras.get(i)['ang'])
+    if show:
+        print("")
+        __showTensao(v)
+    return v
