@@ -153,4 +153,36 @@ class Circuito:
 #
 # a.calcular_fluxo_pot_nr(show=True, erro=0.00001)
 # a.showBarras()
+#
+# b = Circuito(sBase=100e6)
+# b.addBarra(barra=1, code=1, tensao=1.000, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
+# b.addBarra(barra=2, code=2, tensao=1.000, ang=0, carga=100e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
+# b.addBarra(barra=3, code=2, tensao=1.000, ang=0, carga=100e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
+# b.addBarra(barra=4, code=3, tensao=1.050, ang=0, carga=0 + 0 * 1j, geracao=200e6 + 0 * 1j)
+#
+#
+# b.addLinha(1, 2, 0.1 + 0.15j)
+# b.addLinha(1, 3, 0.1 + 0.15j)
+# b.addLinha(2, 4, 0.1 + 0.15j)
+# b.addLinha(3, 4, 0.1 + 0.15j)
+#
+# b.calcular_fluxo_pot_nr(show=True, erro=0.00000001)
+# b.showBarras()
 
+_3barras = Circuito(sBase=100e6)
+
+_3barras.addBarra(barra=1, code=1, tensao=1.025, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
+_3barras.addBarra(barra=2, code=2, tensao=1.00, ang=0, carga=400e6 + 200e6 * 1j, geracao=0 + 0 * 1j)
+_3barras.addBarra(barra=3, code=3, tensao=1.03, ang=0, carga=0 + 0 * 1j, geracao=300e6 + 0 * 1j)
+
+<<<<<<< HEAD
+=======
+
+_3barras.addLinha(1, 2, 0.1j)
+_3barras.addLinha(1, 3, 0.05j)
+_3barras.addLinha(2, 3, 0.01j)
+
+
+_3barras.calcular_fluxo_pot_nr(show=True, erro=0.00000001)
+_3barras.showBarras()
+>>>>>>> 6014b20 (!)
