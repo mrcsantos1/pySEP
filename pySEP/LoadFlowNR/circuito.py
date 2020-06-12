@@ -114,17 +114,18 @@ class Circuito:
         print(self.__dic.get('nPQV'))
 
 
-c = Circuito(sBase=100e6)
-
-c.addBarra(1, 1, 1.05, 0, 0 + 0 * 1j, 0 + 0 * 1j)
-c.addBarra(2, 2, 1.00, 0, 256.6e6 + 110.2e6 * 1j, 0 + 0 * 1j)
-c.addBarra(3, 2, 1.00, 0, 138.6e6 + 45.2e6 * 1j, 0 + 0 * 1j)
-
-# c.setSesp()
-
-c.addLinha(1, 2, 0.02 + 0.04j)
-c.addLinha(1, 3, 0.01 + 0.03j)
-c.addLinha(2, 3, 0.0125 + 0.025j)
+#
+# c = Circuito(sBase=100e6)
+#
+# c.addBarra(1, 1, 1.05, 0, 0 + 0 * 1j, 0 + 0 * 1j)
+# c.addBarra(2, 2, 1.00, 0, 256.6e6 + 110.2e6 * 1j, 0 + 0 * 1j)
+# c.addBarra(3, 2, 1.00, 0, 138.6e6 + 45.2e6 * 1j, 0 + 0 * 1j)
+#
+# # c.setSesp()
+#
+# c.addLinha(1, 2, 0.02 + 0.04j)
+# c.addLinha(1, 3, 0.01 + 0.03j)
+# c.addLinha(2, 3, 0.0125 + 0.025j)
 
 # c.ybus(True)
 
@@ -137,7 +138,19 @@ c.addLinha(2, 3, 0.0125 + 0.025j)
 # c.n_pot_inj()
 #
 # c.showBarras()
+#
+# c.calcular_fluxo_pot_nr(show=True, erro=0.1)
+#
+# c.showBarras()
+#
+# a = Circuito(sBase=100e6)
+# a.addBarra(barra=1, code=1, tensao=1.000, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
+# a.addBarra(barra=2, code=2, tensao=1.000, ang=0, carga=100e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
+#
+# # a.setSesp()
+#
+# a.addLinha(1, 2, 0.1 + 0.2j)
+#
+# a.calcular_fluxo_pot_nr(show=True, erro=0.00001)
+# a.showBarras()
 
-c.calcular_fluxo_pot_nr(show=True, erro=0.1)
-
-c.showBarras()
