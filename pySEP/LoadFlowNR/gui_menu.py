@@ -17,5 +17,5 @@ def menus(janela_main):
     sub_edit.add_command(label="Desfazer", command=func_teste)
 
 
-def func_teste():
-    print('\ntestando')
+    def func_teste():
+        print('\ntestando')
