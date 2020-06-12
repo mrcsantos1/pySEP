@@ -44,3 +44,26 @@ def ybus(dic, showYbus=False):
         print('========================================================================')
 
     return _ybus
+
+
+def __showCorr(dic_correntes):
+    print('============================ CORRENTES: =======================================')
+    for i in dic_correntes:
+        print('Ligação: \t', i, '\tCorrente = \t', dic_correntes.get(i), '\t[pu]')
+    print('===============================================================================')
+
+
+def correntes(dicBarras, dic_tensoes, ybus, show=None):  # Correntes calculadas considerando os ângulos das tensões.
+    corr = dict()
+    for i in dicBarras:
+        soma = []
+        for j in dicBarras:
+            if i == j:
+                continue
+            else:
+                corr[(i, j)] = ((dic_tensoes.get(i) - dic_tensoes.get(j)) * ybus[i - 1][j - 1])
+            soma.append(((dic_tensoes.get(i) - dic_tensoes.get(j)) * ybus[i - 1][j - 1]))
+        corr[(i, i)] = sum(soma)
+    if show:
+        __showCorr(corr)
+    return corr

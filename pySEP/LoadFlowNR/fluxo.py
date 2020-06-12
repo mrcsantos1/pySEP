@@ -131,3 +131,18 @@ def nova_inj(dicBarras, yBus):
             dicBarras[i]['geracao'] = np.real(dicBarras[i].get('geracao')) + __sBarras[i].get('Q') * 1j
 
     print('\n\nsBarras = ', __sBarras)
+
+
+def fluxo(dic_corr, dic_v, dic_barras, show):
+    flux = dict()
+    for i in dic_corr:
+        a = i[0]
+        flux[i] = -dic_v.get(a) * np.conjugate(dic_corr.get(i))
+    if show:
+        print('======================== Fluxo de Potência: ===================================')
+        for i in flux:
+            print('Ligação: \t', i, '\tFluxo = \t', flux.get(i), '\t[pu]')
+        print('===============================================================================')
+        for i in dic_barras:
+            if dic_barras.get(i)['code'] != 2:
+                dic_barras[i]['geracao'] = flux.get((i, i))
