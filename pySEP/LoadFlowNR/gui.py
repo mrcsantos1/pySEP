@@ -5,18 +5,25 @@ import gui_menu as g_menu
 import gui_toolbar as g_toolbar
 import gui_statusbar as g_statusbar
 
-janela = tk.Tk()
 
-# janela
-g_config.set_first(janela_main=janela)
+class JanelaMain:
+    def __init__(self):
+        self.__janela = tk.Tk()
+        self.__info_basic = {}
 
-# main menu
-g_menu.menus(janela_main=janela)
+        # janela
+        g_config.set_first(janela_main=self.__janela)
 
-# toolbar
-g_toolbar.set_toolbar(janela_main=janela)
+        # main menu
+        g_menu.menus(janela_main=self.__janela)
 
-# status bar
-g_statusbar.set_statusbar(janela_main=janela)
+        # toolbar
+        g_toolbar.set_toolbar(janela_main=self.__janela)
 
-janela.mainloop()
+        # status bar
+        g_statusbar.set_statusbar(janela_main=self.__janela)
+
+        self.__janela.mainloop()
+
+
+a = JanelaMain()
