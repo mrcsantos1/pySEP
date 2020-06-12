@@ -99,13 +99,18 @@ class Circuito:
                 if stop == 0:
                     self.__count += 1
                     break
-                if self.__count == 1:
+                if self.__count == 100:
                     self.__count += 1
                     break
                 self.__count += 1
                 self.showBarras()
 
         self.n_pot_inj()
+
+        print('\n\nlistTensao: ', self.__dic['nPQV']['listAngTens'].get('tensao'))
+        print('listAng: ', self.__dic['nPQV']['listAngTens'].get('ang'))
+        print('\n\nnPQ: ', self.__dic['nPQV'].get('nPQ'))
+        print('nPV: ', self.__dic['nPQV'].get('nPV'))
 
         print('CONVERGIU PARA UM ERRO DE ', erro, ' .')
         print('CONVERGIU EM ', self.__count, ' ITERAÇÕES. ')
@@ -114,7 +119,31 @@ class Circuito:
         print(self.__dic.get('nPQV'))
 
 
-#
+a = Circuito(sBase=100e6)
+
+a.addBarra(barra=1, code=1, tensao=1.00, ang=0.00, carga=0.0j, geracao=0 + 0j)
+a.addBarra(barra=2, code=2, tensao=1.00, ang=0.00, carga=100e6 + 20e6 * 1j, geracao=0 + 0j)
+a.addBarra(barra=3, code=2, tensao=1.00, ang=0.00, carga=150e6 + 20e6 * 1j, geracao=0 + 0j)
+a.addBarra(barra=4, code=3, tensao=1.05, ang=0.00, carga=0.0j, geracao=200e6 + 0j)
+a.addBarra(barra=5, code=2, tensao=1.00, ang=0.00, carga=50e6 + 0 * 1j, geracao=0 + 0j)
+a.addBarra(barra=6, code=2, tensao=1.00, ang=0.00, carga=100e6 + 0 * 1j, geracao=0 + 0j)
+a.addBarra(barra=7, code=3, tensao=1.05, ang=0.00, carga=0 + 0 * 1j, geracao=200e6 + 0j)
+a.addBarra(barra=8, code=2, tensao=1.00, ang=0.00, carga=100e6 + 20e6 * 1j, geracao=0 + 0j)
+
+
+a.addLinha(b1=1, b2=2, z_ij=0.01 + 0.005j)
+a.addLinha(b1=1, b2=3, z_ij=0.01 + 0.015j)
+a.addLinha(b1=1, b2=4, z_ij=0.005 + 0.025j)
+a.addLinha(b1=1, b2=5, z_ij=0.01 + 0.02j)
+a.addLinha(b1=4, b2=6, z_ij=0.01 + 0.015j)
+a.addLinha(b1=3, b2=7, z_ij=0.01 + 0.005j)
+a.addLinha(b1=7, b2=8, z_ij=0.01 + 0.025j)
+
+
+a.calcular_fluxo_pot_nr(show=True, erro=0.01)
+
+a.showBarras()
+
 # c = Circuito(sBase=100e6)
 #
 # c.addBarra(1, 1, 1.05, 0, 0 + 0 * 1j, 0 + 0 * 1j)
@@ -139,7 +168,7 @@ class Circuito:
 #
 # c.showBarras()
 #
-# c.calcular_fluxo_pot_nr(show=True, erro=0.1)
+# c.calcular_fluxo_pot_nr(show=True, erro=0.001)
 #
 # c.showBarras()
 #
@@ -205,36 +234,36 @@ class Circuito:
 # b.calcular_fluxo_pot_nr(show=True, erro=0.1)
 # b.showBarras()
 
-
-b = Circuito(sBase=100e6)
-
-b.addBarra(barra=1, code=1, tensao=1.050, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
-
-b.addBarra(barra=3, code=3, tensao=1.050, ang=0, carga=0 + 0 * 1j, geracao=300e6 + 0 * 1j)
-b.addBarra(barra=6, code=3, tensao=1.050, ang=0, carga=0 + 0 * 1j, geracao=200e6 + 0 * 1j)
-
-b.addBarra(barra=2, code=2, tensao=1.000, ang=0, carga=150e6 + 25e6 * 1j, geracao=0 + 0 * 1j)
-b.addBarra(barra=4, code=2, tensao=1.000, ang=0, carga=200e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
-b.addBarra(barra=5, code=2, tensao=1.000, ang=0, carga=100e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
-b.addBarra(barra=7, code=2, tensao=1.000, ang=0, carga=200e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
-b.addBarra(barra=8, code=2, tensao=1.000, ang=0, carga=200e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
-b.addBarra(barra=9, code=2, tensao=1.000, ang=0, carga=100e6 + 25e6 * 1j, geracao=0 + 0 * 1j)
-
-b.addLinha(1, 7, 0.1 + 0.15j)
-b.addLinha(1, 8, 0.1 + 0.15j)
-b.addLinha(1, 6, 0.1 + 0.15j)
-
-b.addLinha(2, 3, 0.1 + 0.15j)
-b.addLinha(2, 4, 0.1 + 0.15j)
-
-b.addLinha(4, 5, 0.1 + 0.15j)
-b.addLinha(4, 9, 0.1 + 0.15j)
-
-b.addLinha(5, 6, 0.1 + 0.15j)
-
-b.addLinha(7, 8, 0.1 + 0.15j)
-
-b.addLinha(8, 9, 0.1 + 0.15j)
-
-b.calcular_fluxo_pot_nr(show=True, erro=0.1)
-b.showBarras()
+#
+# b = Circuito(sBase=100e6)
+#
+# b.addBarra(barra=1, code=1, tensao=1.050, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
+#
+# b.addBarra(barra=3, code=3, tensao=1.050, ang=0, carga=0 + 0 * 1j, geracao=300e6 + 0 * 1j)
+# b.addBarra(barra=6, code=3, tensao=1.050, ang=0, carga=0 + 0 * 1j, geracao=200e6 + 0 * 1j)
+#
+# b.addBarra(barra=2, code=2, tensao=1.000, ang=0, carga=150e6 + 25e6 * 1j, geracao=0 + 0 * 1j)
+# b.addBarra(barra=4, code=2, tensao=1.000, ang=0, carga=200e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
+# b.addBarra(barra=5, code=2, tensao=1.000, ang=0, carga=100e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
+# b.addBarra(barra=7, code=2, tensao=1.000, ang=0, carga=200e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
+# b.addBarra(barra=8, code=2, tensao=1.000, ang=0, carga=200e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
+# b.addBarra(barra=9, code=2, tensao=1.000, ang=0, carga=100e6 + 25e6 * 1j, geracao=0 + 0 * 1j)
+#
+# b.addLinha(1, 7, 0.1 + 0.15j)
+# b.addLinha(1, 8, 0.1 + 0.15j)
+# b.addLinha(1, 6, 0.1 + 0.15j)
+#
+# b.addLinha(2, 3, 0.1 + 0.15j)
+# b.addLinha(2, 4, 0.1 + 0.15j)
+#
+# b.addLinha(4, 5, 0.1 + 0.15j)
+# b.addLinha(4, 9, 0.1 + 0.15j)
+#
+# b.addLinha(5, 6, 0.1 + 0.15j)
+#
+# b.addLinha(7, 8, 0.1 + 0.15j)
+#
+# b.addLinha(8, 9, 0.1 + 0.15j)
+#
+# b.calcular_fluxo_pot_nr(show=True, erro=0.1)
+# b.showBarras()
