@@ -147,10 +147,22 @@ class Circuito:
 # a.addBarra(barra=1, code=1, tensao=1.000, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
 # a.addBarra(barra=2, code=2, tensao=1.000, ang=0, carga=100e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
 #
-# # a.setSesp()
-#
 # a.addLinha(1, 2, 0.1 + 0.2j)
 #
 # a.calcular_fluxo_pot_nr(show=True, erro=0.00001)
 # a.showBarras()
 
+b = Circuito(sBase=100e6)
+b.addBarra(barra=1, code=1, tensao=1.000, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
+b.addBarra(barra=2, code=2, tensao=1.000, ang=0, carga=100e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
+b.addBarra(barra=3, code=2, tensao=1.000, ang=0, carga=100e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
+b.addBarra(barra=4, code=3, tensao=1.050, ang=0, carga=0 + 0 * 1j, geracao=200e6 + 0 * 1j)
+
+
+b.addLinha(1, 2, 0.1 + 0.15j)
+b.addLinha(1, 3, 0.1 + 0.15j)
+b.addLinha(2, 4, 0.1 + 0.15j)
+b.addLinha(3, 4, 0.1 + 0.15j)
+
+b.calcular_fluxo_pot_nr(show=True, erro=0.00000001)
+b.showBarras()
