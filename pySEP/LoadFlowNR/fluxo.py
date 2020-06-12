@@ -146,3 +146,15 @@ def fluxo(dic_corr, dic_v, dic_barras, show):
         for i in dic_barras:
             if dic_barras.get(i)['code'] != 2:
                 dic_barras[i]['geracao'] = flux.get((i, i))
+    return flux
+
+
+def perdas(dic_fluxo, show):
+    p = float()
+    perdas = []
+    for i in dic_fluxo:
+        perdas.append(dic_fluxo.get(i))
+    p = sum(perdas)
+    if show:
+        print('\n\nPerdas\t= \t', p, '\t[pu]')
+    return p
