@@ -99,7 +99,7 @@ class Circuito:
                 if stop == 0:
                     self.__count += 1
                     break
-                if self.__count == 20:
+                if self.__count == 2:
                     self.__count += 1
                     break
                 self.__count += 1
@@ -112,7 +112,6 @@ class Circuito:
 
     def get_npqv(self):
         print(self.__dic.get('nPQV'))
-
 
 #
 # c = Circuito(sBase=100e6)
@@ -169,6 +168,7 @@ class Circuito:
 # b.calcular_fluxo_pot_nr(show=True, erro=0.00000001)
 # b.showBarras()
 
+<<<<<<< HEAD
 _3barras = Circuito(sBase=100e6)
 
 _3barras.addBarra(barra=1, code=1, tensao=1.025, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
@@ -177,12 +177,49 @@ _3barras.addBarra(barra=3, code=3, tensao=1.03, ang=0, carga=0 + 0 * 1j, geracao
 
 <<<<<<< HEAD
 =======
+=======
+# _3barras = Circuito(sBase=100e6)
+#
+# _3barras.addBarra(barra=1, code=1, tensao=1.025, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
+# _3barras.addBarra(barra=2, code=2, tensao=1.00, ang=0, carga=400e6 + 200e6 * 1j, geracao=0 + 0 * 1j)
+# _3barras.addBarra(barra=3, code=3, tensao=1.03, ang=0, carga=0 + 0 * 1j, geracao=300e6 + 0 * 1j)
+#
+#
+# _3barras.addLinha(1, 2, 0.1j)
+# _3barras.addLinha(1, 3, 0.05j)
+# _3barras.addLinha(2, 3, 0.01j)
+#
+#
+# _3barras.calcular_fluxo_pot_nr(show=True, erro=0.00000001)
+# _3barras.showBarras()
+>>>>>>> 9c7f9d8 (5 barras divergiu!)
 
-_3barras.addLinha(1, 2, 0.1j)
-_3barras.addLinha(1, 3, 0.05j)
-_3barras.addLinha(2, 3, 0.01j)
 
+# DIVERGIU! TESTAR A IMPLEMENTAÇÃO DE UM COMPARADOR PARA V(k+1) NÃO SER MUITO DIFERENTE DE V(k), por exemplo
+# b = Circuito(sBase=100e6)
+#
+# b.addBarra(barra=2, code=1, tensao=1.000, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
+#
+# b.addBarra(barra=1, code=2, tensao=1.000, ang=0, carga=100e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
+# b.addBarra(barra=3, code=2, tensao=1.000, ang=0, carga=200e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
+# b.addBarra(barra=5, code=2, tensao=1.000, ang=0, carga=200e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
+#
+# b.addBarra(barra=4, code=3, tensao=1.050, ang=0, carga=0 + 0 * 1j, geracao=100e6 + 0 * 1j)
+#
+# b.addLinha(1, 2, 0.02 + 0.05j)
+# b.addLinha(1, 5, 0.05 + 0.22j)
+# b.addLinha(2, 5, 0.06 + 0.17j)
+# b.addLinha(2, 4, 0.06 + 0.18j)
+# b.addLinha(2, 3, 0.05 + 0.20j)
+# b.addLinha(3, 4, 0.07 + 0.17j)
+# b.addLinha(4, 5, 0.02 + 0.05j)
+#
+# b.calcular_fluxo_pot_nr(show=True, erro=0.1)
+# b.showBarras()
 
+<<<<<<< HEAD
 _3barras.calcular_fluxo_pot_nr(show=True, erro=0.00000001)
 _3barras.showBarras()
 >>>>>>> 6014b20 (!)
+=======
+>>>>>>> 9c7f9d8 (5 barras divergiu!)
