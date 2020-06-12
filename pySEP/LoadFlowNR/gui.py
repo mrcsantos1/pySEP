@@ -10,7 +10,7 @@ class JanelaMain:
         # janela
         self.set_janela(janela_main=self.__janela)
 
-        # main menu
+        # menu
         self.set_menu(janela_main=self.__janela)
 
         # toolbar
@@ -20,11 +20,12 @@ class JanelaMain:
         self.set_statusbar(janela_main=self.__janela, textvariable=self.__text_status)
 
         # Criando os binds com os eventos de mouse
-        self.__janela.bind("<Button-1>", self.botaoPressionado)
-        self.__janela.bind("<ButtonRelease-1>", self.botaoLiberado)
-        self.__janela.bind("<Enter>", self.entrouJanela)
-        self.__janela.bind("<Leave>", self.add_barra_button)
-        self.__janela.bind("<B1-Motion>", self.mouseArrastado)
+
+        self.__janela.bind("<Enter>", self.bemvindo)
+
+        # self.__janela.bind("<Button-1>", self.botaoPressionado)
+        # self.__janela.bind("<ButtonRelease-1>", self.botaoLiberado)
+        # self.__janela.bind("<B1-Motion>", self.mouseArrastado)
 
         self.__janela.mainloop()
 
@@ -54,14 +55,7 @@ class JanelaMain:
         menu.add_cascade(label="Editar", menu=sub_edit)
         sub_edit.add_command(label="Desfazer", command=func_teste)
 
-    @staticmethod
-    def set_toolbar(janela_main):
-        def add_bar(event):
-            print('\nAdicionar barra!', event)
-
-        def add_lin(event):
-            print('\nAdicionar linha!', event)
-
+    def set_toolbar(self, janela_main):
         toolbar = tk.Frame(janela_main, bg="goldenrod")
 
         ## Adicionar Barra
@@ -69,8 +63,7 @@ class JanelaMain:
         add_barra = tk.Button(toolbar, text="Barra",
                               relief=tk.FLAT,
                               bg="light goldenrod")
-        # command=add_bar)
-        add_barra.bind("<Button-1>", add_bar)
+        add_barra.bind("<Button-1>", self.__add_bar)
 
         add_barra.pack(side=tk.LEFT, padx=2, pady=2)
 
@@ -79,10 +72,18 @@ class JanelaMain:
         add_linha = tk.Button(toolbar, text="Linha",
                               relief=tk.FLAT,
                               bg="light goldenrod")
-        add_linha.bind("<Button-1>", add_lin)
+        add_linha.bind("<Button-1>", self.__add_lin)
         add_linha.pack(side=tk.LEFT, padx=2, pady=2)
 
         toolbar.pack(side=tk.TOP, fill=tk.X)
+
+    def __add_bar(self, event):
+        self.__text_status.set("Adicionando uma nova barra! ")
+        print('\nAdicionar barra!', event)
+
+    def __add_lin(self, event):
+        self.__text_status.set("Adicionando uma nova linha! ")
+        print('\nAdicionar linha!', event)
 
     @staticmethod
     def set_statusbar(janela_main, textvariable):
@@ -97,23 +98,20 @@ class JanelaMain:
                           textvariable=textvariable)
         status.pack(side=tk.BOTTOM, fill=tk.X)
 
-    def botaoPressionado(self, event):
-        self.__text_status.set("Pressionado em [ " + str(event.x) +
-                               ", " + str(event.y) + " ]")
-
-    def botaoLiberado(self, event):
-        self.__text_status.set("Solto em [ " + str(event.x) +
-                               ", " + str(event.y) + " ]")
-
-    def entrouJanela(self, event):
+    def bemvindo(self, event):
         self.__text_status.set("Bem-vindo ao pySEP!")
 
-    def add_barra_button(self, event):
-        self.__text_status.set("")
+    # def botaoPressionado(self, event):
+    #     self.__text_status.set("Pressionado em [ " + str(event.x) +
+    #                            ", " + str(event.y) + " ]")
 
-    def mouseArrastado(self, event):
-        self.__text_status.set("Arrastado até [ " + str(event.x) +
-                               ", " + str(event.y) + " ]")
+    # def botaoLiberado(self, event):
+    #     self.__text_status.set("Solto em [ " + str(event.x) +
+    #                            ", " + str(event.y) + " ]")
+
+    # def mouseArrastado(self, event):
+    #     self.__text_status.set("Arrastado até [ " + str(event.x) +
+    #                            ", " + str(event.y) + " ]")
 
 
 a = JanelaMain()
