@@ -253,7 +253,7 @@ class Circuit(Line, Bus, Jacob):
                 self.__residuoP.append(np.real(
                     self._Sesp.get(i)['Pesp'] - soma1))  # Lista com os valores de cada barra != da barra |V| phi
                 if self._data[i]['code'] == 2:
-                    self.__residuoQ.append(np.imag((self._Sesp.get(i)['Qesp']) * 1j - soma2))
+                    self.__residuoQ.append(np.imag((self._Sesp.get(i)['Qesp']) - soma2))
 
         for i in range(len(self.__residuoP)):
             self.__deltaPeQ.append(self.__residuoP[i])
@@ -276,8 +276,8 @@ class Circuit(Line, Bus, Jacob):
 
         ang = []
         tens = []
-        for i in range(len(self.__x)):
-            if i < (self._nPQ + self._nPV):
+        for i in range(len(self.__x)):  # Rever este for! Pode estar errado!
+            if i < (self._nPQ + self._nPV):  # Na hora de atualizar os valores de tensão e de ângulo!
                 ang.append(self.__x[i])
             else:
                 tens.append(self.__x[i])
