@@ -99,7 +99,7 @@ class Circuito:
                 if stop == 0:
                     self.__count += 1
                     break
-                if self.__count == 2:
+                if self.__count == 1:
                     self.__count += 1
                     break
                 self.__count += 1
@@ -112,6 +112,7 @@ class Circuito:
 
     def get_npqv(self):
         print(self.__dic.get('nPQV'))
+
 
 #
 # c = Circuito(sBase=100e6)
@@ -204,3 +205,36 @@ class Circuito:
 # b.calcular_fluxo_pot_nr(show=True, erro=0.1)
 # b.showBarras()
 
+
+b = Circuito(sBase=100e6)
+
+b.addBarra(barra=1, code=1, tensao=1.050, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
+
+b.addBarra(barra=3, code=3, tensao=1.050, ang=0, carga=0 + 0 * 1j, geracao=300e6 + 0 * 1j)
+b.addBarra(barra=6, code=3, tensao=1.050, ang=0, carga=0 + 0 * 1j, geracao=200e6 + 0 * 1j)
+
+b.addBarra(barra=2, code=2, tensao=1.000, ang=0, carga=150e6 + 25e6 * 1j, geracao=0 + 0 * 1j)
+b.addBarra(barra=4, code=2, tensao=1.000, ang=0, carga=200e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
+b.addBarra(barra=5, code=2, tensao=1.000, ang=0, carga=100e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
+b.addBarra(barra=7, code=2, tensao=1.000, ang=0, carga=200e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
+b.addBarra(barra=8, code=2, tensao=1.000, ang=0, carga=200e6 + 50e6 * 1j, geracao=0 + 0 * 1j)
+b.addBarra(barra=9, code=2, tensao=1.000, ang=0, carga=100e6 + 25e6 * 1j, geracao=0 + 0 * 1j)
+
+b.addLinha(1, 7, 0.1 + 0.15j)
+b.addLinha(1, 8, 0.1 + 0.15j)
+b.addLinha(1, 6, 0.1 + 0.15j)
+
+b.addLinha(2, 3, 0.1 + 0.15j)
+b.addLinha(2, 4, 0.1 + 0.15j)
+
+b.addLinha(4, 5, 0.1 + 0.15j)
+b.addLinha(4, 9, 0.1 + 0.15j)
+
+b.addLinha(5, 6, 0.1 + 0.15j)
+
+b.addLinha(7, 8, 0.1 + 0.15j)
+
+b.addLinha(8, 9, 0.1 + 0.15j)
+
+b.calcular_fluxo_pot_nr(show=True, erro=0.1)
+b.showBarras()
