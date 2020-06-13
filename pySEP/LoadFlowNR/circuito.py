@@ -31,7 +31,10 @@ class Circuito:
         self.__tensoes = dict(),
         self.__correntes = dict(),
         self.__fluxo = dict(),
-        self.__perdas = float(),
+        self.__perdas = float()
+
+    def set_s_base(self, sBase):
+        self.sBase = sBase
 
     def addBarra(self, barra, code, tensao, ang, carga, geracao):
         bs.addBarra(dicBarras=self.__dic['data'], dicFlow=self.__dic['fluxo'],
@@ -155,6 +158,7 @@ class Circuito:
                      tensao=tensao,
                      ang=ang)
 
+<<<<<<< HEAD
 >>>>>>> e66de72 (plotagem ok)
 
 a = Circuito(sBase=100e6)
@@ -196,6 +200,39 @@ a.perdas(True)
 >>>>>>> 25da3c3 (método de calcular perdas ok)
 =======
 a.plot_conv(tensao=True, ang=True)
+=======
+#
+# a = Circuito(sBase=100e6)
+#
+# a.addBarra(barra=1, code=1, tensao=1.00, ang=0.00, carga=0.0j, geracao=0 + 0j)
+# a.addBarra(barra=2, code=2, tensao=1.00, ang=0.00, carga=100e6 + 20e6 * 1j, geracao=0 + 0j)
+# a.addBarra(barra=3, code=2, tensao=1.00, ang=0.00, carga=150e6 + 20e6 * 1j, geracao=0 + 0j)
+# a.addBarra(barra=4, code=3, tensao=1.05, ang=0.00, carga=0.0j, geracao=300e6 + 0j)
+# a.addBarra(barra=5, code=2, tensao=1.00, ang=0.00, carga=50e6 + 0 * 1j, geracao=0 + 0j)
+# a.addBarra(barra=6, code=2, tensao=1.00, ang=0.00, carga=100e6 + 0 * 1j, geracao=0 + 0j)
+# a.addBarra(barra=7, code=3, tensao=1.05, ang=0.00, carga=0 + 0 * 1j, geracao=300e6 + 0j)
+# a.addBarra(barra=8, code=2, tensao=1.00, ang=0.00, carga=100e6 + 20e6 * 1j, geracao=0 + 0j)
+# a.addBarra(barra=9, code=2, tensao=1.00, ang=0.00, carga=50e6 + 0 * 1j, geracao=0 + 0j)
+#
+# a.addLinha(b1=1, b2=2, z_ij=0.01 + 0.005j)
+# a.addLinha(b1=1, b2=3, z_ij=0.01 + 0.015j)
+# a.addLinha(b1=1, b2=4, z_ij=0.005 + 0.025j)
+# a.addLinha(b1=1, b2=5, z_ij=0.01 + 0.02j)
+# a.addLinha(b1=4, b2=6, z_ij=0.01 + 0.015j)
+# a.addLinha(b1=3, b2=7, z_ij=0.01 + 0.005j)
+# a.addLinha(b1=7, b2=8, z_ij=0.01 + 0.025j)
+# a.addLinha(b1=2, b2=9, z_ij=0.01 + 0.005j)
+#
+# a.calcular_fluxo_pot_nr(show=True, erro=0.01)
+#
+# a.showBarras()
+#
+# a.relatorio()
+#
+# a.perdas(True)
+#
+# a.plot_conv(tensao=True, ang=True)
+>>>>>>> 1da6384 (...)
 
 <<<<<<< HEAD
 <<<<<<< HEAD

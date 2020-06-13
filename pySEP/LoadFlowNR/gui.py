@@ -1,4 +1,5 @@
 import tkinter as tk
+import circuito as ckt
 
 
 class JanelaMain:
@@ -8,6 +9,7 @@ class JanelaMain:
             'nums': {'barras': 0,
                      'linhas': 0
                      },
+            'sBase': 100e6,
         }
         self.__text_status = tk.StringVar()
 
@@ -25,6 +27,9 @@ class JanelaMain:
 
         # Criando os binds com os eventos de mouse
         self.__janela.bind("<Enter>", self.bemvindo)
+
+        self.__circuito = ckt.Circuito(sBase=100e6)
+        self.__s_base()
 
         self.__janela.mainloop()
 
@@ -93,10 +98,60 @@ class JanelaMain:
         # print('numero de barras = ', self.__info_basic['nums'].get('barras'))
         # print('\nAdicionar barra!', event)
 
+    def __s_base(self):
+        s_base = tk.Toplevel(master=self.__janela)
+        s_base.title("\tBem-vindo ao pySEP!!\t")
+        s_base.geometry("500x150+500+500")
+        s_base.wm_iconbitmap("images/logo_pySEP.ico")
+        s_base["bg"] = "light goldenrod"
+
+        label_s_base = tk.Label(
+            master=s_base,
+            anchor=tk.CENTER,
+            bg="light goldenrod",
+            justify=tk.CENTER,
+            padx=2,
+            pady=2,
+            text="Defina um valor base para o sistema em VA!\nInserir conforme exemplo: 100e6",
+            font=("Helvetica", 18)
+        )
+        label_s_base.grid(row=0, columnspan=3, padx=5, pady=5)
+
+        frame_s_base = tk.Entry(
+            master=s_base,
+            justify=tk.CENTER, width=30,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        frame_s_base.focus_set()
+        frame_s_base.grid(row=1, columnspan=3, padx=5, pady=5)
+
+        def __s_base_butt():
+            self.__info_basic['sBase'] = float(frame_s_base.get())
+            self.__circuito.set_s_base(sBase=float(frame_s_base.get()))
+            print('Sbase = ', float(frame_s_base.get()))
+            s_base.destroy()
+
+        button_s_base = tk.Button(
+            master=s_base,
+            text="Vamos lá!", font=("Helvetica", 12), width=10,
+            bg="goldenrod",
+            bd=3,
+            command=__s_base_butt,
+            anchor=tk.CENTER,
+            justify=tk.CENTER,
+            compound=tk.CENTER,
+            padx=2,
+            pady=2,
+            # relief=tk.FLAT,
+        )
+        button_s_base.grid(row=2, columnspan=3, padx=5, pady=5)
+
     def __erro(self, mensagem):
         erro = tk.Toplevel()
         erro.title("\tERRO!!\t")
-        erro.geometry("250x250")
+        erro.geometry("400x250")
         erro.wm_iconbitmap("images/logo_pySEP.ico")
         erro["bg"] = "red"
 
@@ -336,8 +391,42 @@ class JanelaMain:
             elif not geracao_bar.__contains__("+") and not geracao_bar.__contains__("-"):
                 self.__erro(mensagem="INSERIR A CARGA NO FORMATO: \n P + Q OU P - Q !")
             else:
-                self.__info_basic['nums']['barras'] += 1
+                carga = list()
+                geracao = list()
+                if carga_bar.__contains__("+"):
+                    carga = carga_bar.split("+")
+                    carga = list(map(float, carga))
+                    carga[1] *= 1j
+                    carga = carga[0] + carga[1]
+                elif carga_bar.__contains__("-"):
+                    carga = carga_bar.split("-")
+                    carga = list(map(float, carga))
+                    carga[1] *= 1j
+                    carga = carga[0] + carga[1]
+
+                if geracao_bar.__contains__("+"):
+                    geracao = geracao_bar.split("+")
+                    geracao = list(map(float, geracao))
+                    geracao[1] *= 1j
+                    geracao = geracao[0] + geracao[1]
+
+                elif geracao_bar.__contains__("-"):
+                    geracao = geracao_bar.split("-")
+                    geracao = list(map(float, geracao))
+                    geracao[1] *= 1j
+                    geracao = geracao[0] + geracao[1]
+
+                self.__circuito.addBarra(
+                    barra=num_bar,
+                    code=tp_bar,
+                    tensao=tensao_bar,
+                    ang=ang_bar,
+                    carga=carga,
+                    geracao=geracao)
                 print("\n\nBarra ", self.__info_basic['nums'].get('barras'), " adicionada! ")
+                self.__circuito.showBarras()
+                
+                self.__info_basic['nums']['barras'] += 1
                 config_bar.destroy()
 
         butt_add = tk.Button(
