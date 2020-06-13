@@ -93,6 +93,25 @@ class JanelaMain:
         # print('numero de barras = ', self.__info_basic['nums'].get('barras'))
         # print('\nAdicionar barra!', event)
 
+    def __erro(self, mensagem):
+        erro = tk.Toplevel()
+        erro.title("\tERRO!!\t")
+        erro.geometry("250x250")
+        erro.wm_iconbitmap("images/logo_pySEP.ico")
+        erro["bg"] = "red"
+
+        label_erro = tk.Label(
+            master=erro,
+            anchor=tk.CENTER,
+            bg="red",
+            justify=tk.CENTER,
+            padx=2,
+            pady=2,
+            text=mensagem,
+            font=("Helvetica", 20)
+        )
+        label_erro.pack(fill='both', expand=True)
+
     def __config_bar(self):
         config_bar = tk.Toplevel()
         config_bar.title("Configurações da barra " + str(self.__info_basic['nums'].get('barras') + 1))
@@ -293,27 +312,33 @@ class JanelaMain:
 
         # BOTÃO ADICIONAR
         def __add_butt():
-            self.__info_basic['nums']['barras'] += 1
 
-            num_bar = entry_num_barra.get()
+            num_bar = int(entry_num_barra.get())
             print('\n\nnum bar = ', num_bar)
 
-            tp_bar = __tipo_bar.get()
+            tp_bar = int(__tipo_bar.get())
             print('tipo barra = ', tp_bar)
 
-            tensao_bar = entry_tensao_barra.get()
+            tensao_bar = float(entry_tensao_barra.get())
             print('tensao bar = ', tensao_bar)
 
-            ang_bar = entry_ang_barra.get()
+            ang_bar = float(entry_ang_barra.get())
             print('ang bar = ', ang_bar)
 
-            carga_bar = entry_carga_barra.get()
+            carga_bar = str(entry_carga_barra.get())
             print('carga bar = ', carga_bar)
 
-            geracao_bar = entry_geracao_barra.get()
+            geracao_bar = str(entry_geracao_barra.get())
             print('geracao bar = ', geracao_bar)
 
-            print("\n\nAdicionar!")
+            if not carga_bar.__contains__("+") and not carga_bar.__contains__("-"):
+                self.__erro(mensagem="INSERIR A CARGA NO FORMATO: \n P + Q OU P - Q !")
+            elif not geracao_bar.__contains__("+") and not geracao_bar.__contains__("-"):
+                self.__erro(mensagem="INSERIR A CARGA NO FORMATO: \n P + Q OU P - Q !")
+            else:
+                self.__info_basic['nums']['barras'] += 1
+                print("\n\nBarra ", self.__info_basic['nums'].get('barras'), " adicionada! ")
+                config_bar.destroy()
 
         butt_add = tk.Button(
             master=frame_config,
