@@ -91,7 +91,7 @@ class JanelaMain:
     def __config_bar(self):
         config_bar = tk.Toplevel()
         config_bar.title("Configurações da barra " + str(self.__info_basic['nums'].get('barras') + 1))
-        config_bar.geometry("800x400")
+        config_bar.geometry("800x250")
         config_bar.wm_iconbitmap("images/logo_pySEP.ico")
         config_bar["bg"] = "light goldenrod"
 
@@ -143,29 +143,19 @@ class JanelaMain:
             justify=tk.CENTER,
             bg="light goldenrod",
         )
-        label_div_1.grid(rowspan=5, column=2, padx=5, pady=5)
+        label_div_1.grid(row=1, column=2, padx=5, pady=5)
 
         ## TIPO DA BARRA
 
-        v = tk.StringVar()
-        # v.set("1")  # initialize
-
-        # tipo_barra = ""
-
-        # def set_tipo_barra(event):
-        #     print('\n\nevent = ', event)
-        #     global tipo_barra
-        #     tipo_barra = v.get()
-        #     print('\nv.get() = ', v.get(), '\ttype = ', type(v.get()))
-        #     print('\n\ntipo = ', tipo_barra)
+        __tipo_bar = tk.StringVar()
 
         _tipo1_barra = tk.Radiobutton(
             master=frame_config,
             text="REF",
-            variable=v,
+            variable=__tipo_bar,
             value="1",
             bg="light goldenrod",
-            command=v.set("1")
+            command=__tipo_bar.set("1")
         )
         # _tipo1_barra.bind("<Button-1>", set_tipo_barra)
         _tipo1_barra.grid(row=1, column=3, sticky=tk.W)
@@ -173,10 +163,10 @@ class JanelaMain:
         _tipo2_barra = tk.Radiobutton(
             master=frame_config,
             text="PQ",
-            variable=v,
+            variable=__tipo_bar,
             value="2",
             bg="light goldenrod",
-            command=v.set("2")
+            command=__tipo_bar.set("2")
         )
         # _tipo2_barra.bind("<Button-1>", set_tipo_barra)
         _tipo2_barra.grid(row=1, column=4, sticky=tk.W)
@@ -184,17 +174,24 @@ class JanelaMain:
         _tipo3_barra = tk.Radiobutton(
             master=frame_config,
             text="PV",
-            variable=v,
+            variable=__tipo_bar,
             value="3",
             bg="light goldenrod",
-            command=v.set("3")
+            command=__tipo_bar.set("3")
         )
         # _tipo3_barra.bind("<Button-1>", set_tipo_barra)
         _tipo3_barra.grid(row=1, column=5, sticky=tk.W)
 
         # print('\nv.get() = ', v.get(), '\ttype = ', type(v.get()))
 
-
+        label_div_2 = tk.Label(
+            master=frame_config,
+            text="    |||    ",
+            font=("Helvetica", 12),
+            justify=tk.CENTER,
+            bg="light goldenrod",
+        )
+        label_div_2.grid(row=2, column=2, padx=5, pady=5)
 
         ## TENSÃO DA BARRA
 
@@ -259,11 +256,75 @@ class JanelaMain:
         )
         entry_carga_barra.grid(row=3, column=1, padx=5, pady=5, sticky=tk.W)
 
-    # carga_barra = tk.Entry(config_bar)
-    # geracao_barra = tk.Entry(config_bar)
+        #################
 
-    # carga_barra.pack()
-    # geracao_barra.pack()
+        label_div_3 = tk.Label(
+            master=frame_config,
+            text="    |||    ",
+            font=("Helvetica", 12),
+            justify=tk.CENTER,
+            bg="light goldenrod",
+        )
+        label_div_3.grid(row=3, column=2, padx=5, pady=5)
+
+        ## GERAÇÃO DA BARRA
+
+        label_geracao_barra = tk.Label(
+            master=frame_config,
+            text="Geração desta barra (P+Qj)\nex.:100e6+50e6 [VA]: ",
+            font=("Helvetica", 12),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_geracao_barra.grid(row=3, column=3, padx=5, pady=5, sticky=tk.W)
+
+        entry_geracao_barra = tk.Entry(
+            master=frame_config,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        entry_geracao_barra.grid(row=3, column=4, padx=5, pady=5, sticky=tk.W)
+
+        ## BOTÃO ADICIONAR
+
+        def __add_butt():
+            num_bar = entry_num_barra.get()
+            print('\n\nnum bar = ', num_bar)
+
+            tp_bar = __tipo_bar.get()
+            print('tipo barra = ', tp_bar)
+
+            tensao_bar = entry_tensao_barra.get()
+            print('tensao bar = ', tensao_bar)
+
+            ang_bar = entry_ang_barra.get()
+            print('ang bar = ', ang_bar)
+
+            carga_bar = entry_carga_barra.get()
+            print('carga bar = ', carga_bar)
+
+            geracao_bar = entry_geracao_barra.get()
+            print('geracao bar = ', geracao_bar)
+
+            print("\n\nAdicionar!")
+
+        butt_add = tk.Button(
+            master=frame_config,
+            text="Adicionar", font=("Helvetica", 12), height=2, width=30,
+            bg="goldenrod",
+            bd=3,
+            command=__add_butt,
+            anchor=tk.CENTER,
+            justify=tk.CENTER,
+            compound=tk.CENTER,
+            padx=2,
+            pady=2,
+            relief=tk.GROOVE,
+        )
+        butt_add.grid(row=4, columnspan=5, padx=5, pady=5)
 
     def __add_lin(self, event):
         self.__text_status.set("Adicionando uma nova linha! ")
