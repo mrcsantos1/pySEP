@@ -211,6 +211,7 @@ class JanelaMain:
             bg="light goldenrod",
             relief=tk.GROOVE
         )
+        entry_num_barra.focus_set()
         entry_num_barra.grid(row=1, column=1, padx=5, pady=5, sticky=tk.W)
 
         ##############################################################################
@@ -425,7 +426,7 @@ class JanelaMain:
                     geracao=geracao)
                 print("\n\nBarra ", self.__info_basic['nums'].get('barras'), " adicionada! ")
                 self.__circuito.showBarras()
-                
+
                 self.__info_basic['nums']['barras'] += 1
                 config_bar.destroy()
 
