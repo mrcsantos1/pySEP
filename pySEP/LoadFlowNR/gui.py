@@ -1,4 +1,7 @@
 import tkinter as tk
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+
 import circuito as ckt
 
 
@@ -29,6 +32,9 @@ class JanelaMain:
         self.__janela.bind("<Enter>", self.bemvindo)
 
         self.__circuito = ckt.Circuito(sBase=100e6)
+
+        self.__teste = Figure(figsize=(5, 5), dpi=100)
+
         self.__s_base()
 
         self.__janela.mainloop()
@@ -59,6 +65,15 @@ class JanelaMain:
         sub_edit = tk.Menu(menu, tearoff=False)
         menu.add_cascade(label="Editar", menu=sub_edit)
         sub_edit.add_command(label="Desfazer", command=func_teste)
+
+    def __show_grafo(self):
+
+        a = self.__teste.add_subplot(111)
+        a.plot([1, 2, 3, 4, 5, 6, 7], [1, 2, -1, -2, 0, 3, 4])
+
+        canvas = FigureCanvasTkAgg(self.__teste, self.__janela)
+        canvas.draw()
+        canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
     def set_toolbar(self, janela_main):
         toolbar = tk.Frame(janela_main, bg="goldenrod")
@@ -428,6 +443,7 @@ class JanelaMain:
                 self.__circuito.showBarras()
 
                 self.__info_basic['nums']['barras'] += 1
+                self.__show_grafo()
                 config_bar.destroy()
 
         butt_add = tk.Button(
