@@ -57,7 +57,8 @@ class Circuito:
         """
         lista_linhas = []
         for i in self.__dic['lines']:
-            lista_linhas.append(tuple([i[0], i[1], {'z': self.__dic['lines'].get('z')}]))
+            b12 = tuple([i[0], i[1]])
+            lista_linhas.append(tuple([i[0], i[1], {'z': self.__dic['lines'][b12].get('z')}]))
         return lista_linhas
 
     def ybus(self, show):

@@ -70,9 +70,17 @@ class JanelaMain:
     def __show_grafo(self):
 =======
     def __grafo_add_edge(self, list_linhas):
-        self.__grafo.add_nodes_from(list_linhas)
+        self.__f = Figure(figsize=(5, 4), dpi=100)
+
+        self.__grafo.add_edges_from(list_linhas)
+        self.__grafo_pos = nx.spring_layout(self.__grafo)
+
+        a = self.__f.add_subplot()
+
+        self.__show_grafo(a=a)
 
     def __grafo_add_node(self, list_numBar):
+        self.__f = Figure(figsize=(5, 4), dpi=100)
 
         self.__grafo.add_nodes_from(list_numBar)
 
@@ -611,11 +619,13 @@ class JanelaMain:
                     b1=num_bar1,
                     b2=num_bar2,
                     z_ij=z)
+                # print('\nz = ', z)
                 print("\n\n", self.__info_basic['nums'].get('linhas'), "ª linha adicionada! ")
                 self.__circuito.showLinhas()
 
                 self.__info_basic['nums']['linhas'] += 1
-                # self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
+                self.__grafo_add_edge(list_linhas=self.__circuito.getLinhas())
+                print('\n\nself.__circuito.getLinhas() = ', self.__circuito.getLinhas())
                 config_lin.destroy()
 
         butt_add = tk.Button(
