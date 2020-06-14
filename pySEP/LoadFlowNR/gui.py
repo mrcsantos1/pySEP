@@ -9,8 +9,8 @@ class JanelaMain:
     def __init__(self):
         self.__janela = tk.Tk()
         self.__info_basic = {
-            'nums': {'barras': 0,
-                     'linhas': 0
+            'nums': {'barras': 1,
+                     'linhas': 1
                      },
             'sBase': 100e6,
         }
@@ -206,7 +206,7 @@ class JanelaMain:
 
     def __config_bar(self):
         config_bar = tk.Toplevel()
-        config_bar.title("Configurações da barra " + str(self.__info_basic['nums'].get('barras') + 1))
+        config_bar.title("Configurações da barra " + str(self.__info_basic['nums'].get('barras')))
         config_bar.geometry("800x250")
         config_bar.wm_iconbitmap("images/logo_pySEP.ico")
         config_bar["bg"] = "light goldenrod"
@@ -225,7 +225,7 @@ class JanelaMain:
             justify=tk.CENTER,
             padx=2,
             pady=2,
-            text="Configurações da barra " + str(self.__info_basic['nums'].get('barras') + 1),
+            text="Configurações da barra " + str(self.__info_basic['nums'].get('barras')),
             font=("Helvetica", 20)
         )
         label_titulo.grid(row=0, columnspan=6, padx=5, pady=5)
@@ -504,7 +504,7 @@ class JanelaMain:
             justify=tk.CENTER,
             padx=2,
             pady=2,
-            text="Configurações da " + str(self.__info_basic['nums'].get('barras') + 1) + " ª linha.",
+            text="Configurações da " + str(self.__info_basic['nums'].get('linhas')) + " ª linha.",
             font=("Helvetica", 20)
         )
         label_titulo.grid(row=0, columnspan=5, padx=5, pady=5)
@@ -589,16 +589,14 @@ class JanelaMain:
         # BOTÃO ADICIONAR
         def __add_butt():
 
-            self.__info_basic['nums']['linhas'] += 1
-
             num_bar1 = int(entry_num_barra1.get())
             print('\n\nnum bar1 = ', num_bar1)
 
             num_bar2 = int(entry_num_barra2.get())
-            print('\n\nnum bar2 = ', num_bar2)
+            print('num bar2 = ', num_bar2)
 
             z_linha = str(entry_imp_linha.get())
-            print('\n\nimpedância = ', z_linha)
+            print('impedância = ', z_linha)
 
             if not z_linha.__contains__("+") and not z_linha.__contains__("-"):
                 self.__erro(mensagem="INSERIR A IMPEDÂNCIA NO FORMATO: \n r + x OU r - x !")
@@ -619,13 +617,12 @@ class JanelaMain:
                     b1=num_bar1,
                     b2=num_bar2,
                     z_ij=z)
-                # print('\nz = ', z)
                 print("\n\n", self.__info_basic['nums'].get('linhas'), "ª linha adicionada! ")
                 self.__circuito.showLinhas()
 
                 self.__info_basic['nums']['linhas'] += 1
                 self.__grafo_add_edge(list_linhas=self.__circuito.getLinhas())
-                print('\n\nself.__circuito.getLinhas() = ', self.__circuito.getLinhas())
+                # print('\n\nself.__circuito.getLinhas() = ', self.__circuito.getLinhas())
                 config_lin.destroy()
 
         butt_add = tk.Button(
@@ -646,7 +643,6 @@ class JanelaMain:
     def __add_lin(self, event):
         self.__config_lin()
         self.__text_status.set("Adicionando uma nova linha! ")
-        print('\nAdicionar linha!', event)
 
     @staticmethod
     def set_statusbar(janela_main, textvariable):
