@@ -75,6 +75,11 @@ class JanelaMain:
         canvas.draw()
         canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
+        toolbar_grafo = NavigationToolbar2Tk(canvas, self.__janela)
+        canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+
+
+
     def set_toolbar(self, janela_main):
         toolbar = tk.Frame(janela_main, bg="goldenrod")
 
