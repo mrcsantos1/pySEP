@@ -1,6 +1,8 @@
 import tkinter as tk
+import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+import networkx as nx
 
 import circuito as ckt
 
@@ -33,7 +35,16 @@ class JanelaMain:
 
         self.__circuito = ckt.Circuito(sBase=100e6)
 
-        self.__teste = Figure(figsize=(5, 5), dpi=100)
+        self.__frame_grafo = tk.Frame(
+            master=self.__janela,
+            bg="light goldenrod"
+        )
+        self.__frame_grafo.pack(fill='both', expand=True)
+
+        self.__f = Figure(figsize=(5, 4), dpi=100)
+
+        self.__grafo = nx.Graph()
+        self.__grafo_pos = dict()
 
         self.__s_base()
 
@@ -66,19 +77,38 @@ class JanelaMain:
         menu.add_cascade(label="Editar", menu=sub_edit)
         sub_edit.add_command(label="Desfazer", command=func_teste)
 
-    def __show_grafo(self):
+    def __grafo_add_node(self, list_numBar):
+        # self.__frame_grafo.quit()
+        self.__f = Figure(figsize=(5, 4), dpi=100)
 
-        a = self.__teste.add_subplot(111)
-        a.plot([1, 2, 3, 4, 5, 6, 7], [1, 2, -1, -2, 0, 3, 4])
+        self.__grafo = nx.Graph()
+        self.__grafo_pos = dict()
 
-        canvas = FigureCanvasTkAgg(self.__teste, self.__janela)
+        self.__grafo.add_nodes_from(list_numBar)
+
+        self.__grafo_pos = nx.spring_layout(self.__grafo)
+
+        a = self.__f.add_subplot()
+
+        self.__show_grafo(a=a)
+
+    def __show_grafo(self, a):
+        self.__frame_grafo.destroy()
+        self.__frame_grafo = tk.Frame(
+            master=self.__janela,
+            bg="light goldenrod"
+        )
+        self.__frame_grafo.pack(fill='both', expand=True)
+
+        nx.draw_networkx(self.__grafo, self.__grafo_pos, ax=a)
+
+        canvas = FigureCanvasTkAgg(self.__f, master=self.__frame_grafo)
         canvas.draw()
         canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
-        toolbar_grafo = NavigationToolbar2Tk(canvas, self.__janela)
+        toolbar_grafo = NavigationToolbar2Tk(canvas, self.__frame_grafo)
+        toolbar_grafo.update()
         canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-
-
 
     def set_toolbar(self, janela_main):
         toolbar = tk.Frame(janela_main, bg="goldenrod")
@@ -194,7 +224,7 @@ class JanelaMain:
         config_bar.wm_iconbitmap("images/logo_pySEP.ico")
         config_bar["bg"] = "light goldenrod"
 
-        frame_config = tk.Frame(
+        frame_config = tk.LabelFrame(
             master=config_bar,
             bg="light goldenrod"
         )
@@ -448,7 +478,7 @@ class JanelaMain:
                 self.__circuito.showBarras()
 
                 self.__info_basic['nums']['barras'] += 1
-                self.__show_grafo()
+                self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
                 config_bar.destroy()
 
         butt_add = tk.Button(

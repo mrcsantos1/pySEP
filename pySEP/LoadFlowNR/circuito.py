@@ -45,6 +45,13 @@ class Circuito:
     def showBarras(self):
         bs.showBuses(self.__dic['data'], self.__dic['fluxo'])
 
+    def getBarras(self):
+        """
+        :return: list
+        """
+        lista_barras = [i for i in self.__dic['data']]
+        return lista_barras
+
     def addLinha(self, b1, b2, z_ij):
         ln.addLine(dic=self.__dic['lines'], b1=b1, b2=b2, z_ij=z_ij)
 
