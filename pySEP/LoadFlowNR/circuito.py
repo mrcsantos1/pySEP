@@ -51,6 +51,15 @@ class Circuito:
     def showLinhas(self):
         ln.showLines(self.__dic['lines'])
 
+    def getLinhas(self):
+        """
+        :return: list
+        """
+        lista_linhas = []
+        for i in self.__dic['lines']:
+            lista_linhas.append(tuple([i[0], i[1], {'z': self.__dic['lines'].get('z')}]))
+        return lista_linhas
+
     def ybus(self, show):
         bs.setSesp(dicBarras=self.__dic['data'], dicFlow=self.__dic['fluxo'])
         bs.add_plot(dicBarras=self.__dic['data'], dicPlot=self.__dic['plot'])
