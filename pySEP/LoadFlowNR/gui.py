@@ -129,7 +129,97 @@ class JanelaMain:
         add_linha.bind("<Button-1>", self.__add_lin)
         add_linha.pack(side=tk.LEFT, padx=2, pady=2)
 
+        # Calcular Fluxo de Potência
+        bt_fluxo_calc = tk.Button(
+            master=toolbar,
+            text="Calcular Fluxo de Potência",
+            font=("Helvetica", 11),
+            relief=tk.FLAT,
+            bg="light goldenrod",
+            bd=2,
+            justify=tk.CENTER,
+        )
+        bt_fluxo_calc.bind("<Button-1>", self.__calc_fluxo)
+        bt_fluxo_calc.pack(side=tk.LEFT, padx=2, pady=2)
+
         toolbar.pack(side=tk.TOP, fill=tk.X)
+
+    def __calc_fluxo(self, event):
+        self.__config_fluxo()
+        self.__text_status.set("Fluxo de potência calculado!")
+
+    def __config_fluxo(self):
+        config_fluxo = tk.Toplevel()
+        config_fluxo.title("Calcular Fluxo de Potência")
+        config_fluxo.geometry("450x250")
+        config_fluxo.wm_iconbitmap("images/logo_pySEP.ico")
+        config_fluxo["bg"] = "light goldenrod"
+
+        frame_config = tk.LabelFrame(
+            master=config_fluxo,
+            bg="light goldenrod"
+        )
+        frame_config.pack(fill='both', expand=True)
+
+        # TÍTULO DA JANELA
+        label_titulo = tk.Label(
+            master=frame_config,
+            anchor=tk.CENTER,
+            bg="light goldenrod",
+            justify=tk.CENTER,
+            padx=2,
+            pady=2,
+            text="Calcular Fluxo de Potência",
+            font=("Helvetica", 20)
+        )
+        label_titulo.grid(row=0, columnspan=6, padx=5, pady=5)
+
+        # NÚMERO DA BARRA
+        label_erro_fluxo = tk.Label(
+            master=frame_config,
+            text="Erro de convergência: \nExemplo: 1e-2 ou 0.01",
+            font=("Helvetica", 15),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_erro_fluxo.grid(row=1, column=0, padx=5, pady=5, sticky=tk.W)
+
+        entry_erro_fluxo = tk.Entry(
+            font=("Helvetica", 15),
+            master=frame_config,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        entry_erro_fluxo.focus_set()
+        entry_erro_fluxo.grid(row=1, column=3, padx=5, pady=5, sticky=tk.W)
+
+        # MOSTRAR ITERAÇÕES: True ou False
+        __show_iter = tk.BooleanVar()
+
+        _iter_true = tk.Radiobutton(
+            master=frame_config,
+            text="Mostrar Iterações",
+            font=("Helvetica", 13),
+            variable=__show_iter,
+            value=True,
+            bg="light goldenrod",
+            command=__show_iter.set(True)
+        )
+        _iter_true.grid(row=2, column=0, sticky=tk.W)
+
+        _iter_false = tk.Radiobutton(
+            master=frame_config,
+            text="Não Mostrar Iterações",
+            font=("Helvetica", 13),
+            variable=__show_iter,
+            value=False,
+            bg="light goldenrod",
+            command=__show_iter.set(False)
+        )
+        _iter_false.grid(row=2, column=3, sticky=tk.W)
 
     def __add_bar(self, event):
         self.__config_bar()
@@ -155,6 +245,8 @@ class JanelaMain:
         label_s_base.grid(row=0, columnspan=3, padx=5, pady=5)
 
         frame_s_base = tk.Entry(
+            font=("Helvetica", 15),
+
             master=s_base,
             justify=tk.CENTER, width=30,
             bd=2,
@@ -242,6 +334,8 @@ class JanelaMain:
         label_num_barra.grid(row=1, column=0, padx=5, pady=5, sticky=tk.W)
 
         entry_num_barra = tk.Entry(
+            font=("Helvetica", 15),
+
             master=frame_config,
             justify=tk.CENTER,
             bd=2,
@@ -322,6 +416,8 @@ class JanelaMain:
         label_tensao_barra.grid(row=2, column=0, padx=5, pady=5, sticky=tk.W)
 
         entry_tensao_barra = tk.Entry(
+            font=("Helvetica", 15),
+
             master=frame_config,
             justify=tk.CENTER,
             bd=2,
@@ -342,6 +438,8 @@ class JanelaMain:
         label_ang_barra.grid(row=2, column=3, padx=5, pady=5, sticky=tk.W)
 
         entry_ang_barra = tk.Entry(
+            font=("Helvetica", 15),
+
             master=frame_config,
             justify=tk.CENTER,
             bd=2,
@@ -362,6 +460,8 @@ class JanelaMain:
         label_carga_barra.grid(row=3, column=0, padx=5, pady=5, sticky=tk.W)
 
         entry_carga_barra = tk.Entry(
+            font=("Helvetica", 15),
+
             master=frame_config,
             justify=tk.CENTER,
             bd=2,
@@ -395,6 +495,8 @@ class JanelaMain:
         label_geracao_barra.grid(row=3, column=3, padx=5, pady=5, sticky=tk.W)
 
         entry_geracao_barra = tk.Entry(
+            font=("Helvetica", 15),
+
             master=frame_config,
             justify=tk.CENTER,
             bd=2,
@@ -521,6 +623,8 @@ class JanelaMain:
         label_num_barra1.grid(row=1, column=0, padx=5, pady=5, sticky=tk.W)
 
         entry_num_barra1 = tk.Entry(
+            font=("Helvetica", 15),
+
             master=frame_config,
             justify=tk.CENTER,
             bd=2,
@@ -555,6 +659,8 @@ class JanelaMain:
         label_num_barra2.grid(row=1, column=3, padx=5, pady=5, sticky=tk.W)
 
         entry_num_barra2 = tk.Entry(
+            font=("Helvetica", 15),
+
             master=frame_config,
             justify=tk.CENTER,
             bd=2,
@@ -577,6 +683,8 @@ class JanelaMain:
         label_imp_linha.grid(row=2, columnspan=5, padx=5, pady=5)
 
         entry_imp_linha = tk.Entry(
+            font=("Helvetica", 15),
+
             master=frame_config,
             justify=tk.CENTER,
             bd=2,
