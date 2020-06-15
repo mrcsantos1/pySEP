@@ -2,7 +2,6 @@ import tkinter as tk
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 import networkx as nx
-from PIL import Image, ImageTk
 
 import circuito as ckt
 
@@ -181,7 +180,7 @@ class JanelaMain:
     def __config_fluxo(self):
         config_fluxo = tk.Toplevel()
         config_fluxo.title("Calcular Fluxo de Potência")
-        config_fluxo.geometry("450x250")
+        config_fluxo.geometry("460x250")
         config_fluxo.wm_iconbitmap("images/logo_pySEP.ico")
         config_fluxo["bg"] = "light goldenrod"
 
@@ -250,6 +249,39 @@ class JanelaMain:
             command=__show_iter.set(False)
         )
         _iter_false.grid(row=2, column=3, sticky=tk.W)
+
+        # BOTÃO ADICIONAR
+        def __add_butt():
+            err_flux = float(entry_erro_fluxo.get())
+            print('\n\nErro iterações = ', err_flux)
+
+            show_inter = int(__show_iter.get())
+            print('Mostrar iterações = ', show_inter)
+
+            self.__circuito.calcular_fluxo_pot_nr(
+                erro=err_flux,
+                show=show_inter
+            )
+            print("\n\nFluxo de Potência calculado! ")
+            self.__circuito.showBarras()
+
+            self.__label_logo.destroy()
+            config_fluxo.destroy()
+
+        butt_add = tk.Button(
+            master=frame_config,
+            text="Calcular!", font=("Helvetica", 12), height=2, width=30,
+            bg="goldenrod",
+            bd=3,
+            command=__add_butt,
+            anchor=tk.CENTER,
+            justify=tk.CENTER,
+            compound=tk.CENTER,
+            padx=2,
+            pady=2,
+            relief=tk.GROOVE,
+        )
+        butt_add.grid(row=4, columnspan=5, padx=5, pady=5)
 
     def __add_bar(self, event):
         self.__config_bar()

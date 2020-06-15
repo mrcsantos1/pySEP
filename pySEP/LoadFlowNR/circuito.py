@@ -159,6 +159,7 @@ class Circuito:
                      tensao=tensao,
                      ang=ang)
 
+
 #
 # a = Circuito(sBase=100e6)
 #
@@ -190,18 +191,18 @@ class Circuito:
 # a.perdas(True)
 #
 # a.plot_conv(tensao=True, ang=True)
-
+#
 # _3barras = Circuito(sBase=100e6)
 #
 # _3barras.addBarra(barra=1, code=1, tensao=1.025, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
-# _3barras.addBarra(barra=2, code=2, tensao=1.00, ang=0, carga=400e6 + 200e6 * 1j, geracao=0 + 0 * 1j)
-# _3barras.addBarra(barra=3, code=3, tensao=1.03, ang=0, carga=0 + 0 * 1j, geracao=300e6 + 0 * 1j)
+# _3barras.addBarra(barra=2, code=2, tensao=1.00, ang=0, carga=200e6 + 0 * 1j, geracao=0 + 0 * 1j)
+# _3barras.addBarra(barra=3, code=2, tensao=1.00, ang=0, carga=100e6 + 20e6 * 1j, geracao=0 + 0 * 1j)
 #
-# _3barras.addLinha(1, 2, 0.1j)
-# _3barras.addLinha(1, 3, 0.05j)
-# _3barras.addLinha(2, 3, 0.01j)
+# _3barras.addLinha(1, 2, 0.001 + 0.002j)
+# _3barras.addLinha(1, 3, 0.001 + 0.002j)
+# # _3barras.addLinha(2, 3, 0.01j)
 #
-# _3barras.calcular_fluxo_pot_nr(show=True, erro=0.00000001)
+# _3barras.calcular_fluxo_pot_nr(show=True, erro=0.001)
 # _3barras.showBarras()
 # _3barras.relatorio()
 # _3barras.perdas(True)
