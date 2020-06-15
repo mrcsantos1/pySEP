@@ -93,11 +93,13 @@ def __setJ1(dicBarras, resQ, yBus, listAng, nPQ, nPV):
     print('\n\n\t out_diag_j1 = ', out_diag)
     print('\n\n\t main_diag_j1 = ', main_diag)
     m = 0
+    print('\n\nnPQ = ', nPQ, '\tnPV = ', nPV)
     for i in range(nPQ + nPV):
         for j in range(nPQ + nPV):
             if i == j:
                 j1[i][j] = main_diag[j]
             else:
+                print('\n\n\tm = ', m)
                 j1[i][j] = out_diag[m]
                 m += 1
     j1 = np.around(j1, decimals=5)

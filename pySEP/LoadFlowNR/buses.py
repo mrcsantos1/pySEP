@@ -12,6 +12,11 @@ def addBarra(dicBarras, dicFlow, barra, code, tensao, ang, carga, geracao):
 
 
 def add_nPQV(dicBarras, dicNPQV):
+    dicNPQV['nPQ'] = 0
+    dicNPQV['nPV'] = 0
+    dicNPQV['listAngTens']['ang'] = []
+    dicNPQV['listAngTens']['tensao'] = []
+
     for i in dicBarras:
         if dicBarras[i]['code'] == 2:
             dicNPQV['nPQ'] += 1
