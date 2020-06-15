@@ -1,6 +1,11 @@
 import tkinter as tk
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+<<<<<<< HEAD
+=======
+import networkx as nx
+from PIL import Image, ImageTk
+>>>>>>> 61cee31 (logo adicionada)
 
 import circuito as ckt
 
@@ -35,9 +40,22 @@ class JanelaMain:
 
         self.__teste = Figure(figsize=(5, 5), dpi=100)
 
+        self.__show_logo()
         self.__s_base()
 
         self.__janela.mainloop()
+
+    def __show_logo(self):
+
+        logo = tk.PhotoImage(file="images/pySEP_logo.png")
+
+        self.__label_logo = tk.Label(
+            master=self.__janela,
+            bg="light goldenrod",
+            image=logo,
+        )
+        self.__label_logo.photo = logo
+        self.__label_logo.pack(expand=True)
 
     @staticmethod
     def set_janela(janela_main):
@@ -228,7 +246,7 @@ class JanelaMain:
     def __s_base(self):
         s_base = tk.Toplevel(master=self.__janela)
         s_base.title("\tBem-vindo ao pySEP!!\t")
-        s_base.geometry("500x150+500+500")
+        s_base.geometry("500x175+500+500")
         s_base.wm_iconbitmap("images/logo_pySEP.ico")
         s_base["bg"] = "light goldenrod"
 
@@ -299,7 +317,7 @@ class JanelaMain:
     def __config_bar(self):
         config_bar = tk.Toplevel()
         config_bar.title("Configurações da barra " + str(self.__info_basic['nums'].get('barras')))
-        config_bar.geometry("800x250")
+        config_bar.geometry("1000x275")
         config_bar.wm_iconbitmap("images/logo_pySEP.ico")
         config_bar["bg"] = "light goldenrod"
 
@@ -567,7 +585,12 @@ class JanelaMain:
                 self.__circuito.showBarras()
 
                 self.__info_basic['nums']['barras'] += 1
+<<<<<<< HEAD
                 self.__show_grafo()
+=======
+                self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
+                self.__label_logo.destroy()
+>>>>>>> 61cee31 (logo adicionada)
                 config_bar.destroy()
 
         butt_add = tk.Button(
@@ -588,7 +611,7 @@ class JanelaMain:
     def __config_lin(self):
         config_lin = tk.Toplevel()
         config_lin.title("Configurações de linha ")
-        config_lin.geometry("620x250")
+        config_lin.geometry("815x275")
         config_lin.wm_iconbitmap("images/logo_pySEP.ico")
         config_lin["bg"] = "light goldenrod"
 
@@ -731,6 +754,7 @@ class JanelaMain:
                 self.__info_basic['nums']['linhas'] += 1
                 self.__grafo_add_edge(list_linhas=self.__circuito.getLinhas())
                 # print('\n\nself.__circuito.getLinhas() = ', self.__circuito.getLinhas())
+                self.__label_logo.destroy()
                 config_lin.destroy()
 
         butt_add = tk.Button(
