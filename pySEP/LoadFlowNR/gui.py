@@ -122,9 +122,16 @@ class JanelaMain:
         menu_calc_fluxo.add_command(label="Calcular!", command=self.__calc_fluxo)
         menu_calc_fluxo.add_cascade(label="Relatório Final", command=self.__calc_fluxo_relatorio)
         menu_calc_fluxo.add_cascade(label="Mostrar Perdas", command=self.__calc_fluxo_perdas)
-        menu_calc_fluxo.add_cascade(label="Plotar Convergência da(s) Tensão(ões)", command=func_teste)
-        menu_calc_fluxo.add_cascade(label="Plotar Convergência do(s) Ângulo(os)", command=func_teste)
+        menu_calc_fluxo.add_cascade(label="Plotar Convergência da(s) Tensão(ões)",
+                                    command=self.__calc_fluxo_plot_tensao)
+        menu_calc_fluxo.add_cascade(label="Plotar Convergência do(s) Ângulo(os)", command=self.__calc_fluxo_plot_angulo)
         menu_calc_fluxo.add_separator()
+
+    def __calc_fluxo_plot_tensao(self):
+        self.__circuito.plot_conv(tensao=True, ang=False)
+
+    def __calc_fluxo_plot_angulo(self):
+        self.__circuito.plot_conv(tensao=False, ang=True)
 
     def __calc_fluxo_perdas(self):
         self.__circuito.relatorio(show_tensoes=False, show_correntes=False, show_fluxo=False)
