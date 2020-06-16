@@ -1,4 +1,5 @@
 import tkinter as tk
+import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 import networkx as nx
@@ -118,7 +119,12 @@ class JanelaMain:
         )
         self.__frame_grafo.pack(fill='both', expand=True)
 
-        nx.draw_networkx(self.__grafo, self.__grafo_pos, ax=a)
+        nx.draw_networkx(self.__grafo, self.__grafo_pos, ax=a, font_color='w', font_size=15,
+                         node_size=700, node_color='black', node_shape='s',
+                         width=5, edge_color='black', )
+
+        pesos = nx.get_edge_attributes(self.__grafo, 'z')
+        nx.draw_networkx_edge_labels(self.__grafo, self.__grafo_pos, edge_labels=pesos)
 
         canvas = FigureCanvasTkAgg(self.__f, master=self.__frame_grafo)
         canvas.draw()
