@@ -1,4 +1,5 @@
 import tkinter as tk
+import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 <<<<<<< HEAD
@@ -111,7 +112,26 @@ class JanelaMain:
         a = self.__teste.add_subplot(111)
         a.plot([1, 2, 3, 4, 5, 6, 7], [1, 2, -1, -2, 0, 3, 4])
 
+<<<<<<< HEAD
         canvas = FigureCanvasTkAgg(self.__teste, self.__janela)
+=======
+    def __show_grafo(self, a):
+        self.__frame_grafo.destroy()
+        self.__frame_grafo = tk.Frame(
+            master=self.__janela,
+            bg="light goldenrod"
+        )
+        self.__frame_grafo.pack(fill='both', expand=True)
+
+        nx.draw_networkx(self.__grafo, self.__grafo_pos, ax=a, font_color='w', font_size=15,
+                         node_size=700, node_color='black', node_shape='s',
+                         width=5, edge_color='black', )
+
+        pesos = nx.get_edge_attributes(self.__grafo, 'z')
+        nx.draw_networkx_edge_labels(self.__grafo, self.__grafo_pos, edge_labels=pesos)
+
+        canvas = FigureCanvasTkAgg(self.__f, master=self.__frame_grafo)
+>>>>>>> fbd7d23 (.)
         canvas.draw()
         canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
