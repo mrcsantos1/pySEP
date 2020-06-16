@@ -69,14 +69,19 @@ class JanelaMain:
         janela_main["bg"] = "light goldenrod"
         janela_main["bd"] = 5
 
-    @staticmethod
-    def set_menu(janela_main):
+    # @staticmethod
+    def set_menu(self, janela_main):
+        def __fechar_tudo():
+            self.__janela.destroy()
+            self.__janela.quit()
+
         def func_teste():
             print('\nmenu menu menu menu')
 
         menu = tk.Menu(janela_main, tearoff=False, bg="dark goldenrod")
         janela_main.config(menu=menu)
 
+<<<<<<< HEAD
         sub_file = tk.Menu(menu, tearoff=False)
         menu.add_cascade(label="Arquivo", menu=sub_file)
         sub_file.add_command(label="Novo Projeto", command=func_teste)
@@ -98,14 +103,81 @@ class JanelaMain:
         self.__grafo_pos = nx.spring_layout(self.__grafo)
 
         a = self.__f.add_subplot()
+=======
+        menu_file = tk.Menu(menu, tearoff=False)
+        menu.add_cascade(label="Arquivo", menu=menu_file)
+        menu_file.add_command(label="Novo Projeto", command=func_teste)
+        menu_file.add_command(label="Salvar Projeto", command=func_teste)
+        menu_file.add_command(label="Importar Projeto", command=func_teste)
+        menu_file.add_command(label="Sair", command=__fechar_tudo)
+        menu_file.add_separator()
 
-        self.__show_grafo(a=a)
+        menu_edit = tk.Menu(menu, tearoff=False)
+        menu.add_cascade(label="Editar", menu=menu_edit)
+        menu_edit.add_command(label="Desfazer", command=func_teste)
+        menu_edit.add_separator()
 
-    def __grafo_add_node(self, list_numBar):
-        self.__f = Figure(figsize=(5, 4), dpi=100)
+        menu_calc_fluxo = tk.Menu(master=menu, tearoff=False)
+        menu.add_cascade(label="Fluxo de Potência", menu=menu_calc_fluxo)
+        menu_calc_fluxo.add_command(label="Calcular!", command=self.__calc_fluxo)
+        menu_calc_fluxo.add_cascade(label="Relatório Final", command=self.__calc_fluxo_relatorio)
+        menu_calc_fluxo.add_cascade(label="Mostrar Perdas", command=self.__calc_fluxo_perdas)
+        menu_calc_fluxo.add_cascade(label="Plotar Convergência da(s) Tensão(ões)", command=func_teste)
+        menu_calc_fluxo.add_cascade(label="Plotar Convergência do(s) Ângulo(os)", command=func_teste)
+        menu_calc_fluxo.add_separator()
 
-        self.__grafo.add_nodes_from(list_numBar)
+    def __calc_fluxo_perdas(self):
+        self.__circuito.relatorio(show_tensoes=False, show_correntes=False, show_fluxo=False)
+        self.__circuito.perdas(show=True)
+        self.__text_status.set("Perdas do circuito!")
 
+    def __calc_fluxo_relatorio(self):
+        self.__relatorio_fluxo()
+        self.__text_status.set("Relatório Final!")
+
+    def __relatorio_fluxo(self):  # Talvez depois colocar os resultados em um toplevel ou algo assim
+
+        config_relatorio = tk.Toplevel()
+        config_relatorio.title("Relatório Final do Fluxo de Potência")
+        config_relatorio.geometry("460x250")
+        config_relatorio.wm_iconbitmap("images/logo_pySEP.ico")
+        config_relatorio["bg"] = "light goldenrod"
+
+        frame_relatorio = tk.LabelFrame(
+            master=config_relatorio,
+            bg="light goldenrod"
+        )
+        frame_relatorio.pack(fill='both', expand=True)
+>>>>>>> 7de809c (relatório e perdas)
+
+        # TÍTULO DA JANELA
+        label_titulo = tk.Label(
+            master=frame_relatorio,
+            anchor=tk.CENTER,
+            bg="light goldenrod",
+            justify=tk.CENTER,
+            padx=2,
+            pady=2,
+            text="Relatório Final do Fluxo de Potência",
+            font=("Helvetica", 20)
+        )
+        label_titulo.grid(row=0, columnspan=6, padx=5, pady=5)
+
+        # MOSTRAR TENSÕES: True ou False
+        __relatorio_tensoes = tk.BooleanVar()
+
+        _tensoes_true = tk.Radiobutton(
+            master=frame_relatorio,
+            text="Mostrar Tensões: ",
+            font=("Helvetica", 13),
+            variable=__relatorio_tensoes,
+            value=True,
+            bg="light goldenrod",
+            command=__relatorio_tensoes.set(True)
+        )
+        _tensoes_true.grid(row=2, column=0, sticky=tk.W)
+
+<<<<<<< HEAD
         self.__grafo_pos = nx.spring_layout(self.__grafo)
 >>>>>>> 29cc7eb (.)
 
@@ -120,16 +192,59 @@ class JanelaMain:
         self.__frame_grafo = tk.Frame(
             master=self.__janela,
             bg="light goldenrod"
+=======
+        _tensoes_false = tk.Radiobutton(
+            master=frame_relatorio,
+            text=" Não Mostrar Tensões: ",
+            font=("Helvetica", 13),
+            variable=__relatorio_tensoes,
+            value=False,
+            bg="light goldenrod",
+            command=__relatorio_tensoes.set(True)
         )
-        self.__frame_grafo.pack(fill='both', expand=True)
+        _tensoes_false.grid(row=2, column=3, sticky=tk.W)
 
-        nx.draw_networkx(self.__grafo, self.__grafo_pos, ax=a, font_color='w', font_size=15,
-                         node_size=700, node_color='black', node_shape='s',
-                         width=5, edge_color='black', )
+        # MOSTRAR ÂNGULOS: True ou False
+        __relatorio_corr = tk.BooleanVar()
 
-        pesos = nx.get_edge_attributes(self.__grafo, 'z')
-        nx.draw_networkx_edge_labels(self.__grafo, self.__grafo_pos, edge_labels=pesos)
+        _correntes_true = tk.Radiobutton(
+            master=frame_relatorio,
+            text="Mostrar Correntes",
+            font=("Helvetica", 13),
+            variable=__relatorio_corr,
+            value=True,
+            bg="light goldenrod",
+            command=__relatorio_corr.set(False)
+        )
+        _correntes_true.grid(row=4, column=0, sticky=tk.W)
 
+        _correntes_false = tk.Radiobutton(
+            master=frame_relatorio,
+            text="Não Mostrar Correntes",
+            font=("Helvetica", 13),
+            variable=__relatorio_corr,
+            value=False,
+            bg="light goldenrod",
+            command=__relatorio_corr.set(False)
+>>>>>>> 7de809c (relatório e perdas)
+        )
+        _correntes_false.grid(row=4, column=3, sticky=tk.W)
+
+        # MOSTRAR FLUXO: True ou False
+        __relatorio_fluxo = tk.BooleanVar()
+
+        _fluxo_true = tk.Radiobutton(
+            master=frame_relatorio,
+            text="Mostrar Fluxo",
+            font=("Helvetica", 13),
+            variable=__relatorio_fluxo,
+            value=True,
+            bg="light goldenrod",
+            command=__relatorio_fluxo.set(False)
+        )
+        _fluxo_true.grid(row=6, column=0, sticky=tk.W)
+
+<<<<<<< HEAD
         canvas = FigureCanvasTkAgg(self.__f, master=self.__frame_grafo)
 >>>>>>> fbd7d23 (.)
         canvas.draw()
@@ -142,50 +257,56 @@ class JanelaMain:
 
     def set_toolbar(self, janela_main):
         toolbar = tk.Frame(janela_main, bg="goldenrod")
-
-        # Adicionar Barra
-        add_barra = tk.Button(
-            master=toolbar,
-            text="Adicionar Nova Barra",
-            font=("Helvetica", 11),
-            relief=tk.FLAT,
+=======
+        _fluxo_false = tk.Radiobutton(
+            master=frame_relatorio,
+            text="Não Mostrar Fluxo",
+            font=("Helvetica", 13),
+            variable=__relatorio_fluxo,
+            value=False,
             bg="light goldenrod",
-            bd=2,
-            justify=tk.CENTER,
+            command=__relatorio_fluxo.set(False)
         )
+        _fluxo_false.grid(row=6, column=3, sticky=tk.W)
 
-        add_barra.bind("<Button-1>", self.__add_bar)
-        add_barra.pack(side=tk.LEFT, padx=2, pady=2)
+        # BOTÃO ADICIONAR
+        def __add_butt():
+            info_tensoes = __relatorio_tensoes.get()
+            print('Mostrar tensões = ', info_tensoes)
 
-        # Adicionar Linha
-        add_linha = tk.Button(
-            master=toolbar,
-            text="Adicionar Nova Linha",
-            font=("Helvetica", 11),
-            relief=tk.FLAT,
-            bg="light goldenrod",
-            bd=2,
+            info_corr = __relatorio_corr.get()
+            print('Mostrar correntes = ', info_corr)
+>>>>>>> 7de809c (relatório e perdas)
+
+            info_fluxo = __relatorio_fluxo.get()
+            print('Mostrar Fluxo = ', info_fluxo)
+
+            self.__circuito.relatorio(
+                show_tensoes=info_tensoes,
+                show_correntes=info_corr,
+                show_fluxo=info_fluxo
+            )
+            print("\n\nRelatório Mostrado! ")
+
+            self.__label_logo.destroy()
+            config_relatorio.destroy()
+
+        butt_add = tk.Button(
+            master=frame_relatorio,
+            text="Mostrar!", font=("Helvetica", 12), height=2, width=30,
+            bg="goldenrod",
+            bd=3,
+            command=__add_butt,
+            anchor=tk.CENTER,
             justify=tk.CENTER,
+            compound=tk.CENTER,
+            padx=2,
+            pady=2,
+            relief=tk.GROOVE,
         )
-        add_linha.bind("<Button-1>", self.__add_lin)
-        add_linha.pack(side=tk.LEFT, padx=2, pady=2)
+        butt_add.grid(row=8, columnspan=6, padx=5, pady=5)
 
-        # Calcular Fluxo de Potência
-        bt_fluxo_calc = tk.Button(
-            master=toolbar,
-            text="Calcular Fluxo de Potência",
-            font=("Helvetica", 11),
-            relief=tk.FLAT,
-            bg="light goldenrod",
-            bd=2,
-            justify=tk.CENTER,
-        )
-        bt_fluxo_calc.bind("<Button-1>", self.__calc_fluxo)
-        bt_fluxo_calc.pack(side=tk.LEFT, padx=2, pady=2)
-
-        toolbar.pack(side=tk.TOP, fill=tk.X)
-
-    def __calc_fluxo(self, event):
+    def __calc_fluxo(self):
         self.__config_fluxo()
         self.__text_status.set("Fluxo de potência calculado!")
 
@@ -294,6 +415,82 @@ class JanelaMain:
             relief=tk.GROOVE,
         )
         butt_add.grid(row=4, columnspan=5, padx=5, pady=5)
+
+    def __grafo_add_edge(self, list_linhas):
+        self.__f = Figure(figsize=(5, 4), dpi=100)
+
+        self.__grafo.add_edges_from(list_linhas)
+        self.__grafo_pos = nx.spring_layout(self.__grafo)
+
+        a = self.__f.add_subplot()
+
+        self.__show_grafo(a=a)
+
+    def __grafo_add_node(self, list_numBar):
+        self.__f = Figure(figsize=(5, 4), dpi=100)
+
+        self.__grafo.add_nodes_from(list_numBar)
+
+        self.__grafo_pos = nx.spring_layout(self.__grafo)
+
+        a = self.__f.add_subplot()
+
+        self.__show_grafo(a=a)
+
+    def __show_grafo(self, a):
+        self.__frame_grafo.destroy()
+        self.__frame_grafo = tk.Frame(
+            master=self.__janela,
+            bg="light goldenrod"
+        )
+        self.__frame_grafo.pack(fill='both', expand=True)
+
+        nx.draw_networkx(self.__grafo, self.__grafo_pos, ax=a, font_color='w', font_size=15,
+                         node_size=700, node_color='saddlebrown', node_shape='s',
+                         width=5, edge_color='black', )
+
+        pesos = nx.get_edge_attributes(self.__grafo, 'z')
+        nx.draw_networkx_edge_labels(self.__grafo, self.__grafo_pos, edge_labels=pesos)
+
+        canvas = FigureCanvasTkAgg(self.__f, master=self.__frame_grafo)
+        canvas.draw()
+        canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
+
+        toolbar_grafo = NavigationToolbar2Tk(canvas, self.__frame_grafo)
+        toolbar_grafo.update()
+        canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+
+    def set_toolbar(self, janela_main):
+        toolbar = tk.Frame(janela_main, bg="goldenrod")
+
+        # Adicionar Barra
+        add_barra = tk.Button(
+            master=toolbar,
+            text="Adicionar Nova Barra",
+            font=("Helvetica", 11),
+            relief=tk.FLAT,
+            bg="light goldenrod",
+            bd=2,
+            justify=tk.CENTER,
+        )
+
+        add_barra.bind("<Button-1>", self.__add_bar)
+        add_barra.pack(side=tk.LEFT, padx=2, pady=2)
+
+        # Adicionar Linha
+        add_linha = tk.Button(
+            master=toolbar,
+            text="Adicionar Nova Linha",
+            font=("Helvetica", 11),
+            relief=tk.FLAT,
+            bg="light goldenrod",
+            bd=2,
+            justify=tk.CENTER,
+        )
+        add_linha.bind("<Button-1>", self.__add_lin)
+        add_linha.pack(side=tk.LEFT, padx=2, pady=2)
+
+        toolbar.pack(side=tk.TOP, fill=tk.X)
 
     def __add_bar(self, event):
         self.__config_bar()
