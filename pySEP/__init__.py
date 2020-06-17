@@ -1,3 +1,3 @@
-from run_pysep import start
+from run_pysep import *
 
 print('\t\tpySEP em execução!')
