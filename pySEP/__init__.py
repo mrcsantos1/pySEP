@@ -1,2 +1,2 @@
 from pySEP import *
-print('\t\tpySEP -- OK!')
+print('\t\tpySEP em execução!')
