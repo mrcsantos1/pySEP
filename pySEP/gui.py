@@ -1065,4 +1065,4 @@ class JanelaMain:
     #                            ", " + str(event.y) + " ]")
 
 
-a = JanelaMain()
+# a = JanelaMain()
