@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 
-def __plotTensao(contador, dic_barras, dic_tensoes_plot):
+def plt__plotTensao(contador, dic_barras, dic_tensoes_plot):
     # x = contador - 1
     x = contador
     barras = []
@@ -22,7 +22,7 @@ def __plotTensao(contador, dic_barras, dic_tensoes_plot):
     plt.show()
 
 
-def __plotAng(contador, dic_barras, dic_ang_plot):
+def plt__plotAng(contador, dic_barras, dic_ang_plot):
     # x = contador - 1
     x = contador
     barras = []
@@ -43,8 +43,8 @@ def __plotAng(contador, dic_barras, dic_ang_plot):
     plt.show()
 
 
-def plotData(cont, dic_barras, dic_tens_plot, dic_ang_plot, tensao, ang):
+def plt_plotData(cont, dic_barras, dic_tens_plot, dic_ang_plot, tensao, ang):
     if tensao:
-        __plotTensao(contador=cont, dic_barras=dic_barras, dic_tensoes_plot=dic_tens_plot)
+        plt__plotTensao(contador=cont, dic_barras=dic_barras, dic_tensoes_plot=dic_tens_plot)
     if ang:
-        __plotAng(contador=cont, dic_barras=dic_barras, dic_ang_plot=dic_ang_plot)
+        plt__plotAng(contador=cont, dic_barras=dic_barras, dic_ang_plot=dic_ang_plot)

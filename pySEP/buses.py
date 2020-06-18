@@ -2,16 +2,16 @@ import numpy as np
 
 import math as mt
 import cmath as cmt
-import fluxo as fl
+import pySEP.fluxo as fl
 
 
-def addBarra(dicBarras, dicFlow, barra, code, tensao, ang, carga, geracao):
+def bs_addBarra(dicBarras, dicFlow, barra, code, tensao, ang, carga, geracao):
     dicBarras[barra] = {'code': code, 'tensao': tensao, 'ang': mt.radians(ang),
                         'carga': (carga / fl.getSbase(dicFlow=dicFlow)),
                         'geracao': (geracao / fl.getSbase(dicFlow=dicFlow))}
 
 
-def add_nPQV(dicBarras, dicNPQV):
+def bs_add_nPQV(dicBarras, dicNPQV):
     dicNPQV['nPQ'] = 0
     dicNPQV['nPV'] = 0
     dicNPQV['listAngTens']['ang'] = []
@@ -27,14 +27,14 @@ def add_nPQV(dicBarras, dicNPQV):
             dicNPQV['listAngTens']['ang'].append(i)
 
 
-def add_plot(dicBarras, dicPlot):
+def bs_add_plot(dicBarras, dicPlot):
     for i in dicBarras:
         dicPlot['tensao'][i] = [dicBarras[i].get('tensao')]
         dicPlot['ang'][i] = [dicBarras[i].get('ang')]
 
 
-def relatorioBarras(dicBarras, dicFlow):
-    setSesp(dicBarras=dicBarras, dicFlow=dicFlow)
+def bs_relatorioBarras(dicBarras, dicFlow):
+    bs_setSesp(dicBarras=dicBarras, dicFlow=dicFlow)
     print('\n\n=============================== DADOS: =================================')
     print('Sbase = ', dicFlow.get('Sbase'), ' VA')
     for i in dicBarras:
@@ -43,7 +43,7 @@ def relatorioBarras(dicBarras, dicFlow):
     print('========================================================================')
 
 
-def showBuses(dicBarras, dicFlow):
+def bs_showBuses(dicBarras, dicFlow):
     print('\n\n=============================== DADOS: =================================')
     print('Sbase = ', dicFlow.get('Sbase'), ' VA')
     for i in dicBarras:
@@ -52,7 +52,7 @@ def showBuses(dicBarras, dicFlow):
     print('========================================================================')
 
 
-def setSesp(dicBarras, dicFlow):
+def bs_setSesp(dicBarras, dicFlow):
     for i in dicBarras:
         if dicBarras[i]['code'] != 1:
             dicFlow['Sesp'][i] = {'Pesp': np.real(dicBarras[i].get('geracao')) - np.real(dicBarras[i].get('carga')),
@@ -63,18 +63,18 @@ def setSesp(dicBarras, dicFlow):
     print('========================================================================')
 
 
-def __showTensao(dicTensoes):
+def bs__showTensao(dicTensoes):
     print('============================ TENSÕES: =======================================')
     for i in dicTensoes:
         print('Barra: \t', i, '\tTENSÃO = \t', dicTensoes.get(i), '\t[pu]')
     print('===============================================================================')
 
 
-def tensoes(dicBarras, show):
+def bs_tensoes(dicBarras, show):
     v = dict()
     for i in dicBarras:
         v[i] = cmt.rect(dicBarras.get(i)['tensao'], dicBarras.get(i)['ang'])
     if show:
         print("")
-        __showTensao(v)
+        bs__showTensao(v)
     return v

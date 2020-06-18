@@ -11,7 +11,12 @@ from PIL import Image, ImageTk
 =======
 >>>>>>> c68287f (cálculo fluxo de potência)
 
-import circuito as ckt
+# import circuito as ckt
+from .circuito import Circuito
+
+
+def run():
+    a = JanelaMain()
 
 
 class JanelaMain:
@@ -40,7 +45,8 @@ class JanelaMain:
         # Criando os binds com os eventos de mouse
         self.__janela.bind("<Enter>", self.bemvindo)
 
-        self.__circuito = ckt.Circuito(sBase=100e6)
+        # self.__circuito = ckt.Circuito(sBase=100e6)
+        self.__circuito = Circuito(sBase=100e6)
 
         self.__teste = Figure(figsize=(5, 5), dpi=100)
 
@@ -51,7 +57,7 @@ class JanelaMain:
 
     def __show_logo(self):
 
-        logo = tk.PhotoImage(file="images/pySEP_logo.png")
+        logo = tk.PhotoImage(file="pySEP/images/pySEP_logo.png")
 
         self.__label_logo = tk.Label(
             master=self.__janela,
@@ -65,7 +71,7 @@ class JanelaMain:
     def set_janela(janela_main):
         janela_main.title("pySEP    -    Python em Sistemas Elétricos de Potência!")
         janela_main.geometry("1280x720+100+100")
-        janela_main.wm_iconbitmap("images/logo_pySEP.ico")
+        janela_main.wm_iconbitmap("pySEP/images/logo_pySEP.ico")
         janela_main["bg"] = "light goldenrod"
         janela_main["bd"] = 5
 
@@ -1063,6 +1069,5 @@ class JanelaMain:
     # def mouseArrastado(self, event):
     #     self.__text_status.set("Arrastado até [ " + str(event.x) +
     #                            ", " + str(event.y) + " ]")
-
 
 # a = JanelaMain()

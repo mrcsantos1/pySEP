@@ -1,8 +1,13 @@
-import buses as bs
-import fluxo as fl
-import lines as ln
-import jcb as jcb
-import plotagem as plt
+# import buses as bs
+from pySEP.buses import *
+# import fluxo as fl
+from pySEP.fluxo import *
+# import lines as ln
+from pySEP.lines import *
+# import jcb as jcb
+from pySEP.jcb import jcb_setJacob
+# import plotagem as plt
+from pySEP.plotagem import plt_plotData
 
 
 class Circuito:
@@ -37,19 +42,19 @@ class Circuito:
         self.sBase = sBase
 
     def addBarra(self, barra, code, tensao, ang, carga, geracao):
-        bs.addBarra(dicBarras=self.__dic['data'], dicFlow=self.__dic['fluxo'],
+        bs_addBarra(dicBarras=self.__dic['data'], dicFlow=self.__dic['fluxo'],
                     barra=barra, code=code,
                     tensao=tensao, ang=ang,
                     carga=carga, geracao=geracao)
 
     def showBarras(self):
-        bs.showBuses(self.__dic['data'], self.__dic['fluxo'])
+        bs_showBuses(self.__dic['data'], self.__dic['fluxo'])
 
     def addLinha(self, b1, b2, z_ij):
-        ln.addLine(dic=self.__dic['lines'], b1=b1, b2=b2, z_ij=z_ij)
+        ln_addLine(dic=self.__dic['lines'], b1=b1, b2=b2, z_ij=z_ij)
 
     def showLinhas(self):
-        ln.showLines(self.__dic['lines'])
+        ln_showLines(self.__dic['lines'])
 
     def getLinhas(self):
         """
@@ -62,18 +67,18 @@ class Circuito:
         return lista_linhas
 
     def ybus(self, show):
-        bs.setSesp(dicBarras=self.__dic['data'], dicFlow=self.__dic['fluxo'])
-        bs.add_plot(dicBarras=self.__dic['data'], dicPlot=self.__dic['plot'])
-        bs.add_nPQV(dicBarras=self.__dic['data'], dicNPQV=self.__dic['nPQV'])
-        self.__dic['ybus'] = ln.ybus(self.__dic, showYbus=show)
+        bs_setSesp(dicBarras=self.__dic['data'], dicFlow=self.__dic['fluxo'])
+        bs_add_plot(dicBarras=self.__dic['data'], dicPlot=self.__dic['plot'])
+        bs_add_nPQV(dicBarras=self.__dic['data'], dicNPQV=self.__dic['nPQV'])
+        self.__dic['ybus'] = ln_ybus(self.__dic, showYbus=show)
 
     def pot_inj(self, show):
-        fl.pot_injetada(self.__dic['data'], self.__dic['fluxo'], self.__dic['ybus'], count=self.__count, show=show)
+        fl_pot_injetada(self.__dic['data'], self.__dic['fluxo'], self.__dic['ybus'], count=self.__count, show=show)
 
         print('\ndelta pq = ', self.__dic['fluxo'].get('deltaPQ'))
 
     def jacobiana(self, show):
-        self.__dic['jacobiana'] = jcb.setJacob(dicBarras=self.__dic['data'],
+        self.__dic['jacobiana'] = jcb_setJacob(dicBarras=self.__dic['data'],
                                                resP=self.__dic['fluxo'].get('resP'),
                                                resQ=self.__dic['fluxo'].get('resQ'),
                                                yBus=self.__dic['ybus'],
@@ -81,14 +86,14 @@ class Circuito:
                                                showSubs=show)
 
     def sis_linear(self):
-        fl.sist_linear(dicBarras=self.__dic['data'],
+        fl_sist_linear(dicBarras=self.__dic['data'],
                        dicFlow=self.__dic['fluxo'],
                        dic_nPQV=self.__dic['nPQV'],
                        plot=self.__dic['plot'],
                        jacob=self.__dic['jacobiana'])
 
     def n_pot_inj(self):
-        fl.nova_inj(dicBarras=self.__dic['data'],
+        fl_nova_inj(dicBarras=self.__dic['data'],
                     yBus=self.__dic['ybus'])
 
     def calcular_fluxo_pot_nr(self, show, erro):
@@ -142,11 +147,11 @@ class Circuito:
         print('CONVERGIU EM ', self.__count, ' ITERAÇÕES. ')
 
     def relatorio(self, show_tensoes=False, show_correntes=False, show_fluxo=False):
-        self.__tensoes = bs.tensoes(dicBarras=self.__dic['data'], show=show_tensoes)
-        self.__correntes = ln.correntes(dicBarras=self.__dic['data'], dic_tensoes=self.__tensoes,
+        self.__tensoes = bs_tensoes(dicBarras=self.__dic['data'], show=show_tensoes)
+        self.__correntes = ln_correntes(dicBarras=self.__dic['data'], dic_tensoes=self.__tensoes,
                                         ybus=self.__dic['ybus'],
                                         show=show_correntes)
-        self.__fluxo = fl.fluxo(dic_barras=self.__dic['data'], dic_corr=self.__correntes, dic_v=self.__tensoes,
+        self.__fluxo = fl_fluxo(dic_barras=self.__dic['data'], dic_corr=self.__correntes, dic_v=self.__tensoes,
                                 show=show_fluxo)
 
 <<<<<<< HEAD
@@ -156,18 +161,19 @@ class Circuito:
 =======
     def perdas(self, show):
         self.relatorio()
-        self.__perdas = fl.perdas(dic_fluxo=self.__fluxo, show=show)
+        self.__perdas = fl_perdas(dic_fluxo=self.__fluxo, show=show)
 
 <<<<<<< HEAD
 >>>>>>> 25da3c3 (método de calcular perdas ok)
 =======
     def plot_conv(self, tensao, ang):
-        plt.plotData(cont=self.__count, dic_barras=self.__dic['data'],
+        plt_plotData(cont=self.__count, dic_barras=self.__dic['data'],
                      dic_tens_plot=self.__dic['plot'].get('tensao'),
                      dic_ang_plot=self.__dic['plot'].get('ang'),
                      tensao=tensao,
                      ang=ang)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> e66de72 (plotagem ok)
@@ -215,6 +221,8 @@ a.plot_conv(tensao=True, ang=True)
 =======
 
 >>>>>>> c68287f (cálculo fluxo de potência)
+=======
+>>>>>>> 3ddf0c8 (...)
 #
 # a = Circuito(sBase=100e6)
 #
