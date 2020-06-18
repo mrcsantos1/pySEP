@@ -3,7 +3,7 @@ import math as mt
 import cmath as cmt
 
 
-def setJacob(dicBarras, resP, resQ, yBus, dicNpqv, showSubs=False):
+def jcb_setJacob(dicBarras, resP, resQ, yBus, dicNpqv, showSubs=False):
     npq = dicNpqv.get('nPQ')
     npv = dicNpqv.get('nPV')
 

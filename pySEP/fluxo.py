@@ -3,11 +3,11 @@ import math as mt
 import cmath as cmt
 
 
-def getSbase(dicFlow):
+def fl_getSbase(dicFlow):
     return dicFlow.get('Sbase')
 
 
-def pot_injetada(dicBarras, dicFluxo, yBus, count, show=False):
+def fl_pot_injetada(dicBarras, dicFluxo, yBus, count, show=False):
     dicFluxo['deltaPQ'] = []
     dicFluxo['resP'] = []
     dicFluxo['resQ'] = []
@@ -58,11 +58,11 @@ def pot_injetada(dicBarras, dicFluxo, yBus, count, show=False):
     print('resP = \t', dicFluxo['resP'], '\tresQ = \t', dicFluxo['resQ'])
 
 
-def __inv_jacob(jacobiana):
+def fl__inv_jacob(jacobiana):
     return np.linalg.inv(jacobiana)
 
 
-def sist_linear(dicBarras, dicFlow, dic_nPQV, plot, jacob):
+def fl_sist_linear(dicBarras, dicFlow, dic_nPQV, plot, jacob):
     # inv_jac = __inv_jacob(jacob)
     vet_x = np.linalg.solve(jacob, dicFlow.get('deltaPQ'))
     # vet_x = np.dot(inv_jac, dicFlow.get('deltaPQ'))
@@ -89,7 +89,7 @@ def sist_linear(dicBarras, dicFlow, dic_nPQV, plot, jacob):
             m += 1
 
 
-def nova_inj(dicBarras, yBus):
+def fl_nova_inj(dicBarras, yBus):
     __sBarras = dict()
     for i in dicBarras:
         soma1 = []
@@ -133,7 +133,7 @@ def nova_inj(dicBarras, yBus):
     print('\n\nsBarras = ', __sBarras)
 
 
-def fluxo(dic_corr, dic_v, dic_barras, show):
+def fl_fluxo(dic_corr, dic_v, dic_barras, show):
     flux = dict()
     for i in dic_corr:
         a = i[0]
@@ -149,7 +149,7 @@ def fluxo(dic_corr, dic_v, dic_barras, show):
     return flux
 
 
-def perdas(dic_fluxo, show):
+def fl_perdas(dic_fluxo, show):
     p = float()
     perdas = []
     for i in dic_fluxo:
