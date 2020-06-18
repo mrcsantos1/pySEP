@@ -1,17 +1,7 @@
-# import buses as bs
-# from pySEP.buses import *
 from .buses import *
-# import fluxo as fl
-# from pySEP.fluxo import *
 from .fluxo import *
-# import lines as ln
-# from pySEP.lines import *
 from .lines import *
-# import jcb as jcb
-# from pySEP.jcb import jcb_setJacob
 from .jcb import jcb_setJacob
-# import plotagem as plt
-# from pySEP.plotagem import plt_plotData
 from .plotagem import plt_plotData
 
 
@@ -87,12 +77,8 @@ class Circuito:
     def pot_inj(self, show):
         fl_pot_injetada(self.__dic['data'], self.__dic['fluxo'], self.__dic['ybus'], count=self.__count, show=show)
 
-        print('\ndelta pq = ', self.__dic['fluxo'].get('deltaPQ'))
-
     def jacobiana(self, show):
         self.__dic['jacobiana'] = jcb_setJacob(dicBarras=self.__dic['data'],
-                                               resP=self.__dic['fluxo'].get('resP'),
-                                               resQ=self.__dic['fluxo'].get('resQ'),
                                                yBus=self.__dic['ybus'],
                                                dicNpqv=self.__dic['nPQV'],
                                                showSubs=show)
@@ -134,7 +120,7 @@ class Circuito:
                 if stop == 0:
                     self.__count += 1
                     break
-                if self.__count == 10:
+                if self.__count == 30:
                     self.__count += 1
                     break
                 self.__count += 1
@@ -168,51 +154,3 @@ class Circuito:
                      dic_ang_plot=self.__dic['plot'].get('ang'),
                      tensao=tensao,
                      ang=ang)
-
-#
-# a = Circuito(sBase=100e6)
-#
-# a.addBarra(barra=1, code=1, tensao=1.00, ang=0.00, carga=0.0j, geracao=0 + 0j)
-# a.addBarra(barra=2, code=2, tensao=1.00, ang=0.00, carga=100e6 + 20e6 * 1j, geracao=0 + 0j)
-# a.addBarra(barra=3, code=2, tensao=1.00, ang=0.00, carga=150e6 + 20e6 * 1j, geracao=0 + 0j)
-# a.addBarra(barra=4, code=3, tensao=1.05, ang=0.00, carga=0.0j, geracao=300e6 + 0j)
-# a.addBarra(barra=5, code=2, tensao=1.00, ang=0.00, carga=50e6 + 0 * 1j, geracao=0 + 0j)
-# a.addBarra(barra=6, code=2, tensao=1.00, ang=0.00, carga=100e6 + 0 * 1j, geracao=0 + 0j)
-# a.addBarra(barra=7, code=3, tensao=1.05, ang=0.00, carga=0 + 0 * 1j, geracao=300e6 + 0j)
-# a.addBarra(barra=8, code=2, tensao=1.00, ang=0.00, carga=100e6 + 20e6 * 1j, geracao=0 + 0j)
-# a.addBarra(barra=9, code=2, tensao=1.00, ang=0.00, carga=50e6 + 0 * 1j, geracao=0 + 0j)
-#
-# a.addLinha(b1=1, b2=2, z_ij=0.01 + 0.005j)
-# a.addLinha(b1=1, b2=3, z_ij=0.01 + 0.015j)
-# a.addLinha(b1=1, b2=4, z_ij=0.005 + 0.025j)
-# a.addLinha(b1=1, b2=5, z_ij=0.01 + 0.02j)
-# a.addLinha(b1=4, b2=6, z_ij=0.01 + 0.015j)
-# a.addLinha(b1=3, b2=7, z_ij=0.01 + 0.005j)
-# a.addLinha(b1=7, b2=8, z_ij=0.01 + 0.025j)
-# a.addLinha(b1=2, b2=9, z_ij=0.01 + 0.005j)
-#
-# a.calcular_fluxo_pot_nr(show=True, erro=0.01)
-#
-# a.showBarras()
-#
-# a.relatorio()
-#
-# a.perdas(True)
-#
-# a.plot_conv(tensao=True, ang=True)
-#
-# _3barras = Circuito(sBase=100e6)
-#
-# _3barras.addBarra(barra=1, code=1, tensao=1.025, ang=0, carga=0 + 0 * 1j, geracao=0 + 0 * 1j)
-# _3barras.addBarra(barra=2, code=2, tensao=1.00, ang=0, carga=200e6 + 0 * 1j, geracao=0 + 0 * 1j)
-# _3barras.addBarra(barra=3, code=2, tensao=1.00, ang=0, carga=100e6 + 20e6 * 1j, geracao=0 + 0 * 1j)
-#
-# _3barras.addLinha(1, 2, 0.001 + 0.002j)
-# _3barras.addLinha(1, 3, 0.001 + 0.002j)
-# # _3barras.addLinha(2, 3, 0.01j)
-#
-# _3barras.calcular_fluxo_pot_nr(show=True, erro=0.001)
-# _3barras.showBarras()
-# _3barras.relatorio()
-# _3barras.perdas(True)
-# _3barras.plot_conv(True, True)

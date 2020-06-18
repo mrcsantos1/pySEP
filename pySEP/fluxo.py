@@ -55,7 +55,7 @@ def fl_pot_injetada(dicBarras, dicFluxo, yBus, count, show=False):
     if show:
         for i in dicFluxo['deltaPQ']:
             print("delta P e Q da iteração [", count, "] \t=", i)
-    print('resP = \t', dicFluxo['resP'], '\tresQ = \t', dicFluxo['resQ'])
+    # print('resP = \t', dicFluxo['resP'], '\tresQ = \t', dicFluxo['resQ'])
 
 
 def fl__inv_jacob(jacobiana):
@@ -63,11 +63,8 @@ def fl__inv_jacob(jacobiana):
 
 
 def fl_sist_linear(dicBarras, dicFlow, dic_nPQV, plot, jacob):
-    # inv_jac = __inv_jacob(jacob)
     vet_x = np.linalg.solve(jacob, dicFlow.get('deltaPQ'))
-    # vet_x = np.dot(inv_jac, dicFlow.get('deltaPQ'))
-    # print('\n\nJ-1: \n', inv_jac)
-    print('\n\nx = ', vet_x)
+    # print('\n\nx = ', vet_x)
     ang = []
     tens = []
     for i in range(len(vet_x)):
@@ -130,7 +127,7 @@ def fl_nova_inj(dicBarras, yBus):
         elif dicBarras[i]['code'] == 3:
             dicBarras[i]['geracao'] = np.real(dicBarras[i].get('geracao')) + __sBarras[i].get('Q') * 1j
 
-    print('\n\nsBarras = ', __sBarras)
+    # print('\n\nsBarras = ', __sBarras)
 
 
 def fl_fluxo(dic_corr, dic_v, dic_barras, show):
