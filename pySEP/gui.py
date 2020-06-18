@@ -52,7 +52,7 @@ class JanelaMain:
 
     def __show_logo(self):
 
-        logo = tk.PhotoImage(file="pySEP/images/pySEP_logo.png")
+        logo = tk.PhotoImage(file="pySEP/pySEP_logo.png")
 
         self.__label_logo = tk.Label(
             master=self.__janela,
@@ -66,7 +66,7 @@ class JanelaMain:
     def set_janela(janela_main):
         janela_main.title("pySEP    -    Python em Sistemas Elétricos de Potência!")
         janela_main.geometry("1280x720+100+100")
-        janela_main.wm_iconbitmap("pySEP/images/logo_pySEP.ico")
+        janela_main.wm_iconbitmap("pySEP/logo_pySEP.ico")
         janela_main["bg"] = "light goldenrod"
         janela_main["bd"] = 5
 
@@ -148,7 +148,7 @@ class JanelaMain:
         config_relatorio = tk.Toplevel()
         config_relatorio.title("Relatório Final do Fluxo de Potência")
         config_relatorio.geometry("460x250")
-        config_relatorio.wm_iconbitmap("pySEP/images/logo_pySEP.ico")
+        config_relatorio.wm_iconbitmap("pySEP/logo_pySEP.ico")
         config_relatorio["bg"] = "light goldenrod"
 
         frame_relatorio = tk.LabelFrame(
