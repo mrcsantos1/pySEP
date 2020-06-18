@@ -1,14 +1,13 @@
 import numpy as np
-
 import math as mt
 import cmath as cmt
-import pySEP.fluxo as fl
+from .fluxo import *
 
 
 def bs_addBarra(dicBarras, dicFlow, barra, code, tensao, ang, carga, geracao):
     dicBarras[barra] = {'code': code, 'tensao': tensao, 'ang': mt.radians(ang),
-                        'carga': (carga / fl.getSbase(dicFlow=dicFlow)),
-                        'geracao': (geracao / fl.getSbase(dicFlow=dicFlow))}
+                        'carga': (carga / fl_getSbase(dicFlow=dicFlow)),
+                        'geracao': (geracao / fl_getSbase(dicFlow=dicFlow))}
 
 
 def bs_add_nPQV(dicBarras, dicNPQV):
