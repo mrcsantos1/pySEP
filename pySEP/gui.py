@@ -12,7 +12,7 @@ from PIL import Image, ImageTk
 >>>>>>> c68287f (cálculo fluxo de potência)
 
 # import circuito as ckt
-from .circuito import Circuito
+from pySEP.circuito import Circuito
 
 
 def run():
@@ -57,7 +57,7 @@ class JanelaMain:
 
     def __show_logo(self):
 
-        logo = tk.PhotoImage(file="pySEP/images/pySEP_logo.png")
+        logo = tk.PhotoImage(file=".images/pySEP_logo.png")
 
         self.__label_logo = tk.Label(
             master=self.__janela,
@@ -71,7 +71,7 @@ class JanelaMain:
     def set_janela(janela_main):
         janela_main.title("pySEP    -    Python em Sistemas Elétricos de Potência!")
         janela_main.geometry("1280x720+100+100")
-        janela_main.wm_iconbitmap("pySEP/images/logo_pySEP.ico")
+        janela_main.wm_iconbitmap(".images/logo_pySEP.ico")
         janela_main["bg"] = "light goldenrod"
         janela_main["bd"] = 5
 
