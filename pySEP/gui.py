@@ -454,12 +454,17 @@ class JanelaMain:
         )
         self.__frame_grafo.pack(fill='both', expand=True)
 
+        pesos = nx.get_edge_attributes(self.__grafo, 'z')
+
         nx.draw_networkx(self.__grafo, self.__grafo_pos, ax=a, font_color='w', font_size=15,
                          node_size=700, node_color='saddlebrown', node_shape='s',
-                         width=5, edge_color='black', )
+                         width=5, edge_color='black')
 
-        pesos = nx.get_edge_attributes(self.__grafo, 'z')
-        nx.draw_networkx_edge_labels(self.__grafo, self.__grafo_pos, edge_labels=pesos)
+        print('\n\npesos = ', pesos)
+        # {('s', '1'): 9.0, ('s', '3'): 9.0, ('1', '2'): 5.0, ('1', '4'): 4.0, ('2', '3'): 4.0, ('2', '4'): 5.0, ('3', '4'): 5.0, ('4', 't'): 9.0}
+        nx.draw_networkx_edge_labels(self.__grafo, self.__grafo_pos, ax=a, font_size=20,
+                                     node_size=700, node_color='saddlebrown', node_shape='s',
+                                     width=5, edge_color='black', edge_labels=pesos, font_color='black')
 
         canvas = FigureCanvasTkAgg(self.__f, master=self.__frame_grafo)
         canvas.draw()
