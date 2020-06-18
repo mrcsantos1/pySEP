@@ -519,7 +519,7 @@ class JanelaMain:
             justify=tk.CENTER,
             padx=2,
             pady=2,
-            text="Defina um valor base para o sistema em VA!\nInserir conforme exemplo: 100e6",
+            text="Defina um valor base para o sistema em [VA]!\nInserir conforme exemplo: 100e6",
             font=("Helvetica", 18)
         )
         label_s_base.grid(row=0, columnspan=3, padx=5, pady=5)
