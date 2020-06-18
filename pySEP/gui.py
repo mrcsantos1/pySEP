@@ -52,7 +52,7 @@ class JanelaMain:
 
     def __show_logo(self):
 
-        logo = tk.PhotoImage(file="pySEP/images/pySEP_logo.png")
+        logo = tk.PhotoImage(file="pySEP/package_data/pySEP_logo.png")
 
         self.__label_logo = tk.Label(
             master=self.__janela,
@@ -66,7 +66,7 @@ class JanelaMain:
     def set_janela(janela_main):
         janela_main.title("pySEP    -    Python em Sistemas Elétricos de Potência!")
         janela_main.geometry("1280x720+100+100")
-        janela_main.wm_iconbitmap("pySEP/images/logo_pySEP.ico")
+        janela_main.wm_iconbitmap("pySEP/package_data/logo_pySEP.ico")
         janela_main["bg"] = "light goldenrod"
         janela_main["bd"] = 5
 
@@ -148,7 +148,7 @@ class JanelaMain:
         config_relatorio = tk.Toplevel()
         config_relatorio.title("Relatório Final do Fluxo de Potência")
         config_relatorio.geometry("460x250")
-        config_relatorio.wm_iconbitmap("pySEP/images/logo_pySEP.ico")
+        config_relatorio.wm_iconbitmap("pySEP/package_data/logo_pySEP.ico")
         config_relatorio["bg"] = "light goldenrod"
 
         frame_relatorio = tk.LabelFrame(
@@ -322,7 +322,7 @@ class JanelaMain:
         config_fluxo = tk.Toplevel()
         config_fluxo.title("Calcular Fluxo de Potência")
         config_fluxo.geometry("460x250")
-        config_fluxo.wm_iconbitmap("pySEP/images/logo_pySEP.ico")
+        config_fluxo.wm_iconbitmap("pySEP/package_data/logo_pySEP.ico")
         config_fluxo["bg"] = "light goldenrod"
 
         frame_config = tk.LabelFrame(
@@ -511,7 +511,7 @@ class JanelaMain:
         s_base = tk.Toplevel(master=self.__janela)
         s_base.title("\tBem-vindo ao pySEP!!\t")
         s_base.geometry("500x175+500+500")
-        s_base.wm_iconbitmap("pySEP/images/logo_pySEP.ico")
+        s_base.wm_iconbitmap("pySEP/package_data/logo_pySEP.ico")
         s_base["bg"] = "light goldenrod"
 
         label_s_base = tk.Label(
@@ -562,7 +562,7 @@ class JanelaMain:
         erro = tk.Toplevel()
         erro.title("\tERRO!!\t")
         erro.geometry("400x250")
-        erro.wm_iconbitmap("pySEP/images/logo_pySEP.ico")
+        erro.wm_iconbitmap("pySEP/package_data/logo_pySEP.ico")
         erro["bg"] = "red"
 
         label_erro = tk.Label(
@@ -581,7 +581,7 @@ class JanelaMain:
         config_bar = tk.Toplevel()
         config_bar.title("Configurações da barra " + str(self.__info_basic['nums'].get('barras')))
         config_bar.geometry("1000x275")
-        config_bar.wm_iconbitmap("pySEP/images/logo_pySEP.ico")
+        config_bar.wm_iconbitmap("pySEP/package_data/logo_pySEP.ico")
         config_bar["bg"] = "light goldenrod"
 
         frame_config = tk.Frame(
@@ -875,7 +875,7 @@ class JanelaMain:
         config_lin = tk.Toplevel()
         config_lin.title("Configurações de linha ")
         config_lin.geometry("815x275")
-        config_lin.wm_iconbitmap("pySEP/images/logo_pySEP.ico")
+        config_lin.wm_iconbitmap("pySEP/package_data/logo_pySEP.ico")
         config_lin["bg"] = "light goldenrod"
 
         frame_config = tk.LabelFrame(
