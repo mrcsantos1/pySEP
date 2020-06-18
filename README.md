@@ -96,11 +96,11 @@ import pySEP
 
 pySEP.run_gui()  
 ```  
-![enter image description here](https://raw.githubusercontent.com/mrcsantos1/pySEP/master/images/gui_1.png?token=ALGD7PXZYJBIGYCLSVYGEDC65MNPU)
+![enter image description here](https://www.imagemhost.com.br/images/2020/06/18/gui_1.png)
 
 The same before example can be executed with the GUI of the pySEP. This GUI was developed with theoretical graph. 
 
-![enter image description here](https://raw.githubusercontent.com/mrcsantos1/pySEP/master/images/gui_2.png?token=ALGD7PQM2PWQRXYN2QSN35S65MNQO)
+![enter image description here](https://www.imagemhost.com.br/images/2020/06/18/gui_2.png)
   
  
 ## Built With  
