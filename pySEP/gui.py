@@ -460,8 +460,6 @@ class JanelaMain:
                          node_size=700, node_color='saddlebrown', node_shape='s',
                          width=5, edge_color='black')
 
-        print('\n\npesos = ', pesos)
-        # {('s', '1'): 9.0, ('s', '3'): 9.0, ('1', '2'): 5.0, ('1', '4'): 4.0, ('2', '3'): 4.0, ('2', '4'): 5.0, ('3', '4'): 5.0, ('4', 't'): 9.0}
         nx.draw_networkx_edge_labels(self.__grafo, self.__grafo_pos, ax=a, font_size=20,
                                      node_size=700, node_color='saddlebrown', node_shape='s',
                                      width=5, edge_color='black', edge_labels=pesos, font_color='black')
@@ -558,7 +556,6 @@ class JanelaMain:
             compound=tk.CENTER,
             padx=2,
             pady=2,
-            # relief=tk.FLAT,
         )
         button_s_base.grid(row=2, columnspan=3, padx=5, pady=5)
 
@@ -1020,7 +1017,6 @@ class JanelaMain:
 
                 self.__info_basic['nums']['linhas'] += 1
                 self.__grafo_add_edge(list_linhas=self.__circuito.getLinhas())
-                # print('\n\nself.__circuito.getLinhas() = ', self.__circuito.getLinhas())
                 self.__label_logo.destroy()
                 config_lin.destroy()
 
@@ -1058,17 +1054,3 @@ class JanelaMain:
 
     def bemvindo(self, event):
         self.__text_status.set("Bem-vindo ao pySEP!")
-
-    # def botaoPressionado(self, event):
-    #     self.__text_status.set("Pressionado em [ " + str(event.x) +
-    #                            ", " + str(event.y) + " ]")
-
-    # def botaoLiberado(self, event):
-    #     self.__text_status.set("Solto em [ " + str(event.x) +
-    #                            ", " + str(event.y) + " ]")
-
-    # def mouseArrastado(self, event):
-    #     self.__text_status.set("Arrastado até [ " + str(event.x) +
-    #                            ", " + str(event.y) + " ]")
-
-# a = JanelaMain()

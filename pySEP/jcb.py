@@ -3,7 +3,7 @@ import math as mt
 import cmath as cmt
 
 
-def jcb_setJacob(dicBarras, resP, resQ, yBus, dicNpqv, showSubs=False):
+def jcb_setJacob(dicBarras, yBus, dicNpqv, showSubs=False):
     npq = dicNpqv.get('nPQ')
     npv = dicNpqv.get('nPV')
 
@@ -11,14 +11,13 @@ def jcb_setJacob(dicBarras, resP, resQ, yBus, dicNpqv, showSubs=False):
 
     n_x_n = (2 * npq) + npv
 
-    j1 = __setJ1(dicBarras=dicBarras, resQ=resQ, yBus=yBus, listAng=list_ang, nPQ=npq,
+    j1 = __setJ1(dicBarras=dicBarras, yBus=yBus, listAng=list_ang, nPQ=npq,
                  nPV=npv)  # (nPQ  + nPV) X (nPQ + nPV)
-    j2 = __setJ2(dicBarras=dicBarras, resP=resP, yBus=yBus, listAng=list_ang, nPQ=npq,
+    j2 = __setJ2(dicBarras=dicBarras, yBus=yBus, listAng=list_ang, nPQ=npq,
                  nPV=npv)  # (nPQ + nPV) X (nPQ)
-    j3 = __setJ3(dicBarras=dicBarras, resP=resP, yBus=yBus, listAng=list_ang, nPQ=npq,
+    j3 = __setJ3(dicBarras=dicBarras, yBus=yBus, listAng=list_ang, nPQ=npq,
                  nPV=npv)  # (nPQ) X (nPQ + nPV)
-    j4 = __setJ4(dicBarras=dicBarras, resQ=resQ, yBus=yBus, listAng=list_ang, nPQ=npq,
-                 nPV=npv)  # (nPQ) X (nPQ)
+    j4 = __setJ4(dicBarras=dicBarras, yBus=yBus, listAng=list_ang, nPQ=npq)  # (nPQ) X (nPQ)
 
     dic_jacob = np.zeros((n_x_n, n_x_n))
 
@@ -57,7 +56,7 @@ def jcb_setJacob(dicBarras, resP, resQ, yBus, dicNpqv, showSubs=False):
     return dic_jacob
 
 
-def __setJ1(dicBarras, resQ, yBus, listAng, nPQ, nPV):
+def __setJ1(dicBarras, yBus, listAng, nPQ, nPV):
     j1 = np.ones((nPQ + nPV, nPQ + nPV))
 
     main_diag = []
@@ -90,23 +89,19 @@ def __setJ1(dicBarras, resQ, yBus, listAng, nPQ, nPV):
                         dicBarras.get(j)['ang']
                     )
                 )
-    print('\n\n\t out_diag_j1 = ', out_diag)
-    print('\n\n\t main_diag_j1 = ', main_diag)
     m = 0
-    print('\n\nnPQ = ', nPQ, '\tnPV = ', nPV)
     for i in range(nPQ + nPV):
         for j in range(nPQ + nPV):
             if i == j:
                 j1[i][j] = main_diag[j]
             else:
-                print('\n\n\tm = ', m)
                 j1[i][j] = out_diag[m]
                 m += 1
     j1 = np.around(j1, decimals=5)
     return j1
 
 
-def __setJ2(dicBarras, resP, yBus, listAng, nPQ, nPV):
+def __setJ2(dicBarras, yBus, listAng, nPQ, nPV):
     j2 = np.ones((nPQ + nPV, nPQ))
 
     main_diag = []
@@ -141,44 +136,20 @@ def __setJ2(dicBarras, resP, yBus, listAng, nPQ, nPV):
                         dicBarras.get(j)['ang']
                     )
                 )
-    print('\n\n\t out_diag_j2 = ', out_diag)
-    print('\n\n\t main_diag_j2 = ', main_diag)
     m = 0
     for i in range(nPQ + nPV):
         for j in range(nPQ):
             if i == j:
                 j2[i][j] = main_diag[j]
-                # m += 1
             else:
                 j2[i][j] = out_diag[m]
                 m += 1
-            # if i < nPV:
-            #     q = out_diag[m]
-            #     if q < 0:
-            #         j2[i][j] = out_diag[m]
-            #     else:
-            #         j2[i][j] = out_diag[m]
-            #     m += 1
-            # elif i >= nPV:
-            #     if i - nPV == j:
-            #         q = main_diag[j + nPV]
-            #         if q < 0:
-            #             j2[i][j] = main_diag[j + nPV]
-            #         else:
-            #             j2[i][j] = main_diag[j + nPV]
-            #     else:
-            #         q = out_diag[m]
-            #         if q < 0:
-            #             j2[i][j] = out_diag[m]
-            #         else:
-            #             j2[i][j] = out_diag[m]
-            #         m += 1
 
     j2 = np.around(j2, decimals=5)
     return j2
 
 
-def __setJ3(dicBarras, resP, yBus, listAng, nPQ, nPV):
+def __setJ3(dicBarras, yBus, listAng, nPQ, nPV):
     j3 = np.ones((nPQ, nPQ + nPV))
 
     main_diag = []
@@ -211,51 +182,26 @@ def __setJ3(dicBarras, resP, yBus, listAng, nPQ, nPV):
                         dicBarras.get(j)['ang']
                     )
                 )
-    print('\n\n\t out_diag_j3 = ', out_diag)
-    print('\n\n\t main_diag_j3 = ', main_diag)
     m = 0
-
     for i in range(nPQ):
         for j in range(nPQ + nPV):
             if i == j:
                 j3[i][j] = main_diag[j]
-                # m += 1
             else:
                 j3[i][j] = out_diag[m]
                 m += 1
-            # if j < nPV:
-            #     q = out_diag[m]
-            #     if q < 0:
-            #         j3[i][j] = out_diag[m]
-            #     else:
-            #         j3[i][j] = out_diag[m]
-            #     m += 1
-            # elif j >= nPV:
-            #     if j - nPV == i:
-            #         q = main_diag[i + nPV]
-            #         if q < 0:
-            #             j3[i][j] = main_diag[i + nPV]
-            #         else:
-            #             j3[i][j] = main_diag[i + nPV]
-            #     else:
-            #         q = out_diag[m]
-            #         if q < 0:
-            #             j3[i][j] = out_diag[m]
-            #         else:
-            #             j3[i][j] = out_diag[m]
-            #         m += 1
+
     j3 = np.around(j3, decimals=5)
     return j3
 
 
-def __setJ4(dicBarras, resQ, yBus, listAng, nPQ, nPV):
+def __setJ4(dicBarras, yBus, listAng, nPQ):
     j4 = np.ones((nPQ, nPQ))
 
     main_diag = []
     out_diag = []
     for i in listAng:
         soma = []
-        # for j in range(1, len(dicBarras) + 1, 1):
         for j in range(1, len(dicBarras) + 1, 1):
             if i != j:
                 soma.append(
@@ -285,25 +231,12 @@ def __setJ4(dicBarras, resQ, yBus, listAng, nPQ, nPV):
                     )
                 )
     m = 0
-    print('\n\n\t out_diag_j4 = ', out_diag)
-    print('\n\n\t main_diag_j4 = ', main_diag)
 
     for i in range(nPQ):
         for j in range(nPQ):
             if i == j:
-                # q = main_diag[j + nPV]
-                # if q < 0:
-                #     j4[i][j] = main_diag[j + nPV-1]
-                # else:
-                #     j4[i][j] = main_diag[j + nPV-1]
                 j4[i][j] = main_diag[j]
-                # m += 1
             else:
-                # q = out_diag[m]
-                # if q < 0:
-                #     j4[i][j] = out_diag[m]
-                # else:
-                #     j4[i][j] = out_diag[m]
                 j4[i][j] = out_diag[m]
                 m += 1
 

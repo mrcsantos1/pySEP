@@ -1,17 +1,7 @@
-# import buses as bs
-# from pySEP.buses import *
 from .buses import *
-# import fluxo as fl
-# from pySEP.fluxo import *
 from .fluxo import *
-# import lines as ln
-# from pySEP.lines import *
 from .lines import *
-# import jcb as jcb
-# from pySEP.jcb import jcb_setJacob
 from .jcb import jcb_setJacob
-# import plotagem as plt
-# from pySEP.plotagem import plt_plotData
 from .plotagem import plt_plotData
 
 
@@ -80,12 +70,8 @@ class Circuito:
     def pot_inj(self, show):
         fl_pot_injetada(self.__dic['data'], self.__dic['fluxo'], self.__dic['ybus'], count=self.__count, show=show)
 
-        print('\ndelta pq = ', self.__dic['fluxo'].get('deltaPQ'))
-
     def jacobiana(self, show):
         self.__dic['jacobiana'] = jcb_setJacob(dicBarras=self.__dic['data'],
-                                               resP=self.__dic['fluxo'].get('resP'),
-                                               resQ=self.__dic['fluxo'].get('resQ'),
                                                yBus=self.__dic['ybus'],
                                                dicNpqv=self.__dic['nPQV'],
                                                showSubs=show)
@@ -129,6 +115,7 @@ class Circuito:
                     break
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 if self.__count == 2:
 =======
                 if self.__count == 100:
@@ -136,6 +123,9 @@ class Circuito:
 =======
                 if self.__count == 10:
 >>>>>>> 13fa90e (Terminar próximos passos e começar GUI)
+=======
+                if self.__count == 30:
+>>>>>>> f3c8366 (segue testes do artigo)
                     self.__count += 1
                     break
                 self.__count += 1
@@ -177,6 +167,7 @@ class Circuito:
                      dic_ang_plot=self.__dic['plot'].get('ang'),
                      tensao=tensao,
                      ang=ang)
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -421,3 +412,5 @@ _3barras.showBarras()
 # _3barras.perdas(True)
 # _3barras.plot_conv(True, True)
 >>>>>>> 6d4b3f0 (.)
+=======
+>>>>>>> f3c8366 (segue testes do artigo)
