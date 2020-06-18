@@ -1,10 +1,9 @@
 import tkinter as tk
-import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 import networkx as nx
 
-# import circuito as ckt
+
 from .circuito import Circuito
 
 
