@@ -1,13 +1,18 @@
 # import buses as bs
-from pySEP.buses import *
+# from pySEP.buses import *
+from .buses import *
 # import fluxo as fl
-from pySEP.fluxo import *
+# from pySEP.fluxo import *
+from .fluxo import *
 # import lines as ln
-from pySEP.lines import *
+# from pySEP.lines import *
+from .lines import *
 # import jcb as jcb
-from pySEP.jcb import jcb_setJacob
+# from pySEP.jcb import jcb_setJacob
+from .jcb import jcb_setJacob
 # import plotagem as plt
-from pySEP.plotagem import plt_plotData
+# from pySEP.plotagem import plt_plotData
+from .plotagem import plt_plotData
 
 
 class Circuito:
