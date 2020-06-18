@@ -4,7 +4,7 @@ import os
 
 def get_long_description():
     with open(os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), 'README.md'
+            os.path.dirname(os.path.abspath(__file__)), 'README.md'
     ), encoding='utf8') as fp:
         return fp.read()
 
@@ -15,6 +15,9 @@ setup(
     author='Marcos Alves dos Santos',
     author_email='mrcsantos1@outlook.com',
     packages=['pySEP'],
+    data_files=[
+        ('package_data', ['logo_pySEP.ico', 'pySEP_logo.png']),
+    ],
 
     description='Pacote Open Source desenvolvido no Brasil para modelar e simular Sistemas Elétricos de Potência. '
                 'Open Source Package developed in Brazil to model and simulate Electric Power Systems',
