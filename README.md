@@ -98,7 +98,9 @@ pySEP.run_gui()
 ```  
 ![enter image description here](https://www.imagemhost.com.br/images/2020/06/18/gui_1.png)
 
+
 The same before example can be executed with the GUI of the pySEP. This GUI was developed with theoretical graph. 
+#### To use the pySEP GUI, please, download this package in [this link](https://github.com/mrcsantos1/pySEP/archive/master.zip).
 
 ![enter image description here](https://www.imagemhost.com.br/images/2020/06/18/gui_2.png)
   

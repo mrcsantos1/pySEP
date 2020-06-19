@@ -11,12 +11,12 @@ def get_long_description():
 
 setup(
     name='pySEP',
-    version='1.0.8',
+    version='1.0.11',
     author='Marcos Alves dos Santos',
     author_email='mrcsantos1@outlook.com',
     packages=['pySEP'],
     data_files=[
-        ('package_data', ['logo_pySEP.ico', 'pySEP_logo.png']),
+        ('pySEP', ['pySEP/logo_pySEP.ico', 'pySEP/pySEP_logo.png']),
     ],
 
     description='Pacote Open Source desenvolvido no Brasil para modelar e simular Sistemas Elétricos de Potência. '
