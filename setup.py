@@ -15,9 +15,6 @@ setup(
     author='Marcos Alves dos Santos',
     author_email='mrcsantos1@outlook.com',
     packages=['pySEP'],
-    data_files=[
-        ('pySEP', ['pySEP/logo_pySEP.ico', 'pySEP/pySEP_logo.png']),
-    ],
 
     description='Pacote Open Source desenvolvido no Brasil para modelar e simular Sistemas Elétricos de Potência. '
                 'Open Source Package developed in Brazil to model and simulate Electric Power Systems',
