@@ -418,47 +418,47 @@ class Malha:
                   '\nTensão de passo de malha é maior que a tensão de passo máxima! '
                   '\nÉ NECESSÁRIO MODIFICAR O PROJETO! ')
 
-
-a = Malha()
-a.add_info_brita(profundidade=0.15, resistividade=3000)
-a.add_info_solo(num_camada=1, profundidade=0.8, resistividade=520)
-a.add_info_solo(num_camada=2, profundidade=1.2, resistividade=440)
-a.add_info_solo(num_camada=3, profundidade=1.8, resistividade=290)
-a.add_info_solo(num_camada=4, profundidade=1e3, resistividade=180)
-
-a.add_icc(i_cc=5e3)
-a.add_i_malha(i_malha=1.9e3)
-a.add_t_protecao(t_protecao=0.3)
-a.add_t_defeito(t_defeito=0.3)
-a.add_temp_ambiente(temp_ambiente=20)
-a.add_temp_max_permissivel(temp_max_permissivel=850)
-
-# a.add_hastes(hastes=2000)
-
-a.add_dimensoes(largura=120, comprimento=120, esp_larg=0.1, esp_compr=0.1, profundidade_malha=1.3,
-                malha_com_hastes_na_periferia=False,
-                malha_sem_hastes_na_periferia=True)
-
-a.show_solo()
-# a.calc_pa(1.3, show=True)
-# a.calc_k(show=True)
-# a.calc_cs(iteracoes=3, show=True)
-# a.calc_v_toq_max(show=True)
-# a.calc_v_passo_max(show=True)
-# a.calc_s_cobre(show=True)
-# a.calc_num_cond_paralelo(show=True)
-# a.calc_comprimento_condutores(show=True)
 #
-# a.calc_r_malha(show=True)
-a.testar_ri_v(show=True, profundidade_haste=1.3)
-
-# a.calc_kii(show=True)
-# a.calc_kp(show=True)
-# a.calc_km(show=True)
-# a.calc_ki(show=True)
-# a.calc_v_malha(show=True)
-a.testar_vmalha_vtoq(show=True)
-
-# a.calc_kpp(show=True)
-# a.calc_vpsm(show=True)
-a.testar_vpsm_vpasso(show=True)
+# a = Malha()
+# a.add_info_brita(profundidade=0.15, resistividade=3000)
+# a.add_info_solo(num_camada=1, profundidade=0.8, resistividade=520)
+# a.add_info_solo(num_camada=2, profundidade=1.2, resistividade=440)
+# a.add_info_solo(num_camada=3, profundidade=1.8, resistividade=290)
+# a.add_info_solo(num_camada=4, profundidade=1e3, resistividade=180)
+#
+# a.add_icc(i_cc=5e3)
+# a.add_i_malha(i_malha=1.9e3)
+# a.add_t_protecao(t_protecao=0.3)
+# a.add_t_defeito(t_defeito=0.3)
+# a.add_temp_ambiente(temp_ambiente=20)
+# a.add_temp_max_permissivel(temp_max_permissivel=850)
+#
+# # a.add_hastes(hastes=2000)
+#
+# a.add_dimensoes(largura=120, comprimento=120, esp_larg=0.1, esp_compr=0.1, profundidade_malha=1.3,
+#                 malha_com_hastes_na_periferia=False,
+#                 malha_sem_hastes_na_periferia=True)
+#
+# a.show_solo()
+# # a.calc_pa(1.3, show=True)
+# # a.calc_k(show=True)
+# # a.calc_cs(iteracoes=3, show=True)
+# # a.calc_v_toq_max(show=True)
+# # a.calc_v_passo_max(show=True)
+# # a.calc_s_cobre(show=True)
+# # a.calc_num_cond_paralelo(show=True)
+# # a.calc_comprimento_condutores(show=True)
+# #
+# # a.calc_r_malha(show=True)
+# a.testar_ri_v(show=True, profundidade_haste=1.3)
+#
+# # a.calc_kii(show=True)
+# # a.calc_kp(show=True)
+# # a.calc_km(show=True)
+# # a.calc_ki(show=True)
+# # a.calc_v_malha(show=True)
+# a.testar_vmalha_vtoq(show=True)
+#
+# # a.calc_kpp(show=True)
+# # a.calc_vpsm(show=True)
+# a.testar_vpsm_vpasso(show=True)

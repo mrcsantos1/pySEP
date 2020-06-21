@@ -10,9 +10,9 @@ from PIL import Image, ImageTk
 =======
 >>>>>>> c68287f (cálculo fluxo de potência)
 
-
 # from .circuito import Circuito
 from circuito import Circuito
+from malha import Malha
 
 
 class JanelaMain:
@@ -48,6 +48,9 @@ class JanelaMain:
 
         self.__show_logo()
         self.__s_base()
+
+        ## Malha de terra
+        self.__malha = Malha()
 
         self.__janela.mainloop()
 
@@ -493,7 +496,385 @@ class JanelaMain:
         add_linha.bind("<Button-1>", self.__add_lin)
         add_linha.pack(side=tk.LEFT, padx=2, pady=2)
 
+        # Adicionar Solos
+        add_linha = tk.Button(
+            master=toolbar,
+            text="Informações dos solos",
+            font=("Helvetica", 11),
+            relief=tk.FLAT,
+            bg="light goldenrod",
+            bd=2,
+            justify=tk.CENTER,
+        )
+        add_linha.bind("<Button-1>", self.__add_solo)
+        add_linha.pack(side=tk.LEFT, padx=2, pady=2)
+
         toolbar.pack(side=tk.TOP, fill=tk.X)
+
+    def __add_solo(self, event):
+        self.__config_solo()
+        self.__text_status.set("Adicionando informações do solo! ")
+
+    def __config_solo(self):
+        config_bar = tk.Toplevel()
+        config_bar.title("Configurações do solo")
+        config_bar.geometry("1100x600")
+        config_bar.wm_iconbitmap("images/logo_pySEP.ico")
+        config_bar["bg"] = "light goldenrod"
+
+        frame_config = tk.Frame(
+            master=config_bar,
+            bg="light goldenrod"
+        )
+        frame_config.pack(fill='both', expand=True)
+
+        # TÍTULO DA JANELA
+        label_titulo = tk.Label(
+            master=frame_config,
+            anchor=tk.CENTER,
+            bg="light goldenrod",
+            justify=tk.CENTER,
+            padx=2,
+            pady=2,
+            text="Configurações do solo",
+            font=("Helvetica", 20)
+        )
+        label_titulo.grid(row=0, columnspan=10, padx=5, pady=5)
+
+        # Informações --> LABEL Brita
+        label_brita = tk.Label(
+            master=frame_config,
+            text="Brita ",
+            font=("Helvetica", 12),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_brita.grid(row=1, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # Informações --> LABEL Brita PROFUNDIDADE
+        label_brita_profundidade = tk.Label(
+            master=frame_config,
+            text="Profundidade [m]: ",
+            font=("Helvetica", 12),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_brita_profundidade.grid(row=2, column=0, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # Informações --> ENTRY Brita PROFUNDIDADE
+
+        entry_brita_profundidade = tk.Entry(
+            font=("Helvetica", 12),
+
+            master=frame_config,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        entry_brita_profundidade.focus_set()
+        entry_brita_profundidade.grid(row=2, column=2, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # Informações --> LABEL Brita RESISTIVIDADE
+        label_brita_resistividade = tk.Label(
+            master=frame_config,
+            text="Resistividade [Ohm.m]: ",
+            font=("Helvetica", 12),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_brita_resistividade.grid(row=2, column=4, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # Informações --> ENTRY Brita RESISTIVIDADE
+
+        entry_brita_resistividade = tk.Entry(
+            font=("Helvetica", 12),
+
+            master=frame_config,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+
+        entry_brita_resistividade.grid(row=2, column=6, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # BOTÃO ADICIONAR BRITA
+        def __add_butt():
+            profundidade = float(entry_brita_profundidade.get())
+            print('\n\nprofundidade = ', profundidade)
+
+            resistividade = float(entry_brita_resistividade.get())
+            print('\n\nresistividade = ', resistividade)
+
+            self.__malha.add_info_brita(profundidade=profundidade,
+                                        resistividade=resistividade)
+
+            self.__malha.show_solo()
+
+        #         self.__info_basic['nums']['barras'] += 1
+        #         self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
+        #         self.__label_logo.destroy()
+        #         config_bar.destroy()
+
+        butt_add_brita = tk.Button(
+            master=frame_config,
+            text="Adicionar informações da camada de Brita!", font=("Helvetica", 12), height=1,  # width=10,
+            bg="goldenrod",
+            bd=3,
+            command=__add_butt,
+            anchor=tk.CENTER,
+            justify=tk.CENTER,
+            compound=tk.CENTER,
+            padx=2,
+            pady=2,
+            relief=tk.GROOVE,
+        )
+        butt_add_brita.grid(row=2, column=8, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # ##############################################################################
+        #
+        # label_div_1 = tk.Label(
+        #     master=frame_config,
+        #     text="    |||    ",
+        #     font=("Helvetica", 12),
+        #     justify=tk.CENTER,
+        #     bg="light goldenrod",
+        # )
+        # label_div_1.grid(row=1, column=2, padx=5, pady=5)
+        #
+        # ##############################################################################
+        #
+        # # TIPO DA BARRA
+        # __tipo_bar = tk.StringVar()
+        #
+        # _tipo1_barra = tk.Radiobutton(
+        #     master=frame_config,
+        #     text="REF",
+        #     variable=__tipo_bar,
+        #     value="1",
+        #     bg="light goldenrod",
+        #     command=__tipo_bar.set("1")
+        # )
+        # _tipo1_barra.grid(row=1, column=3, sticky=tk.W)
+        #
+        # _tipo2_barra = tk.Radiobutton(
+        #     master=frame_config,
+        #     text="PQ",
+        #     variable=__tipo_bar,
+        #     value="2",
+        #     bg="light goldenrod",
+        #     command=__tipo_bar.set("2")
+        # )
+        # _tipo2_barra.grid(row=1, column=4, sticky=tk.W)
+        #
+        # _tipo3_barra = tk.Radiobutton(
+        #     master=frame_config,
+        #     text="PV",
+        #     variable=__tipo_bar,
+        #     value="3",
+        #     bg="light goldenrod",
+        #     command=__tipo_bar.set("3")
+        # )
+        # _tipo3_barra.grid(row=1, column=5, sticky=tk.W)
+        #
+        # ##############################################################################
+        #
+        # label_div_2 = tk.Label(
+        #     master=frame_config,
+        #     text="    |||    ",
+        #     font=("Helvetica", 12),
+        #     justify=tk.CENTER,
+        #     bg="light goldenrod",
+        # )
+        # label_div_2.grid(row=2, column=2, padx=5, pady=5)
+        #
+        # ##############################################################################
+        #
+        # # TENSÃO DA BARRA
+        # label_tensao_barra = tk.Label(
+        #     master=frame_config,
+        #     text="Tensão da barra [pu]: ",
+        #     font=("Helvetica", 12),
+        #     justify=tk.CENTER,
+        #     bd=2,
+        #     bg="light goldenrod",
+        # )
+        # label_tensao_barra.grid(row=2, column=0, padx=5, pady=5, sticky=tk.W)
+        #
+        # entry_tensao_barra = tk.Entry(
+        #     font=("Helvetica", 15),
+        #
+        #     master=frame_config,
+        #     justify=tk.CENTER,
+        #     bd=2,
+        #     bg="light goldenrod",
+        #     relief=tk.GROOVE
+        # )
+        # entry_tensao_barra.grid(row=2, column=1, padx=5, pady=5, sticky=tk.W)
+        #
+        # # ÂNGULO DA BARRA
+        # label_ang_barra = tk.Label(
+        #     master=frame_config,
+        #     text="Ângulo da tensão \ndesta barra [graus]: ",
+        #     font=("Helvetica", 12),
+        #     justify=tk.CENTER,
+        #     bd=2,
+        #     bg="light goldenrod",
+        # )
+        # label_ang_barra.grid(row=2, column=3, padx=5, pady=5, sticky=tk.W)
+        #
+        # entry_ang_barra = tk.Entry(
+        #     font=("Helvetica", 15),
+        #
+        #     master=frame_config,
+        #     justify=tk.CENTER,
+        #     bd=2,
+        #     bg="light goldenrod",
+        #     relief=tk.GROOVE
+        # )
+        # entry_ang_barra.grid(row=2, column=4, padx=5, pady=5, sticky=tk.W)
+        #
+        # # CARGA DA BARRA
+        # label_carga_barra = tk.Label(
+        #     master=frame_config,
+        #     text="Carga desta barra (P+Qj)\nex.:100e6+50e6 [VA]: ",
+        #     font=("Helvetica", 12),
+        #     justify=tk.CENTER,
+        #     bd=2,
+        #     bg="light goldenrod",
+        # )
+        # label_carga_barra.grid(row=3, column=0, padx=5, pady=5, sticky=tk.W)
+        #
+        # entry_carga_barra = tk.Entry(
+        #     font=("Helvetica", 15),
+        #
+        #     master=frame_config,
+        #     justify=tk.CENTER,
+        #     bd=2,
+        #     bg="light goldenrod",
+        #     relief=tk.GROOVE
+        # )
+        # entry_carga_barra.grid(row=3, column=1, padx=5, pady=5, sticky=tk.W)
+        #
+        # ##############################################################################
+        #
+        # label_div_3 = tk.Label(
+        #     master=frame_config,
+        #     text="    |||    ",
+        #     font=("Helvetica", 12),
+        #     justify=tk.CENTER,
+        #     bg="light goldenrod",
+        # )
+        # label_div_3.grid(row=3, column=2, padx=5, pady=5)
+        #
+        # ##############################################################################
+        #
+        # # GERAÇÃO DA BARRA
+        # label_geracao_barra = tk.Label(
+        #     master=frame_config,
+        #     text="Geração desta barra (P+Qj)\nex.:100e6+50e6 [VA]: ",
+        #     font=("Helvetica", 12),
+        #     justify=tk.CENTER,
+        #     bd=2,
+        #     bg="light goldenrod",
+        # )
+        # label_geracao_barra.grid(row=3, column=3, padx=5, pady=5, sticky=tk.W)
+        #
+        # entry_geracao_barra = tk.Entry(
+        #     font=("Helvetica", 15),
+        #
+        #     master=frame_config,
+        #     justify=tk.CENTER,
+        #     bd=2,
+        #     bg="light goldenrod",
+        #     relief=tk.GROOVE
+        # )
+        # entry_geracao_barra.grid(row=3, column=4, padx=5, pady=5, sticky=tk.W)
+
+        # BOTÃO ADICIONAR
+        # def __add_butt():
+        #
+        #     num_bar = int(entry_num_barra.get())
+        #     print('\n\nnum bar = ', num_bar)
+        #
+        #     tp_bar = int(__tipo_bar.get())
+        #     print('tipo barra = ', tp_bar)
+        #
+        #     tensao_bar = float(entry_tensao_barra.get())
+        #     print('tensao bar = ', tensao_bar)
+        #
+        #     ang_bar = float(entry_ang_barra.get())
+        #     print('ang bar = ', ang_bar)
+        #
+        #     carga_bar = str(entry_carga_barra.get())
+        #     print('carga bar = ', carga_bar)
+        #
+        #     geracao_bar = str(entry_geracao_barra.get())
+        #     print('geracao bar = ', geracao_bar)
+        #
+        #     if not carga_bar.__contains__("+") and not carga_bar.__contains__("-"):
+        #         self.__erro(mensagem="INSERIR A CARGA NO FORMATO: \n P + Q OU P - Q !")
+        #     elif not geracao_bar.__contains__("+") and not geracao_bar.__contains__("-"):
+        #         self.__erro(mensagem="INSERIR A CARGA NO FORMATO: \n P + Q OU P - Q !")
+        #     else:
+        #         carga = list()
+        #         geracao = list()
+        #         if carga_bar.__contains__("+"):
+        #             carga = carga_bar.split("+")
+        #             carga = list(map(float, carga))
+        #             carga[1] *= 1j
+        #             carga = carga[0] + carga[1]
+        #         elif carga_bar.__contains__("-"):
+        #             carga = carga_bar.split("-")
+        #             carga = list(map(float, carga))
+        #             carga[1] *= 1j
+        #             carga = carga[0] + carga[1]
+        #
+        #         if geracao_bar.__contains__("+"):
+        #             geracao = geracao_bar.split("+")
+        #             geracao = list(map(float, geracao))
+        #             geracao[1] *= 1j
+        #             geracao = geracao[0] + geracao[1]
+        #
+        #         elif geracao_bar.__contains__("-"):
+        #             geracao = geracao_bar.split("-")
+        #             geracao = list(map(float, geracao))
+        #             geracao[1] *= 1j
+        #             geracao = geracao[0] + geracao[1]
+        #
+        #         self.__circuito.addBarra(
+        #             barra=num_bar,
+        #             code=tp_bar,
+        #             tensao=tensao_bar,
+        #             ang=ang_bar,
+        #             carga=carga,
+        #             geracao=geracao)
+        #         print("\n\nBarra ", self.__info_basic['nums'].get('barras'), " adicionada! ")
+        #         self.__circuito.showBarras()
+        #
+        #         self.__info_basic['nums']['barras'] += 1
+        #         self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
+        #         self.__label_logo.destroy()
+        #         config_bar.destroy()
+        #
+        # butt_add = tk.Button(
+        #     master=frame_config,
+        #     text="Adicionar", font=("Helvetica", 12), height=2, width=30,
+        #     bg="goldenrod",
+        #     bd=3,
+        #     command=__add_butt,
+        #     anchor=tk.CENTER,
+        #     justify=tk.CENTER,
+        #     compound=tk.CENTER,
+        #     padx=2,
+        #     pady=2,
+        #     relief=tk.GROOVE,
+        # )
+        # butt_add.grid(row=4, columnspan=5, padx=5, pady=5)
 
     def __add_bar(self, event):
         self.__config_bar()
