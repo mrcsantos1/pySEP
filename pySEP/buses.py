@@ -1,7 +1,7 @@
 import numpy as np
 import math as mt
 import cmath as cmt
-from .fluxo import *
+from fluxo import *
 
 
 def bs_addBarra(dicBarras, dicFlow, barra, code, tensao, ang, carga, geracao):
