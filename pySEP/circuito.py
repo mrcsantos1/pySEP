@@ -1,8 +1,8 @@
-from .buses import *
-from .fluxo import *
-from .lines import *
-from .jcb import jcb_setJacob
-from .plotagem import plt_plotData
+from buses import *
+from fluxo import *
+from lines import *
+from jcb import jcb_setJacob
+from plotagem import plt_plotData
 
 
 class Circuito:
