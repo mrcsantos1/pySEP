@@ -418,7 +418,9 @@ class Malha:
                   '\nTensão de passo de malha é maior que a tensão de passo máxima! '
                   '\nÉ NECESSÁRIO MODIFICAR O PROJETO! ')
 
-#
+    def get_info_solo(self):
+        return self.__solo
+
 # a = Malha()
 # a.add_info_brita(profundidade=0.15, resistividade=3000)
 # a.add_info_solo(num_camada=1, profundidade=0.8, resistividade=520)
