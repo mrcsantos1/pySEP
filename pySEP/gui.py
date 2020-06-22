@@ -499,7 +499,7 @@ class JanelaMain:
         # Adicionar Solos
         add_linha = tk.Button(
             master=toolbar,
-            text="Informações dos solos",
+            text="Informações do solo",
             font=("Helvetica", 11),
             relief=tk.FLAT,
             bg="light goldenrod",
@@ -528,6 +528,11 @@ class JanelaMain:
         )
         frame_config.pack(fill='both', expand=True)
 
+        ## Fazer um botão.
+        ## Local: Do lado do título
+        ## Nome: Salvar informações
+        ## Funções: Salvar, fechar top level e calcular pa relativo ao solo
+
         # TÍTULO DA JANELA
         label_titulo = tk.Label(
             master=frame_config,
@@ -539,7 +544,39 @@ class JanelaMain:
             text="Configurações do solo",
             font=("Helvetica", 20)
         )
-        label_titulo.grid(row=0, columnspan=10, padx=5, pady=5)
+        label_titulo.grid(row=0, columnspan=8, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # BOTÃO SALVAR INFORMAÇÕES SOLOS
+        def __add_butt():
+            # self.__circuito.addBarra(
+            #     barra=num_bar,
+            #     code=tp_bar,
+            #     tensao=tensao_bar,
+            #     ang=ang_bar,
+            #     carga=carga,
+            #     geracao=geracao)
+            # print("\n\nBarra ", self.__info_basic['nums'].get('barras'), " adicionada! ")
+            # self.__circuito.showBarras()
+
+            # self.__info_basic['nums']['barras'] += 1
+            # self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
+            self.__label_logo.destroy()
+            config_bar.destroy()
+
+        butt_salvar_solos = tk.Button(
+            master=frame_config,
+            text="Salvar informações! ", font=("Helvetica", 10), height=2, width=10,
+            bg="goldenrod",
+            bd=3,
+            command=__add_butt,
+            anchor=tk.CENTER,
+            justify=tk.CENTER,
+            compound=tk.CENTER,
+            padx=2,
+            pady=2,
+            relief=tk.GROOVE,
+        )
+        butt_salvar_solos.grid(row=0, column=8, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
         # Informações --> LABEL Brita
         label_brita = tk.Label(
@@ -696,9 +733,6 @@ class JanelaMain:
 
         # BOTÃO ADICIONAR BRITA
         def __add_butt():
-            # num_camada = int(entry_solo_num_camada.get())
-            # print('\n\nnum camada = ', num_camada)
-
             self.__malha.set_num_solo()
             num_camada = self.__malha.get_num_solo()
 
