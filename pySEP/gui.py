@@ -518,7 +518,7 @@ class JanelaMain:
     def __config_solo(self):
         config_bar = tk.Toplevel()
         config_bar.title("Configurações do solo")
-        config_bar.geometry("1100x600")
+        config_bar.geometry("1060x900")
         config_bar.wm_iconbitmap("images/logo_pySEP.ico")
         config_bar["bg"] = "light goldenrod"
 
@@ -614,7 +614,8 @@ class JanelaMain:
                                         resistividade=resistividade)
 
             self.__malha.show_solo()
-            set_color_solo(profundidade=profundidade, num_camada=0)
+
+            set_color_solo(profundidade=profundidade, num_camada=0, resistividade=resistividade, nome="Brita")
 
         #         self.__info_basic['nums']['barras'] += 1
         #         self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
@@ -637,7 +638,7 @@ class JanelaMain:
         butt_add_brita.grid(row=2, column=8, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
         # Informações --> LABEL Solo n
-        label_brita = tk.Label(
+        label_solo = tk.Label(
             master=frame_config,
             text="Adicionar nova camada de solo: ",
             font=("Helvetica", 12),
@@ -645,7 +646,7 @@ class JanelaMain:
             bd=2,
             bg="light goldenrod",
         )
-        label_brita.grid(row=3, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+        label_solo.grid(row=3, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
         # Informações --> LABEL Solo PROFUNDIDADE
         label_solo_profundidade = tk.Label(
@@ -712,21 +713,33 @@ class JanelaMain:
                                        resistividade=resistividade)
 
             self.__malha.show_solo()
-            set_color_solo(profundidade=profundidade, num_camada=num_camada)
+            set_color_solo(profundidade=profundidade, num_camada=num_camada, resistividade=resistividade,
+                           nome="H" + str(num_camada))
 
         #         self.__info_basic['nums']['barras'] += 1
         #         self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
         #         self.__label_logo.destroy()
         #         config_bar.destroy()
-        def set_color_solo(profundidade, num_camada):
+
+        frame_solos = tk.Frame(
+            master=frame_config,
+            bg="light goldenrod",
+
+        )
+        frame_solos.grid(row=5, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        def set_color_solo(profundidade, resistividade, num_camada, nome):
             cores = ["white", "brown", "red", "yellow", "blue", "black", "green"]
-            frame = tk.Frame(
+            frame = tk.LabelFrame(
                 master=frame_solos,
                 width=1050,
-                height=profundidade * 100,
-                bg=cores[num_camada]
+                height=profundidade * 150,
+                bg=cores[num_camada],
+                text="\t\tNome: " + str(nome) + "\t\tProfundidade: " + str(
+                    profundidade) + " [m]\t\tResistividade: " + str(resistividade) + " [Ohm.m]",
+                font=("Helvetica", 12),
             )
-            frame.pack()
+            frame.pack(fill=tk.BOTH, expand=True)
 
         butt_add_solo = tk.Button(
             master=frame_config,
@@ -744,12 +757,6 @@ class JanelaMain:
         butt_add_solo.grid(row=4, column=8, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
         ####### FRAME DE CORES PARA CADA SOLO
-
-        frame_solos = tk.Frame(
-            master=frame_config,
-            bg="light goldenrod",
-        )
-        frame_solos.grid(row=5, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
         # ##############################################################################
         #
