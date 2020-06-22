@@ -5,6 +5,7 @@ import numpy as np
 
 class Malha:
     def __init__(self):
+        self.__num_solo = int(0)
         self.__solo = dict()
         self.__dimensoes = dict()
         self.__num_cond_shunt = dict()
@@ -40,6 +41,12 @@ class Malha:
         self.__teste = bool()
         self.__lim_seg_toq = bool()
         self.__lim_seg_passo = bool()
+
+    def set_num_solo(self):
+        self.__num_solo += 1
+
+    def get_num_solo(self):
+        return self.__num_solo
 
     def add_info_solo(self, num_camada, profundidade, resistividade):
         """

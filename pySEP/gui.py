@@ -614,6 +614,7 @@ class JanelaMain:
                                         resistividade=resistividade)
 
             self.__malha.show_solo()
+            set_color_solo(profundidade=profundidade, num_camada=0)
 
         #         self.__info_basic['nums']['barras'] += 1
         #         self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
@@ -634,6 +635,121 @@ class JanelaMain:
             relief=tk.GROOVE,
         )
         butt_add_brita.grid(row=2, column=8, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # Informações --> LABEL Solo n
+        label_brita = tk.Label(
+            master=frame_config,
+            text="Adicionar nova camada de solo: ",
+            font=("Helvetica", 12),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_brita.grid(row=3, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # Informações --> LABEL Solo PROFUNDIDADE
+        label_solo_profundidade = tk.Label(
+            master=frame_config,
+            text="Profundidade [m]: ",
+            font=("Helvetica", 12),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_solo_profundidade.grid(row=4, column=0, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # Informações --> ENTRY Solo PROFUNDIDADE
+
+        entry_solo_profundidade = tk.Entry(
+            font=("Helvetica", 12),
+            master=frame_config,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        entry_solo_profundidade.grid(row=4, column=2, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # Informações --> LABEL Solo RESISTIVIDADE
+        label_solo_resistividade = tk.Label(
+            master=frame_config,
+            text="Resistividade [Ohm.m]: ",
+            font=("Helvetica", 12),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_solo_resistividade.grid(row=4, column=4, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # Informações --> ENTRY Solo RESISTIVIDADE
+
+        entry_solo_resistividade = tk.Entry(
+            font=("Helvetica", 12),
+            master=frame_config,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        entry_solo_resistividade.grid(row=4, column=6, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # BOTÃO ADICIONAR BRITA
+        def __add_butt():
+            # num_camada = int(entry_solo_num_camada.get())
+            # print('\n\nnum camada = ', num_camada)
+
+            self.__malha.set_num_solo()
+            num_camada = self.__malha.get_num_solo()
+
+            profundidade = float(entry_solo_profundidade.get())
+            print('\n\nprofundidade = ', profundidade)
+
+            resistividade = float(entry_solo_resistividade.get())
+            print('\n\nresistividade = ', resistividade)
+
+            self.__malha.add_info_solo(num_camada=num_camada,
+                                       profundidade=profundidade,
+                                       resistividade=resistividade)
+
+            self.__malha.show_solo()
+            set_color_solo(profundidade=profundidade, num_camada=num_camada)
+
+        #         self.__info_basic['nums']['barras'] += 1
+        #         self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
+        #         self.__label_logo.destroy()
+        #         config_bar.destroy()
+        def set_color_solo(profundidade, num_camada):
+            cores = ["white", "brown", "red", "yellow", "blue", "black", "green"]
+            frame = tk.Frame(
+                master=frame_solos,
+                width=1050,
+                height=profundidade * 100,
+                bg=cores[num_camada]
+            )
+            frame.pack()
+
+        butt_add_solo = tk.Button(
+            master=frame_config,
+            text="Adicionar informações da camada de Solo!", font=("Helvetica", 12), height=1,  # width=10,
+            bg="goldenrod",
+            bd=3,
+            command=__add_butt,
+            anchor=tk.CENTER,
+            justify=tk.CENTER,
+            compound=tk.CENTER,
+            padx=2,
+            pady=2,
+            relief=tk.GROOVE,
+        )
+        butt_add_solo.grid(row=4, column=8, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        ####### FRAME DE CORES PARA CADA SOLO
+
+        frame_solos = tk.Frame(
+            master=frame_config,
+            bg="light goldenrod",
+        )
+        frame_solos.grid(row=5, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
         # ##############################################################################
         #
