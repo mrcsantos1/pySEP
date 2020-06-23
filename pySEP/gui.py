@@ -524,10 +524,6 @@ class JanelaMain:
 
         toolbar.pack(side=tk.TOP, fill=tk.X)
 
-
-
-
-
     def __add_malha(self, event):
         self.__config_malha()
         self.__text_status.set("Adicionando informações da malha de terra! ")
@@ -544,7 +540,6 @@ class JanelaMain:
             bg="light goldenrod"
         )
         frame_config.pack(fill='both', expand=True)
-
 
         # TÍTULO DA JANELA
         label_titulo = tk.Label(
@@ -607,7 +602,6 @@ class JanelaMain:
         )
         entry_malha_comprimento.grid(row=1, column=3, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
-
         # Informações --> LABEL Espaçamento da largura da malha
         label_malha_esp_larg = tk.Label(
             master=frame_config,
@@ -654,6 +648,43 @@ class JanelaMain:
         )
         entry_malha_esp_compr.grid(row=2, column=3, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
+        _labelframe_periferia = tk.LabelFrame(
+            master=frame_config,
+            text="Hastes na periferia? ", font=("Helvetica", 14),
+            # anchor=tk.CENTER,
+            bg="light goldenrod",
+            # justify=tk.CENTER,
+            padx=2,
+            pady=2,
+        )
+        _labelframe_periferia.grid(row=3, columnspan=5, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # HASTES NA PERIFERIA?
+        __hastes_periferia = tk.BooleanVar()
+
+        _tensoes_true = tk.Radiobutton(
+            master=_labelframe_periferia,
+            text="Sim: ",
+            font=("Helvetica", 13),
+            variable=__hastes_periferia,
+            value=True,
+            bg="light goldenrod",
+            command=__hastes_periferia.set(True)
+        )
+        # _tensoes_true.grid(row=2, column=0, sticky=tk.W)
+        _tensoes_true.pack(fill=tk.BOTH, side=tk.LEFT, expand=True)
+
+        _tensoes_false = tk.Radiobutton(
+            master=_labelframe_periferia,
+            text="Não: ",
+            font=("Helvetica", 13),
+            variable=__hastes_periferia,
+            value=False,
+            bg="light goldenrod",
+            command=__hastes_periferia.set(True)
+        )
+        # _tensoes_false.grid(row=2, column=3, sticky=tk.W)
+        _tensoes_false.pack(fill=tk.BOTH, side=tk.LEFT, expand=True)
 
         # # BOTÃO ADICIONAR BRITA
         # def __add_butt():
@@ -806,24 +837,7 @@ class JanelaMain:
         # )
         # butt_add_solo.grid(row=4, column=8, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
-
-
-
-
-#######################################################################################################
-
-
-
-
-
-
-
-
-
-
-
-
-
+    #######################################################################################################
 
     def __add_solo(self, event):
         self.__config_solo()
@@ -1045,7 +1059,6 @@ class JanelaMain:
             self.__malha.show_solo()
             set_color_solo(profundidade=profundidade, num_camada=num_camada, resistividade=resistividade,
                            nome="H" + str(num_camada))
-
 
         frame_solos = tk.Frame(
             master=frame_config,
