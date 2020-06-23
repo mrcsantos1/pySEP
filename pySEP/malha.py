@@ -282,10 +282,10 @@ class Malha:
     def __show_r_malha(self):
         print('\nR malha = ', self.__res_malha, '\t[ohm]')
 
-    def testar_ri_v(self, profundidade_haste, show):
+    def testar_ri_v(self, profundidade_haste, iteracoes, show):
         self.calc_pa(profundidade=profundidade_haste, show=show)
         self.calc_k(show=show)
-        self.calc_cs(iteracoes=3, show=show)
+        self.calc_cs(iteracoes=iteracoes, show=show)
         self.calc_v_toq_max(show=show)
         self.calc_v_passo_max(show=show)
         self.calc_s_cobre(show=show)
@@ -305,6 +305,9 @@ class Malha:
                 print('Não precisa calcular os potenciais de maneira mais precisa! ')
 
     ####################################################################################################################
+
+    def get_teste(self):
+        return self.__teste
 
     def calc_n(self):
         self.__N = mt.sqrt(self.__num_cond_shunt.get('Na') * self.__num_cond_shunt.get('Nb'))
