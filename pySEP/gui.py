@@ -143,7 +143,7 @@ class JanelaMain:
     def __malha_terra_add_info(self):
         config_info_malha = tk.Toplevel()
         config_info_malha.title("Informações de Projeto da Malha de Terra")
-        config_info_malha.geometry("800x7000")
+        config_info_malha.geometry("1000x700")
         config_info_malha.wm_iconbitmap("images/logo_pySEP.ico")
         config_info_malha["bg"] = "light goldenrod"
 
@@ -158,7 +158,7 @@ class JanelaMain:
         # LABEL ADD Icc
         label_add_icc = tk.Label(
             master=frame_malha,
-            text="Icc [A]",
+            text="Corrente de curto-circuito [A]: ",
             font=("Helvetica", 15),
             justify=tk.CENTER,
             bd=2,
@@ -180,7 +180,7 @@ class JanelaMain:
         # LABEL ADD Imalha
         label_add_imalha = tk.Label(
             master=frame_malha,
-            text="Imalha [A]",
+            text="Corrente de malha [A]: ",
             font=("Helvetica", 15),
             justify=tk.CENTER,
             bd=2,
@@ -197,6 +197,51 @@ class JanelaMain:
             relief=tk.GROOVE
         )
         entry_add_imalha.grid(row=0, column=4, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+
+        # LABEL ADD tempo protecao
+        label_add_t_protecao = tk.Label(
+            master=frame_malha,
+            text="Tempo da proteção [s]: ",
+            font=("Helvetica", 15),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_add_t_protecao.grid(row=1, column=0, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        entry_add_t_protecao = tk.Entry(
+            font=("Helvetica", 15),
+            master=frame_malha,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        entry_add_t_protecao.grid(row=1, column=1, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+
+        # LABEL ADD tempo defeito
+        label_add_t_defeito = tk.Label(
+            master=frame_malha,
+            text="Tempo do defeito [s]: ",
+            font=("Helvetica", 15),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_add_t_defeito.grid(row=1, column=3, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        entry_add_t_defeito = tk.Entry(
+            font=("Helvetica", 15),
+            master=frame_malha,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        entry_add_t_defeito.grid(row=1, column=4, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
 
 
     def __calc_fluxo_plot_tensao(self):
