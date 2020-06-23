@@ -133,12 +133,103 @@ class JanelaMain:
         menu_malha_terra = tk.Menu(master=menu, tearoff=False)
         menu.add_cascade(label="Projeto Malha de Terra", menu=menu_malha_terra)
         menu_malha_terra.add_command(label="Adicionar informações de projeto", command=self.__malha_terra_add_info)
-        # menu_malha_terra.add_cascade(label="Relatório Final", command=self.__calc_fluxo_relatorio)
+        menu_malha_terra.add_cascade(label="Realizar teste de projeto", command=self.__malha_terra_testar)
         # menu_malha_terra.add_cascade(label="Mostrar Perdas", command=self.__calc_fluxo_perdas)
         # menu_malha_terra.add_cascade(label="Plotar Convergência da(s) Tensão(ões)",
         #                             command=self.__calc_fluxo_plot_tensao)
         # menu_malha_terra.add_cascade(label="Plotar Convergência do(s) Ângulo(os)", command=self.__calc_fluxo_plot_angulo)
         menu_malha_terra.add_separator()
+
+    def __malha_terra_testar(self):
+        config_testar_malha = tk.Toplevel()
+        config_testar_malha.title("Testar projeto de malha de terra")
+        config_testar_malha.geometry("660x215")
+        config_testar_malha.wm_iconbitmap("images/logo_pySEP.ico")
+        config_testar_malha["bg"] = "light goldenrod"
+
+        frame_teste_malha = tk.LabelFrame(
+            master=config_testar_malha,
+            bg="light goldenrod",
+            text="Testar Projeto de Malha de Terra",
+            font=("Helvetica", 20)
+        )
+        # frame_teste_malha.pack(fill='both', expand=True)
+        frame_teste_malha.grid(row=0, column=0, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # LABEL Profundidade das Hastes
+        label_profundidade_hastes = tk.Label(
+            master=frame_teste_malha,
+            text="Profundidade das hastes [m]: ",
+            font=("Helvetica", 15),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_profundidade_hastes.grid(row=0, column=0, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        entry_profundidade_hastes = tk.Entry(
+            font=("Helvetica", 15),
+            master=frame_teste_malha,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        entry_profundidade_hastes.focus_set()
+        entry_profundidade_hastes.grid(row=0, column=1, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # LABEL Profundidade das Hastes
+        label_iteracoes = tk.Label(
+            master=frame_teste_malha,
+            text="Número de iterações: \nQuanto maior, mais preciso o cálculo simples. ",
+            font=("Helvetica", 14),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_iteracoes.grid(row=1, column=0, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        entry_iteracoes = tk.Entry(
+            font=("Helvetica", 15),
+            master=frame_teste_malha,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        entry_iteracoes.grid(row=1, column=1, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # BOTÃO ADICIONAR
+        def __add_butt_salvar():
+            profundidade = float(entry_profundidade_hastes.get())
+            print('\n\nProfundidade das hastes = ', profundidade)
+
+            iteracoes = float(entry_iteracoes.get())
+            print('\n\nProfundidade das hastes = ', iteracoes)
+
+            print('\n\n\n=========================== TESTE SIMPLES DO PROJETO DA MALHA DE TERRA ======================')
+            self.__malha.testar_ri_v(profundidade_haste=profundidade, iteracoes=iteracoes, show=True)
+            if self.__malha.get_teste() is False:
+                print('\n\n\n======================= TESTE COMPLETO DO PROJETO DA MALHA DE TERRA =====================')
+                self.__malha.testar_vmalha_vtoq(show=True)
+                self.__malha.testar_vpsm_vpasso(show=True)
+
+            config_testar_malha.destroy()
+
+        butt_add_salvar = tk.Button(
+            master=config_testar_malha,
+            text="Testar!", font=("Helvetica", 12), height=2,  # width=30,
+            bg="goldenrod",
+            bd=3,
+            command=__add_butt_salvar,
+            anchor=tk.CENTER,
+            justify=tk.CENTER,
+            compound=tk.CENTER,
+            padx=2,
+            pady=2,
+            relief=tk.GROOVE,
+        )
+        butt_add_salvar.grid(row=1, column=0, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
     def __malha_terra_add_info(self):
         config_info_malha = tk.Toplevel()
