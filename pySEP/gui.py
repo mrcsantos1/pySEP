@@ -497,7 +497,7 @@ class JanelaMain:
         add_linha.pack(side=tk.LEFT, padx=2, pady=2)
 
         # Adicionar Solos
-        add_linha = tk.Button(
+        add_solo = tk.Button(
             master=toolbar,
             text="Informações do solo",
             font=("Helvetica", 11),
@@ -506,24 +506,338 @@ class JanelaMain:
             bd=2,
             justify=tk.CENTER,
         )
-        add_linha.bind("<Button-1>", self.__add_solo)
-        add_linha.pack(side=tk.LEFT, padx=2, pady=2)
+        add_solo.bind("<Button-1>", self.__add_solo)
+        add_solo.pack(side=tk.LEFT, padx=2, pady=2)
+
+        # Adicionar Malha
+        add_malha = tk.Button(
+            master=toolbar,
+            text="Informações da malha de terra",
+            font=("Helvetica", 11),
+            relief=tk.FLAT,
+            bg="light goldenrod",
+            bd=2,
+            justify=tk.CENTER,
+        )
+        add_malha.bind("<Button-1>", self.__add_malha)
+        add_malha.pack(side=tk.LEFT, padx=2, pady=2)
 
         toolbar.pack(side=tk.TOP, fill=tk.X)
+
+
+
+
+
+    def __add_malha(self, event):
+        self.__config_malha()
+        self.__text_status.set("Adicionando informações da malha de terra! ")
+
+    def __config_malha(self):
+        config_malha = tk.Toplevel()
+        config_malha.title("Configurações da malha")
+        config_malha.geometry("1060x900")
+        config_malha.wm_iconbitmap("images/logo_pySEP.ico")
+        config_malha["bg"] = "light goldenrod"
+
+        frame_config = tk.Frame(
+            master=config_malha,
+            bg="light goldenrod"
+        )
+        frame_config.pack(fill='both', expand=True)
+
+
+        # TÍTULO DA JANELA
+        label_titulo = tk.Label(
+            master=frame_config,
+            anchor=tk.CENTER,
+            bg="light goldenrod",
+            justify=tk.CENTER,
+            padx=2,
+            pady=2,
+            text="Configurações da malha",
+            font=("Helvetica", 20)
+        )
+        label_titulo.grid(row=0, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # Informações --> LABEL Largura da malha
+        label_malha_largura = tk.Label(
+            master=frame_config,
+            text="Largura da malha [m]: ",
+            font=("Helvetica", 12),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_malha_largura.grid(row=1, column=0, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # Informações --> ENTRY Largura da malha
+
+        entry_malha_largura = tk.Entry(
+            font=("Helvetica", 12),
+            master=frame_config,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        entry_malha_largura.focus_set()
+        entry_malha_largura.grid(row=1, column=1, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # Informações --> LABEL Comprimento da malha
+        label_malha_comprimento = tk.Label(
+            master=frame_config,
+            text="Comprimento da malha [m]: ",
+            font=("Helvetica", 12),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_malha_comprimento.grid(row=1, column=2, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # Informações --> ENTRY Comprimento da malha
+
+        entry_malha_comprimento = tk.Entry(
+            font=("Helvetica", 12),
+
+            master=frame_config,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        entry_malha_comprimento.grid(row=1, column=3, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+
+        # Informações --> LABEL Espaçamento da largura da malha
+        label_malha_esp_larg = tk.Label(
+            master=frame_config,
+            text="Espaçamento de cada haste\nno eixo X [0.05 a 0.1]: ",
+            font=("Helvetica", 12),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_malha_esp_larg.grid(row=2, column=0, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # Informações --> ENTRY Espaçamento da largura da malha
+
+        entry_malha_esp_larg = tk.Entry(
+            font=("Helvetica", 12),
+            master=frame_config,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        entry_malha_esp_larg.grid(row=2, column=1, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # Informações --> LABEL Espaçamento do comprimento da malha
+        label_malha_esp_compr = tk.Label(
+            master=frame_config,
+            text="Espaçamento de cada haste\nno eixo Y [0.05 a 0.1]: ",
+            font=("Helvetica", 12),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_malha_esp_compr.grid(row=2, column=2, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # Informações --> ENTRY Espaçamento do comprimento da malha
+
+        entry_malha_esp_compr = tk.Entry(
+            font=("Helvetica", 12),
+            master=frame_config,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        entry_malha_esp_compr.grid(row=2, column=3, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+
+        # # BOTÃO ADICIONAR BRITA
+        # def __add_butt():
+        #     profundidade = float(entry_brita_profundidade.get())
+        #     print('\n\nprofundidade = ', profundidade)
+        #
+        #     resistividade = float(entry_brita_resistividade.get())
+        #     print('\n\nresistividade = ', resistividade)
+        #
+        #     self.__malha.add_info_brita(profundidade=profundidade,
+        #                                 resistividade=resistividade)
+        #
+        #     self.__malha.show_solo()
+        #
+        #     set_color_solo(profundidade=profundidade, num_camada=0, resistividade=resistividade, nome="Brita")
+        #
+        # #         self.__info_basic['nums']['barras'] += 1
+        # #         self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
+        # #         self.__label_logo.destroy()
+        # #         config_bar.destroy()
+        #
+        # butt_add_brita = tk.Button(
+        #     master=frame_config,
+        #     text="Adicionar informações da camada de Brita!", font=("Helvetica", 12), height=1,  # width=10,
+        #     bg="goldenrod",
+        #     bd=3,
+        #     command=__add_butt,
+        #     anchor=tk.CENTER,
+        #     justify=tk.CENTER,
+        #     compound=tk.CENTER,
+        #     padx=2,
+        #     pady=2,
+        #     relief=tk.GROOVE,
+        # )
+        # butt_add_brita.grid(row=2, column=8, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+        #
+        # # Informações --> LABEL Solo n
+        # label_solo = tk.Label(
+        #     master=frame_config,
+        #     text="Adicionar nova camada de solo: ",
+        #     font=("Helvetica", 12),
+        #     justify=tk.CENTER,
+        #     bd=2,
+        #     bg="light goldenrod",
+        # )
+        # label_solo.grid(row=3, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+        #
+        # # Informações --> LABEL Solo PROFUNDIDADE
+        # label_solo_profundidade = tk.Label(
+        #     master=frame_config,
+        #     text="Profundidade [m]: ",
+        #     font=("Helvetica", 12),
+        #     justify=tk.CENTER,
+        #     bd=2,
+        #     bg="light goldenrod",
+        # )
+        # label_solo_profundidade.grid(row=4, column=0, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+        #
+        # # Informações --> ENTRY Solo PROFUNDIDADE
+        #
+        # entry_solo_profundidade = tk.Entry(
+        #     font=("Helvetica", 12),
+        #     master=frame_config,
+        #     justify=tk.CENTER,
+        #     bd=2,
+        #     bg="light goldenrod",
+        #     relief=tk.GROOVE
+        # )
+        # entry_solo_profundidade.grid(row=4, column=2, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+        #
+        # # Informações --> LABEL Solo RESISTIVIDADE
+        # label_solo_resistividade = tk.Label(
+        #     master=frame_config,
+        #     text="Resistividade [Ohm.m]: ",
+        #     font=("Helvetica", 12),
+        #     justify=tk.CENTER,
+        #     bd=2,
+        #     bg="light goldenrod",
+        # )
+        # label_solo_resistividade.grid(row=4, column=4, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+        #
+        # # Informações --> ENTRY Solo RESISTIVIDADE
+        #
+        # entry_solo_resistividade = tk.Entry(
+        #     font=("Helvetica", 12),
+        #     master=frame_config,
+        #     justify=tk.CENTER,
+        #     bd=2,
+        #     bg="light goldenrod",
+        #     relief=tk.GROOVE
+        # )
+        # entry_solo_resistividade.grid(row=4, column=6, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+        #
+        # # BOTÃO ADICIONAR BRITA
+        # def __add_butt():
+        #     self.__malha.set_num_solo()
+        #     num_camada = self.__malha.get_num_solo()
+        #
+        #     profundidade = float(entry_solo_profundidade.get())
+        #     print('\n\nprofundidade = ', profundidade)
+        #
+        #     resistividade = float(entry_solo_resistividade.get())
+        #     print('\n\nresistividade = ', resistividade)
+        #
+        #     self.__malha.add_info_solo(num_camada=num_camada,
+        #                                profundidade=profundidade,
+        #                                resistividade=resistividade)
+        #
+        #     self.__malha.show_solo()
+        #     set_color_solo(profundidade=profundidade, num_camada=num_camada, resistividade=resistividade,
+        #                    nome="H" + str(num_camada))
+        #
+        # #         self.__info_basic['nums']['barras'] += 1
+        # #         self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
+        # #         self.__label_logo.destroy()
+        # #         config_bar.destroy()
+        #
+        # frame_solos = tk.Frame(
+        #     master=frame_config,
+        #     bg="light goldenrod",
+        #
+        # )
+        # frame_solos.grid(row=5, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+        #
+        # def set_color_solo(profundidade, resistividade, num_camada, nome):
+        #     cores = ["white", "brown", "red", "yellow", "blue", "black", "green"]
+        #     frame = tk.LabelFrame(
+        #         master=frame_solos,
+        #         width=1050,
+        #         height=profundidade * 150,
+        #         bg=cores[num_camada],
+        #         text="\t\tNome: " + str(nome) + "\t\tProfundidade: " + str(
+        #             profundidade) + " [m]\t\tResistividade: " + str(resistividade) + " [Ohm.m]",
+        #         font=("Helvetica", 12),
+        #     )
+        #     frame.pack(fill=tk.BOTH, expand=True)
+        #
+        # butt_add_solo = tk.Button(
+        #     master=frame_config,
+        #     text="Adicionar informações da camada de Solo!", font=("Helvetica", 12), height=1,  # width=10,
+        #     bg="goldenrod",
+        #     bd=3,
+        #     command=__add_butt,
+        #     anchor=tk.CENTER,
+        #     justify=tk.CENTER,
+        #     compound=tk.CENTER,
+        #     padx=2,
+        #     pady=2,
+        #     relief=tk.GROOVE,
+        # )
+        # butt_add_solo.grid(row=4, column=8, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+
+
+
+
+#######################################################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def __add_solo(self, event):
         self.__config_solo()
         self.__text_status.set("Adicionando informações do solo! ")
 
     def __config_solo(self):
-        config_bar = tk.Toplevel()
-        config_bar.title("Configurações do solo")
-        config_bar.geometry("1060x900")
-        config_bar.wm_iconbitmap("images/logo_pySEP.ico")
-        config_bar["bg"] = "light goldenrod"
+        config_solo = tk.Toplevel()
+        config_solo.title("Configurações do solo")
+        config_solo.geometry("1060x900")
+        config_solo.wm_iconbitmap("images/logo_pySEP.ico")
+        config_solo["bg"] = "light goldenrod"
 
         frame_config = tk.Frame(
-            master=config_bar,
+            master=config_solo,
             bg="light goldenrod"
         )
         frame_config.pack(fill='both', expand=True)
@@ -548,7 +862,7 @@ class JanelaMain:
 
         # BOTÃO SALVAR INFORMAÇÕES SOLOS
         def __add_butt():
-            config_bar.destroy()
+            config_solo.destroy()
 
         butt_salvar_solos = tk.Button(
             master=frame_config,
@@ -641,11 +955,6 @@ class JanelaMain:
 
             set_color_solo(profundidade=profundidade, num_camada=0, resistividade=resistividade, nome="Brita")
 
-        #         self.__info_basic['nums']['barras'] += 1
-        #         self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
-        #         self.__label_logo.destroy()
-        #         config_bar.destroy()
-
         butt_add_brita = tk.Button(
             master=frame_config,
             text="Adicionar informações da camada de Brita!", font=("Helvetica", 12), height=1,  # width=10,
@@ -737,10 +1046,6 @@ class JanelaMain:
             set_color_solo(profundidade=profundidade, num_camada=num_camada, resistividade=resistividade,
                            nome="H" + str(num_camada))
 
-        #         self.__info_basic['nums']['barras'] += 1
-        #         self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
-        #         self.__label_logo.destroy()
-        #         config_bar.destroy()
 
         frame_solos = tk.Frame(
             master=frame_config,

@@ -444,9 +444,11 @@ class Malha:
 #
 # # a.add_hastes(hastes=2000)
 #
-# a.add_dimensoes(largura=120, comprimento=120, esp_larg=0.1, esp_compr=0.1, profundidade_malha=1.3,
-#                 malha_com_hastes_na_periferia=False,
-#                 malha_sem_hastes_na_periferia=True)
+# a.add_dimensoes(
+#                   largura=120, comprimento=120,
+#                   esp_larg=0.1, esp_compr=0.1, profundidade_malha=1.3,
+#                   malha_com_hastes_na_periferia=False,
+#                   malha_sem_hastes_na_periferia=True)
 #
 # a.show_solo()
 # # a.calc_pa(1.3, show=True)
