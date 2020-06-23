@@ -204,7 +204,7 @@ class JanelaMain:
             profundidade = float(entry_profundidade_hastes.get())
             print('\n\nProfundidade das hastes = ', profundidade)
 
-            iteracoes = float(entry_iteracoes.get())
+            iteracoes = int(entry_iteracoes.get())
             print('\n\nProfundidade das hastes = ', iteracoes)
 
             print('\n\n\n=========================== TESTE SIMPLES DO PROJETO DA MALHA DE TERRA ======================')
