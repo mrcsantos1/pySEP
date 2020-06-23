@@ -733,10 +733,7 @@ class JanelaMain:
         )
         _frame_grafo_malha.grid(row=6, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
-        # def __create_malha_grafo(largura, comprimento, esp_larg, esp_compr, frame):
-
         def __show_grafo(a, grafo, pos, f):
-            # _frame_grafo_malha.destroy()
             _frame_grafo_malha = tk.Frame(
                 master=frame_config,
                 bg="light goldenrod",
@@ -827,7 +824,7 @@ class JanelaMain:
 
         butt_add_dimensoes = tk.Button(
             master=_frame_dimensoes,
-            text="Adicionar informações da malha de terra!", font=("Helvetica", 12), height=1,  # width=10,
+            text="Adicionar informações  e mostrar malha de terra!", font=("Helvetica", 12), height=1,  # width=10,
             bg="goldenrod",
             bd=3,
             command=__add_butt_dimensoes,
@@ -839,6 +836,25 @@ class JanelaMain:
             relief=tk.GROOVE,
         )
         butt_add_dimensoes.pack(fill=tk.BOTH, side=tk.LEFT, expand=True)
+
+        # BOTÃO Salvar informações
+        def __add_butt_salvar_malha():
+            config_malha.destroy()
+
+        butt_add_dimensoes = tk.Button(
+            master=frame_config,
+            text="Salvar informações da malha e sair!", font=("Helvetica", 12), height=1,  # width=10,
+            bg="goldenrod",
+            bd=3,
+            command=__add_butt_salvar_malha,
+            anchor=tk.CENTER,
+            justify=tk.CENTER,
+            compound=tk.CENTER,
+            padx=2,
+            pady=2,
+            relief=tk.GROOVE,
+        )
+        butt_add_dimensoes.grid(row=7, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
     ########################################################################################################################
 
