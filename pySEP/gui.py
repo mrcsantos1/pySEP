@@ -78,6 +78,7 @@ class JanelaMain:
         janela_main.config(menu=menu)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         sub_file = tk.Menu(menu, tearoff=False)
         menu.add_cascade(label="Arquivo", menu=sub_file)
         sub_file.add_command(label="Novo Projeto", command=func_teste)
@@ -100,6 +101,9 @@ class JanelaMain:
 
         a = self.__f.add_subplot()
 =======
+=======
+        ## FILE
+>>>>>>> da86f7d (opção menu projeto malha de terra ok)
         menu_file = tk.Menu(menu, tearoff=False)
         menu.add_cascade(label="Arquivo", menu=menu_file)
         menu_file.add_command(label="Novo Projeto", command=func_teste)
@@ -108,11 +112,13 @@ class JanelaMain:
         menu_file.add_command(label="Sair", command=__fechar_tudo)
         menu_file.add_separator()
 
+        ## EDIT
         menu_edit = tk.Menu(menu, tearoff=False)
         menu.add_cascade(label="Editar", menu=menu_edit)
         menu_edit.add_command(label="Desfazer", command=func_teste)
         menu_edit.add_separator()
 
+        ## FLUXO DE POTÊNCIA
         menu_calc_fluxo = tk.Menu(master=menu, tearoff=False)
         menu.add_cascade(label="Fluxo de Potência", menu=menu_calc_fluxo)
         menu_calc_fluxo.add_command(label="Calcular!", command=self.__calc_fluxo)
@@ -122,6 +128,17 @@ class JanelaMain:
                                     command=self.__calc_fluxo_plot_tensao)
         menu_calc_fluxo.add_cascade(label="Plotar Convergência do(s) Ângulo(os)", command=self.__calc_fluxo_plot_angulo)
         menu_calc_fluxo.add_separator()
+
+        ## PROJETO MALHA DE TERRA
+        menu_malha_terra = tk.Menu(master=menu, tearoff=False)
+        menu.add_cascade(label="Projeto Malha de Terra", menu=menu_malha_terra)
+        # menu_malha_terra.add_command(label="Calcular!", command=self.__calc_fluxo)
+        # menu_malha_terra.add_cascade(label="Relatório Final", command=self.__calc_fluxo_relatorio)
+        # menu_malha_terra.add_cascade(label="Mostrar Perdas", command=self.__calc_fluxo_perdas)
+        # menu_malha_terra.add_cascade(label="Plotar Convergência da(s) Tensão(ões)",
+        #                             command=self.__calc_fluxo_plot_tensao)
+        # menu_malha_terra.add_cascade(label="Plotar Convergência do(s) Ângulo(os)", command=self.__calc_fluxo_plot_angulo)
+        menu_malha_terra.add_separator()
 
     def __calc_fluxo_plot_tensao(self):
         self.__circuito.plot_conv(tensao=True, ang=False)
