@@ -54,10 +54,6 @@ class JanelaMain:
 
         self.__janela.mainloop()
 
-    def __create_malha_grafo(self):
-        self.__grafo_malha = nx.Graph()
-        
-
     def __show_logo(self):
 
         logo = tk.PhotoImage(file="images/pySEP_logo.png")
@@ -729,24 +725,54 @@ class JanelaMain:
         )
         _frame_dimensoes.grid(row=5, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
+        _frame_grafo_malha = tk.Frame(
+            master=frame_config,
+            bg="light goldenrod",
+            padx=2,
+            pady=2,
+        )
+        _frame_grafo_malha.grid(row=6, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # def __create_malha_grafo(largura, comprimento, esp_larg, esp_compr, frame):
+
+        def __show_grafo(a, grafo, pos, f):
+            # _frame_grafo_malha.destroy()
+            _frame_grafo_malha = tk.Frame(
+                master=frame_config,
+                bg="light goldenrod",
+                padx=2,
+                pady=2,
+            )
+            _frame_grafo_malha.grid(row=6, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+            nx.draw(grafo, pos, node_color='black', ax=a)
+
+            canvas = FigureCanvasTkAgg(f, master=_frame_grafo_malha)
+            canvas.draw()
+            canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
+
+            toolbar_grafo = NavigationToolbar2Tk(canvas, _frame_grafo_malha)
+            toolbar_grafo.update()
+            canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+
         # BOTÃO ADICIONAR Adicionar dimensões
         def __add_butt_dimensoes():
-            largura = float(entry_malha_largura)
+            largura = float(entry_malha_largura.get())
             print('\n\nlargura malha = ', largura)
 
-            comprimento = float(entry_malha_comprimento)
+            comprimento = float(entry_malha_comprimento.get())
             print('\n\ncomprimento malha = ', comprimento)
 
-            esp_larg = float(entry_malha_esp_larg)
+            esp_larg = float(entry_malha_esp_larg.get())
             print('\n\nEspaçamento malha largura = ', esp_larg)
 
-            esp_compr = float(entry_malha_esp_compr)
+            esp_compr = float(entry_malha_esp_compr.get())
             print('\n\nEspaçamento malha comprimento = ', esp_compr)
 
-            profundidade = float(entry_malha_profundidade)
+            profundidade = float(entry_malha_profundidade.get())
             print('\n\nprofundidade malha = ', profundidade)
 
-            periferia = bool(__hastes_periferia)
+            periferia = bool(__hastes_periferia.get())
             print('\n\nHastes na periferia? ', periferia)
 
             if periferia is True:
@@ -766,10 +792,38 @@ class JanelaMain:
                 malha_sem_hastes_na_periferia=periferia_false
             )
 
-        #         self.__info_basic['nums']['barras'] += 1
-        #         self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
-        #         self.__label_logo.destroy()
-        #         config_bar.destroy()
+            __grafo_malha = nx.Graph()
+
+            f = Figure(figsize=(5, 4), dpi=100)
+            a = f.add_subplot()
+
+            na = int(largura * esp_larg)
+            nb = int(comprimento * esp_compr)
+
+            nodes = []
+            for i in range(na * nb):
+                nodes.append(str(i + 1))
+            pos = dict()
+            cont = 0
+            for i in range(nb):
+                for j in range(na):
+                    pos[nodes[cont]] = (j + 1, i + 1)
+                    cont += 1
+            __grafo_malha.add_nodes_from(nodes)
+
+            edges = []
+            for i in range(na):
+                edges.append(
+                    (nodes[i], nodes[(na * nb) - na + i])
+                )
+            for i in range(nb):
+                edges.append(
+                    (nodes[i * na], nodes[na + (i * na) - 1])
+                )
+            __grafo_malha.add_edges_from(edges)
+
+            _frame_grafo_malha.destroy()
+            __show_grafo(a=a, grafo=__grafo_malha, pos=pos, f=f)
 
         butt_add_dimensoes = tk.Button(
             master=_frame_dimensoes,
@@ -786,219 +840,7 @@ class JanelaMain:
         )
         butt_add_dimensoes.pack(fill=tk.BOTH, side=tk.LEFT, expand=True)
 
-        ########################################################################################################################
-
-        _labelframe_novas_hastes = tk.LabelFrame(
-            master=frame_config,
-            text="Configurações extras (caso o projeto não esteja adequado): ", font=("Helvetica", 14),
-            bg="light goldenrod",
-            padx=2,
-            pady=2,
-        )
-        _labelframe_novas_hastes.grid(row=6, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
-
-        # Informações --> LABEL Adicionar novas hastes
-        label_novas_hastes = tk.Label(
-            master=_labelframe_novas_hastes,
-            text="Adicionar novas hastes: ",
-            font=("Helvetica", 12),
-            justify=tk.CENTER,
-            bd=2,
-            bg="light goldenrod",
-        )
-        label_novas_hastes.pack(fill=tk.BOTH, side=tk.LEFT, expand=True)
-
-        # Informações --> ENTRY Adicionar novas hastes
-
-        entry_novas_hastes = tk.Entry(
-            font=("Helvetica", 12),
-            master=_labelframe_novas_hastes,
-            justify=tk.CENTER,
-            bd=2,
-            bg="light goldenrod",
-            relief=tk.GROOVE
-        )
-        entry_novas_hastes.pack(fill=tk.BOTH, side=tk.LEFT, expand=True)
-
-        # BOTÃO ADICIONAR Novas hastes e calcular
-        def __add_butt():
-            hastes = float(entry_novas_hastes)
-            print('\n\nprofundidade = ', hastes)
-
-            self.__malha.add_hastes(hastes=hastes)
-
-        #         self.__info_basic['nums']['barras'] += 1
-        #         self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
-        #         self.__label_logo.destroy()
-        #         config_bar.destroy()
-
-        butt_add_brita = tk.Button(
-            master=_labelframe_novas_hastes,
-            text="Adicionar novas Hastes e Recalcular!", font=("Helvetica", 12), height=1,  # width=10,
-            bg="goldenrod",
-            bd=3,
-            command=__add_butt,
-            anchor=tk.CENTER,
-            justify=tk.CENTER,
-            compound=tk.CENTER,
-            padx=2,
-            pady=2,
-            relief=tk.GROOVE,
-        )
-        butt_add_brita.pack(fill=tk.BOTH, side=tk.LEFT, expand=True)
-
     ########################################################################################################################
-
-    # # BOTÃO ADICIONAR BRITA
-    # def __add_butt():
-    #     profundidade = float(entry_brita_profundidade.get())
-    #     print('\n\nprofundidade = ', profundidade)
-    #
-    #     resistividade = float(entry_brita_resistividade.get())
-    #     print('\n\nresistividade = ', resistividade)
-    #
-    #     self.__malha.add_info_brita(profundidade=profundidade,
-    #                                 resistividade=resistividade)
-    #
-    #     self.__malha.show_solo()
-    #
-    #     set_color_solo(profundidade=profundidade, num_camada=0, resistividade=resistividade, nome="Brita")
-    #
-    # #         self.__info_basic['nums']['barras'] += 1
-    # #         self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
-    # #         self.__label_logo.destroy()
-    # #         config_bar.destroy()
-    #
-    # butt_add_brita = tk.Button(
-    #     master=frame_config,
-    #     text="Adicionar informações da camada de Brita!", font=("Helvetica", 12), height=1,  # width=10,
-    #     bg="goldenrod",
-    #     bd=3,
-    #     command=__add_butt,
-    #     anchor=tk.CENTER,
-    #     justify=tk.CENTER,
-    #     compound=tk.CENTER,
-    #     padx=2,
-    #     pady=2,
-    #     relief=tk.GROOVE,
-    # )
-    # butt_add_brita.grid(row=2, column=8, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
-    #
-    # # Informações --> LABEL Solo n
-    # label_solo = tk.Label(
-    #     master=frame_config,
-    #     text="Adicionar nova camada de solo: ",
-    #     font=("Helvetica", 12),
-    #     justify=tk.CENTER,
-    #     bd=2,
-    #     bg="light goldenrod",
-    # )
-    # label_solo.grid(row=3, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
-    #
-    # # Informações --> LABEL Solo PROFUNDIDADE
-    # label_solo_profundidade = tk.Label(
-    #     master=frame_config,
-    #     text="Profundidade [m]: ",
-    #     font=("Helvetica", 12),
-    #     justify=tk.CENTER,
-    #     bd=2,
-    #     bg="light goldenrod",
-    # )
-    # label_solo_profundidade.grid(row=4, column=0, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
-    #
-    # # Informações --> ENTRY Solo PROFUNDIDADE
-    #
-    # entry_solo_profundidade = tk.Entry(
-    #     font=("Helvetica", 12),
-    #     master=frame_config,
-    #     justify=tk.CENTER,
-    #     bd=2,
-    #     bg="light goldenrod",
-    #     relief=tk.GROOVE
-    # )
-    # entry_solo_profundidade.grid(row=4, column=2, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
-    #
-    # # Informações --> LABEL Solo RESISTIVIDADE
-    # label_solo_resistividade = tk.Label(
-    #     master=frame_config,
-    #     text="Resistividade [Ohm.m]: ",
-    #     font=("Helvetica", 12),
-    #     justify=tk.CENTER,
-    #     bd=2,
-    #     bg="light goldenrod",
-    # )
-    # label_solo_resistividade.grid(row=4, column=4, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
-    #
-    # # Informações --> ENTRY Solo RESISTIVIDADE
-    #
-    # entry_solo_resistividade = tk.Entry(
-    #     font=("Helvetica", 12),
-    #     master=frame_config,
-    #     justify=tk.CENTER,
-    #     bd=2,
-    #     bg="light goldenrod",
-    #     relief=tk.GROOVE
-    # )
-    # entry_solo_resistividade.grid(row=4, column=6, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
-    #
-    # # BOTÃO ADICIONAR BRITA
-    # def __add_butt():
-    #     self.__malha.set_num_solo()
-    #     num_camada = self.__malha.get_num_solo()
-    #
-    #     profundidade = float(entry_solo_profundidade.get())
-    #     print('\n\nprofundidade = ', profundidade)
-    #
-    #     resistividade = float(entry_solo_resistividade.get())
-    #     print('\n\nresistividade = ', resistividade)
-    #
-    #     self.__malha.add_info_solo(num_camada=num_camada,
-    #                                profundidade=profundidade,
-    #                                resistividade=resistividade)
-    #
-    #     self.__malha.show_solo()
-    #     set_color_solo(profundidade=profundidade, num_camada=num_camada, resistividade=resistividade,
-    #                    nome="H" + str(num_camada))
-    #
-    # #         self.__info_basic['nums']['barras'] += 1
-    # #         self.__grafo_add_node(list_numBar=self.__circuito.getBarras())
-    # #         self.__label_logo.destroy()
-    # #         config_bar.destroy()
-    #
-    # frame_solos = tk.Frame(
-    #     master=frame_config,
-    #     bg="light goldenrod",
-    #
-    # )
-    # frame_solos.grid(row=5, columnspan=10, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
-    #
-    # def set_color_solo(profundidade, resistividade, num_camada, nome):
-    #     cores = ["white", "brown", "red", "yellow", "blue", "black", "green"]
-    #     frame = tk.LabelFrame(
-    #         master=frame_solos,
-    #         width=1050,
-    #         height=profundidade * 150,
-    #         bg=cores[num_camada],
-    #         text="\t\tNome: " + str(nome) + "\t\tProfundidade: " + str(
-    #             profundidade) + " [m]\t\tResistividade: " + str(resistividade) + " [Ohm.m]",
-    #         font=("Helvetica", 12),
-    #     )
-    #     frame.pack(fill=tk.BOTH, expand=True)
-    #
-    # butt_add_solo = tk.Button(
-    #     master=frame_config,
-    #     text="Adicionar informações da camada de Solo!", font=("Helvetica", 12), height=1,  # width=10,
-    #     bg="goldenrod",
-    #     bd=3,
-    #     command=__add_butt,
-    #     anchor=tk.CENTER,
-    #     justify=tk.CENTER,
-    #     compound=tk.CENTER,
-    #     padx=2,
-    #     pady=2,
-    #     relief=tk.GROOVE,
-    # )
-    # butt_add_solo.grid(row=4, column=8, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
     #######################################################################################################
 
