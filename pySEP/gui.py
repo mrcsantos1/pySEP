@@ -1114,10 +1114,6 @@ class JanelaMain:
         )
         frame_config.pack(fill='both', expand=True)
 
-        ## Fazer um botão.
-        ## Local: Do lado do título
-        ## Nome: Salvar informações
-        ## Funções: Salvar, fechar top level e calcular pa relativo ao solo
 
         # TÍTULO DA JANELA
         label_titulo = tk.Label(
@@ -1154,8 +1150,8 @@ class JanelaMain:
         # Informações --> LABEL Brita
         label_brita = tk.Label(
             master=frame_config,
-            text="Brita ",
-            font=("Helvetica", 12),
+            text="Adicionar Informações da camada de Brita ",
+            font=("Helvetica", 20),
             justify=tk.CENTER,
             bd=2,
             bg="light goldenrod",
@@ -1246,7 +1242,7 @@ class JanelaMain:
         label_solo = tk.Label(
             master=frame_config,
             text="Adicionar nova camada de solo: ",
-            font=("Helvetica", 12),
+            font=("Helvetica", 20),
             justify=tk.CENTER,
             bd=2,
             bg="light goldenrod",
