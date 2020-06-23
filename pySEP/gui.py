@@ -143,7 +143,7 @@ class JanelaMain:
     def __malha_terra_add_info(self):
         config_info_malha = tk.Toplevel()
         config_info_malha.title("Informações de Projeto da Malha de Terra")
-        config_info_malha.geometry("1000x700")
+        config_info_malha.geometry("1100x700")
         config_info_malha.wm_iconbitmap("images/logo_pySEP.ico")
         config_info_malha["bg"] = "light goldenrod"
 
@@ -241,6 +241,50 @@ class JanelaMain:
             relief=tk.GROOVE
         )
         entry_add_t_defeito.grid(row=1, column=4, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+
+        # LABEL ADD temperatura ambiente
+        label_add_temp_ambiente = tk.Label(
+            master=frame_malha,
+            text="Temperatura ambiente [C°]: ",
+            font=("Helvetica", 15),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_add_temp_ambiente.grid(row=2, column=0, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        entry_add_temp_ambiente = tk.Entry(
+            font=("Helvetica", 15),
+            master=frame_malha,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        entry_add_temp_ambiente.grid(row=2, column=1, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+
+        # LABEL ADD temperatura máxima permissível
+        label_add_temp_max_permissivel = tk.Label(
+            master=frame_malha,
+            text="Temperatura máxima permissível [C°]: ",
+            font=("Helvetica", 15),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_add_temp_max_permissivel.grid(row=2, column=3, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        entry_add_temp_max_permissivel = tk.Entry(
+            font=("Helvetica", 15),
+            master=frame_malha,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        entry_add_temp_max_permissivel.grid(row=2, column=4, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
 
 
