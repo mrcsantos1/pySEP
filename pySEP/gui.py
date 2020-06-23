@@ -143,7 +143,7 @@ class JanelaMain:
     def __malha_terra_add_info(self):
         config_info_malha = tk.Toplevel()
         config_info_malha.title("Informações de Projeto da Malha de Terra")
-        config_info_malha.geometry("460x250")
+        config_info_malha.geometry("800x7000")
         config_info_malha.wm_iconbitmap("images/logo_pySEP.ico")
         config_info_malha["bg"] = "light goldenrod"
 
@@ -175,7 +175,28 @@ class JanelaMain:
             relief=tk.GROOVE
         )
         entry_add_icc.focus_set()
-        entry_add_icc.grid(row=0, column=2, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+        entry_add_icc.grid(row=0, column=1, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        # LABEL ADD Imalha
+        label_add_imalha = tk.Label(
+            master=frame_malha,
+            text="Imalha [A]",
+            font=("Helvetica", 15),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_add_imalha.grid(row=0, column=3, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        entry_add_imalha = tk.Entry(
+            font=("Helvetica", 15),
+            master=frame_malha,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        entry_add_imalha.grid(row=0, column=4, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
 
     def __calc_fluxo_plot_tensao(self):
