@@ -123,17 +123,17 @@ class JanelaMain:
         config_info_malha.wm_iconbitmap("images/logo_pySEP.ico")
         config_info_malha["bg"] = "light goldenrod"
 
-        frame_malha = tk.LabelFrame(
+        frame_info_malha = tk.LabelFrame(
             master=config_info_malha,
             bg="light goldenrod",
             text="Informações de Projeto da Malha de Terra",
             font=("Helvetica", 20)
         )
-        frame_malha.pack(fill='both', expand=True)
+        frame_info_malha.pack(fill='both', expand=True)
 
         # LABEL ADD Icc
         label_add_icc = tk.Label(
-            master=frame_malha,
+            master=frame_info_malha,
             text="Corrente de curto-circuito [A]: ",
             font=("Helvetica", 15),
             justify=tk.CENTER,
@@ -144,7 +144,7 @@ class JanelaMain:
 
         entry_add_icc = tk.Entry(
             font=("Helvetica", 15),
-            master=frame_malha,
+            master=frame_info_malha,
             justify=tk.CENTER,
             bd=2,
             bg="light goldenrod",
@@ -155,7 +155,7 @@ class JanelaMain:
 
         # LABEL ADD Imalha
         label_add_imalha = tk.Label(
-            master=frame_malha,
+            master=frame_info_malha,
             text="Corrente de malha [A]: ",
             font=("Helvetica", 15),
             justify=tk.CENTER,
@@ -166,7 +166,7 @@ class JanelaMain:
 
         entry_add_imalha = tk.Entry(
             font=("Helvetica", 15),
-            master=frame_malha,
+            master=frame_info_malha,
             justify=tk.CENTER,
             bd=2,
             bg="light goldenrod",
@@ -174,10 +174,9 @@ class JanelaMain:
         )
         entry_add_imalha.grid(row=0, column=4, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
-
         # LABEL ADD tempo protecao
         label_add_t_protecao = tk.Label(
-            master=frame_malha,
+            master=frame_info_malha,
             text="Tempo da proteção [s]: ",
             font=("Helvetica", 15),
             justify=tk.CENTER,
@@ -188,7 +187,7 @@ class JanelaMain:
 
         entry_add_t_protecao = tk.Entry(
             font=("Helvetica", 15),
-            master=frame_malha,
+            master=frame_info_malha,
             justify=tk.CENTER,
             bd=2,
             bg="light goldenrod",
@@ -196,10 +195,9 @@ class JanelaMain:
         )
         entry_add_t_protecao.grid(row=1, column=1, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
-
         # LABEL ADD tempo defeito
         label_add_t_defeito = tk.Label(
-            master=frame_malha,
+            master=frame_info_malha,
             text="Tempo do defeito [s]: ",
             font=("Helvetica", 15),
             justify=tk.CENTER,
@@ -210,7 +208,7 @@ class JanelaMain:
 
         entry_add_t_defeito = tk.Entry(
             font=("Helvetica", 15),
-            master=frame_malha,
+            master=frame_info_malha,
             justify=tk.CENTER,
             bd=2,
             bg="light goldenrod",
@@ -218,10 +216,9 @@ class JanelaMain:
         )
         entry_add_t_defeito.grid(row=1, column=4, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
-
         # LABEL ADD temperatura ambiente
         label_add_temp_ambiente = tk.Label(
-            master=frame_malha,
+            master=frame_info_malha,
             text="Temperatura ambiente [C°]: ",
             font=("Helvetica", 15),
             justify=tk.CENTER,
@@ -232,7 +229,7 @@ class JanelaMain:
 
         entry_add_temp_ambiente = tk.Entry(
             font=("Helvetica", 15),
-            master=frame_malha,
+            master=frame_info_malha,
             justify=tk.CENTER,
             bd=2,
             bg="light goldenrod",
@@ -240,10 +237,9 @@ class JanelaMain:
         )
         entry_add_temp_ambiente.grid(row=2, column=1, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
-
         # LABEL ADD temperatura máxima permissível
         label_add_temp_max_permissivel = tk.Label(
-            master=frame_malha,
+            master=frame_info_malha,
             text="Temperatura máxima permissível [C°]: ",
             font=("Helvetica", 15),
             justify=tk.CENTER,
@@ -254,7 +250,7 @@ class JanelaMain:
 
         entry_add_temp_max_permissivel = tk.Entry(
             font=("Helvetica", 15),
-            master=frame_malha,
+            master=frame_info_malha,
             justify=tk.CENTER,
             bd=2,
             bg="light goldenrod",
@@ -262,7 +258,49 @@ class JanelaMain:
         )
         entry_add_temp_max_permissivel.grid(row=2, column=4, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
 
+        # BOTÃO ADICIONAR
+        def __add_butt_salvar():
+            icc = float(entry_add_icc.get())
+            print('\n\nIcc = ', icc)
 
+            imalha = float(entry_add_imalha.get())
+            print('Imalha = ', imalha)
+
+            t_prot = float(entry_add_t_protecao.get())
+            print('tempo protecao = ', t_prot)
+
+            t_def = float(entry_add_t_defeito.get())
+            print('tempo defeito = ', t_def)
+
+            temp_amb = int(entry_add_temp_ambiente.get())
+            print('temperatura ambiente = ', temp_amb)
+
+            temp_max = int(entry_add_temp_max_permissivel.get())
+            print('temperatura maxima = ', temp_max)
+
+            self.__malha.add_icc(i_cc=icc)
+            self.__malha.add_i_malha(i_malha=imalha)
+            self.__malha.add_t_protecao(t_protecao=t_prot)
+            self.__malha.add_t_defeito(t_defeito=t_def)
+            self.__malha.add_temp_ambiente(temp_ambiente=temp_amb)
+            self.__malha.add_temp_max_permissivel(temp_max_permissivel=temp_max)
+
+            config_info_malha.destroy()
+
+        butt_add_salvar = tk.Button(
+            master=frame_info_malha,
+            text="Salvar!", font=("Helvetica", 12), height=2,  # width=30,
+            bg="goldenrod",
+            bd=3,
+            command=__add_butt_salvar,
+            anchor=tk.CENTER,
+            justify=tk.CENTER,
+            compound=tk.CENTER,
+            padx=2,
+            pady=2,
+            relief=tk.GROOVE,
+        )
+        butt_add_salvar.grid(row=3, columnspan=5, padx=5, pady=5)
 
     def __calc_fluxo_plot_tensao(self):
         self.__circuito.plot_conv(tensao=True, ang=False)
