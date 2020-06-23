@@ -132,13 +132,51 @@ class JanelaMain:
         ## PROJETO MALHA DE TERRA
         menu_malha_terra = tk.Menu(master=menu, tearoff=False)
         menu.add_cascade(label="Projeto Malha de Terra", menu=menu_malha_terra)
-        # menu_malha_terra.add_command(label="Calcular!", command=self.__calc_fluxo)
+        menu_malha_terra.add_command(label="Adicionar informações de projeto", command=self.__malha_terra_add_info)
         # menu_malha_terra.add_cascade(label="Relatório Final", command=self.__calc_fluxo_relatorio)
         # menu_malha_terra.add_cascade(label="Mostrar Perdas", command=self.__calc_fluxo_perdas)
         # menu_malha_terra.add_cascade(label="Plotar Convergência da(s) Tensão(ões)",
         #                             command=self.__calc_fluxo_plot_tensao)
         # menu_malha_terra.add_cascade(label="Plotar Convergência do(s) Ângulo(os)", command=self.__calc_fluxo_plot_angulo)
         menu_malha_terra.add_separator()
+
+    def __malha_terra_add_info(self):
+        config_info_malha = tk.Toplevel()
+        config_info_malha.title("Informações de Projeto da Malha de Terra")
+        config_info_malha.geometry("460x250")
+        config_info_malha.wm_iconbitmap("images/logo_pySEP.ico")
+        config_info_malha["bg"] = "light goldenrod"
+
+        frame_malha = tk.LabelFrame(
+            master=config_info_malha,
+            bg="light goldenrod",
+            text="Informações de Projeto da Malha de Terra",
+            font=("Helvetica", 20)
+        )
+        frame_malha.pack(fill='both', expand=True)
+
+        # LABEL ADD Icc
+        label_add_icc = tk.Label(
+            master=frame_malha,
+            text="Icc [A]",
+            font=("Helvetica", 15),
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+        )
+        label_add_icc.grid(row=0, column=0, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+        entry_add_icc = tk.Entry(
+            font=("Helvetica", 15),
+            master=frame_malha,
+            justify=tk.CENTER,
+            bd=2,
+            bg="light goldenrod",
+            relief=tk.GROOVE
+        )
+        entry_add_icc.focus_set()
+        entry_add_icc.grid(row=0, column=2, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
 
     def __calc_fluxo_plot_tensao(self):
         self.__circuito.plot_conv(tensao=True, ang=False)
