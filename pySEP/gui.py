@@ -140,6 +140,32 @@ class JanelaMain:
         # menu_malha_terra.add_cascade(label="Plotar Convergência do(s) Ângulo(os)", command=self.__calc_fluxo_plot_angulo)
         menu_malha_terra.add_separator()
 
+        # Sistemas de Proteção
+        menu_protecao = tk.Menu(master=menu, tearoff=False)
+        menu.add_cascade(label="Sistemas de Proteção", menu=menu_protecao)
+        menu_protecao.add_command(label="Desenhar Circuito do Sistema", command=self.__embreve)
+        # menu_protecao.add_cascade(label="Realizar teste de projeto", command=self.__malha_terra_testar)
+        # menu_malha_terra.add_cascade(label="Mostrar Perdas", command=self.__calc_fluxo_perdas)
+        # menu_malha_terra.add_cascade(label="Plotar Convergência da(s) Tensão(ões)",
+        #                             command=self.__calc_fluxo_plot_tensao)
+        # menu_malha_terra.add_cascade(label="Plotar Convergência do(s) Ângulo(os)", command=self.__calc_fluxo_plot_angulo)
+        menu_protecao.add_separator()
+
+    def __embreve(self):
+        print("Ferramenta em análise para desenvolvimento")
+        config_draw_prot = tk.Toplevel()
+        config_draw_prot.title("Ferramenta em análise para desenvolvimento")
+        config_draw_prot.geometry("1100x700")
+        config_draw_prot.wm_iconbitmap("images/logo_pySEP.ico")
+        config_draw_prot["bg"] = "light goldenrod"
+        frame_info_draw_prot = tk.LabelFrame(
+            master=config_draw_prot,
+            bg="light goldenrod",
+            text="Ferramenta em análise para desenvolvimento",
+            font=("Helvetica", 20)
+        )
+        frame_info_draw_prot.pack(fill='both', expand=True)
+
     def __malha_terra_testar(self):
         config_testar_malha = tk.Toplevel()
         config_testar_malha.title("Testar projeto de malha de terra")
@@ -766,7 +792,7 @@ class JanelaMain:
         # Adicionar Barra
         add_barra = tk.Button(
             master=toolbar,
-            text="Adicionar Nova Barra",
+            text="Adicionar Novo Nó",
             font=("Helvetica", 11),
             relief=tk.FLAT,
             bg="light goldenrod",
@@ -1170,7 +1196,6 @@ class JanelaMain:
             bg="light goldenrod"
         )
         frame_config.pack(fill='both', expand=True)
-
 
         # TÍTULO DA JANELA
         label_titulo = tk.Label(
@@ -1936,6 +1961,195 @@ class JanelaMain:
             relief=tk.GROOVE,
         )
         butt_add.grid(row=5, columnspan=5, padx=5, pady=5)
+
+    ############################## PROTEÇÃO ########################################
+
+    # ## DESENHAR CIRCUITO DO SISTEMA :
+    # def __protecao_draw_ckt(self):
+    #     config_draw_prot = tk.Toplevel()
+    #     config_draw_prot.title("Modelagem do Circuito Considerado")
+    #     config_draw_prot.geometry("1100x700")
+    #     config_draw_prot.wm_iconbitmap("images/logo_pySEP.ico")
+    #     config_draw_prot["bg"] = "light goldenrod"
+    #
+    #     frame_info_draw_prot = tk.LabelFrame(
+    #         master=config_draw_prot,
+    #         bg="light goldenrod",
+    #         text="Informações Preliminares",
+    #         font=("Helvetica", 20)
+    #     )
+    #     frame_info_draw_prot.pack(fill='both', expand=True)
+    #
+    #     # LABEL ADD Número de nós do sistema
+    #     label_add_num_nos = tk.Label(
+    #         master=frame_info_draw_prot,
+    #         text="Número de Nós do Sisema: ",
+    #         font=("Helvetica", 15),
+    #         justify=tk.CENTER,
+    #         bd=2,
+    #         bg="light goldenrod",
+    #     )
+    #     label_add_num_nos.grid(row=0, column=0, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+    #
+    #     entry_add_num_nos = tk.Entry(
+    #         font=("Helvetica", 15),
+    #         master=frame_info_draw_prot,
+    #         justify=tk.CENTER,
+    #         bd=2,
+    #         bg="light goldenrod",
+    #         relief=tk.GROOVE
+    #     )
+    #     entry_add_num_nos.focus_set()
+    #     entry_add_num_nos.grid(row=0, column=1, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+    #
+    #     # LABEL ADD Imalha
+    #     label_add_imalha = tk.Label(
+    #         master=frame_info_draw_prot,
+    #         text="Corrente de malha [A]: ",
+    #         font=("Helvetica", 15),
+    #         justify=tk.CENTER,
+    #         bd=2,
+    #         bg="light goldenrod",
+    #     )
+    #     label_add_imalha.grid(row=0, column=3, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+    #
+    #     entry_add_imalha = tk.Entry(
+    #         font=("Helvetica", 15),
+    #         master=frame_info_malha,
+    #         justify=tk.CENTER,
+    #         bd=2,
+    #         bg="light goldenrod",
+    #         relief=tk.GROOVE
+    #     )
+    #     entry_add_imalha.grid(row=0, column=4, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+
+    # # LABEL ADD tempo protecao
+    # label_add_t_protecao = tk.Label(
+    #     master=frame_info_malha,
+    #     text="Tempo da proteção [s]: ",
+    #     font=("Helvetica", 15),
+    #     justify=tk.CENTER,
+    #     bd=2,
+    #     bg="light goldenrod",
+    # )
+    # label_add_t_protecao.grid(row=1, column=0, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+    #
+    # entry_add_t_protecao = tk.Entry(
+    #     font=("Helvetica", 15),
+    #     master=frame_info_malha,
+    #     justify=tk.CENTER,
+    #     bd=2,
+    #     bg="light goldenrod",
+    #     relief=tk.GROOVE
+    # )
+    # entry_add_t_protecao.grid(row=1, column=1, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+    #
+    # # LABEL ADD tempo defeito
+    # label_add_t_defeito = tk.Label(
+    #     master=frame_info_malha,
+    #     text="Tempo do defeito [s]: ",
+    #     font=("Helvetica", 15),
+    #     justify=tk.CENTER,
+    #     bd=2,
+    #     bg="light goldenrod",
+    # )
+    # label_add_t_defeito.grid(row=1, column=3, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+    #
+    # entry_add_t_defeito = tk.Entry(
+    #     font=("Helvetica", 15),
+    #     master=frame_info_malha,
+    #     justify=tk.CENTER,
+    #     bd=2,
+    #     bg="light goldenrod",
+    #     relief=tk.GROOVE
+    # )
+    # entry_add_t_defeito.grid(row=1, column=4, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+    #
+    # # LABEL ADD temperatura ambiente
+    # label_add_temp_ambiente = tk.Label(
+    #     master=frame_info_malha,
+    #     text="Temperatura ambiente [C°]: ",
+    #     font=("Helvetica", 15),
+    #     justify=tk.CENTER,
+    #     bd=2,
+    #     bg="light goldenrod",
+    # )
+    # label_add_temp_ambiente.grid(row=2, column=0, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+    #
+    # entry_add_temp_ambiente = tk.Entry(
+    #     font=("Helvetica", 15),
+    #     master=frame_info_malha,
+    #     justify=tk.CENTER,
+    #     bd=2,
+    #     bg="light goldenrod",
+    #     relief=tk.GROOVE
+    # )
+    # entry_add_temp_ambiente.grid(row=2, column=1, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+    #
+    # # LABEL ADD temperatura máxima permissível
+    # label_add_temp_max_permissivel = tk.Label(
+    #     master=frame_info_malha,
+    #     text="Temperatura máxima permissível [C°]: ",
+    #     font=("Helvetica", 15),
+    #     justify=tk.CENTER,
+    #     bd=2,
+    #     bg="light goldenrod",
+    # )
+    # label_add_temp_max_permissivel.grid(row=2, column=3, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+    #
+    # entry_add_temp_max_permissivel = tk.Entry(
+    #     font=("Helvetica", 15),
+    #     master=frame_info_malha,
+    #     justify=tk.CENTER,
+    #     bd=2,
+    #     bg="light goldenrod",
+    #     relief=tk.GROOVE
+    # )
+    # entry_add_temp_max_permissivel.grid(row=2, column=4, padx=5, pady=5, sticky=tk.W + tk.E + tk.N + tk.S)
+    #
+    # # BOTÃO ADICIONAR
+    # def __add_butt_salvar():
+    #     icc = float(entry_add_icc.get())
+    #     print('\n\nIcc = ', icc)
+    #
+    #     imalha = float(entry_add_imalha.get())
+    #     print('Imalha = ', imalha)
+    #
+    #     t_prot = float(entry_add_t_protecao.get())
+    #     print('tempo protecao = ', t_prot)
+    #
+    #     t_def = float(entry_add_t_defeito.get())
+    #     print('tempo defeito = ', t_def)
+    #
+    #     temp_amb = int(entry_add_temp_ambiente.get())
+    #     print('temperatura ambiente = ', temp_amb)
+    #
+    #     temp_max = int(entry_add_temp_max_permissivel.get())
+    #     print('temperatura maxima = ', temp_max)
+    #
+    #     self.__malha.add_icc(i_cc=icc)
+    #     self.__malha.add_i_malha(i_malha=imalha)
+    #     self.__malha.add_t_protecao(t_protecao=t_prot)
+    #     self.__malha.add_t_defeito(t_defeito=t_def)
+    #     self.__malha.add_temp_ambiente(temp_ambiente=temp_amb)
+    #     self.__malha.add_temp_max_permissivel(temp_max_permissivel=temp_max)
+    #
+    #     config_info_malha.destroy()
+    #
+    # butt_add_salvar = tk.Button(
+    #     master=frame_info_malha,
+    #     text="Salvar!", font=("Helvetica", 12), height=2,  # width=30,
+    #     bg="goldenrod",
+    #     bd=3,
+    #     command=__add_butt_salvar,
+    #     anchor=tk.CENTER,
+    #     justify=tk.CENTER,
+    #     compound=tk.CENTER,
+    #     padx=2,
+    #     pady=2,
+    #     relief=tk.GROOVE,
+    # )
+    # butt_add_salvar.grid(row=3, columnspan=5, padx=5, pady=5)
 
     def __add_lin(self, event):
         self.__config_lin()
